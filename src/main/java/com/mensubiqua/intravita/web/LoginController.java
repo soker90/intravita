@@ -3,11 +3,15 @@ package com.mensubiqua.intravita.web;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mensubiqua.intravita.domain.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -26,7 +30,10 @@ public class LoginController {
         String now = (new Date()).toString();
         logger.info("Returning login view with " + now);
 
-        return new ModelAndView("login", "now", now);
+        Map<String, Object> myModel = new HashMap<String, Object>();
+        myModel.put("now", now);
+
+        return new ModelAndView("login", "model", myModel);
 
     }
 }

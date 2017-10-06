@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 
 public class LoginControllerTests {
 
@@ -14,7 +16,9 @@ public class LoginControllerTests {
         ModelAndView modelAndView = controller.handleRequest(null, null);
         assertEquals("login", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());
-        String nowValue = (String) modelAndView.getModel().get("now");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> modelMap = (Map<String, Object>) modelAndView.getModel().get("model");
+        String nowValue = (String) modelMap.get("now");
         assertNotNull(nowValue);
     }
 
