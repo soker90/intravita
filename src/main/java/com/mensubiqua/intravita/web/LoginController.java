@@ -2,10 +2,7 @@ package com.mensubiqua.intravita.web;
 
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.mensubiqua.intravita.domain.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +41,7 @@ public class LoginController {
 
         String now = (new Date()).toString();
         logger.info("Returning login view with " + now);
+
 
         model.addObject("now", now);
 

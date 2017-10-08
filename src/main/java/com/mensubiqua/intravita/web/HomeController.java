@@ -6,12 +6,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class HomeController {
 
+    @RequestMapping("/default")
+    public String defaultAfterLogin(HttpServletRequest request) {
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin/index";
+        }
 
-    //TODO temporal, si se entra a user/ o admin/ tendra que redirigir al index
-    @RequestMapping(value = {"/user**", "/user/index**" }, method = RequestMethod.GET)
+        if (request.isUserInRole("ROLE_USER")) {
+            return "redirect:/user/index";
+        }
+
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/user/index**", method = RequestMethod.GET)
     public ModelAndView homePage() {
 
         ModelAndView model = new ModelAndView();
@@ -22,7 +35,7 @@ public class HomeController {
 
     }
 
-    @RequestMapping(value = {"/admin**", "/admin/index**"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/index**", method = RequestMethod.GET)
     public ModelAndView adminPage() {
 
         ModelAndView model = new ModelAndView();
@@ -33,5 +46,6 @@ public class HomeController {
         return model;
 
     }
+
 
 }
