@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class LoginControllerTests {
 
-    @Test
+    /* @Test
     public void testHandleRequestView() throws Exception{
         LoginController controller = new LoginController();
         ModelAndView modelAndView = controller.handleRequest(null, null);
@@ -20,7 +20,7 @@ public class LoginControllerTests {
         Map<String, Object> modelMap = (Map<String, Object>) modelAndView.getModel().get("model");
         String nowValue = (String) modelMap.get("now");
         assertNotNull(nowValue);
-    }
+    } */
 
 
 

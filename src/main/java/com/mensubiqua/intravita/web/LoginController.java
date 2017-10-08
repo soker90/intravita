@@ -16,6 +16,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -23,17 +25,28 @@ public class LoginController {
 
     protected final Log logger = LogFactory.getLog(getClass());
 
-    @RequestMapping(value="/login.htm")
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+                              @RequestParam(value = "logout", required = false) String logout) {
+
+        ModelAndView model = new ModelAndView();
+        if (error != null) {
+            model.addObject("error", "Usuario y/o contraseña inválido");
+        }
+
+        if (logout != null) {
+            model.addObject("msg", "Has cerrado sesión correctamente");
+        }
+        model.setViewName("login");
 
         String now = (new Date()).toString();
         logger.info("Returning login view with " + now);
 
-        Map<String, Object> myModel = new HashMap<String, Object>();
-        myModel.put("now", now);
+        model.addObject("now", now);
 
-        return new ModelAndView("login", "model", myModel);
+        return model;
 
     }
+
 }

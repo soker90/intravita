@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/views/include.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <title> Login | Intravita </title>
 
 </head>
 
-<body>
+<body onload='document.loginForm.username.focus();' >
 <p>Hora actual: <c:out value="${model.now}"/></p>
 
 <div class="top-content">
@@ -21,22 +22,31 @@
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h3>Inicar sesión</h3>
+                                <p style="color: red;">
+                                    <c:if test="${not empty error}">
+                                        <div class="error">${error}</div>
+                                    </c:if>
+                                    <c:if test="${not empty msg}">
+                                        <div class="msg">${msg}</div>
+                                    </c:if>
+                                </p>
                             </div>
                             <div class="form-top-right">
                                 <i class="fa fa-key"></i>
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <form role="form" action="" method="post" class="login-form">
+                            <form name='loginForm' role="form" action="<c:url value='j_spring_security_check' />" method="post" class="login-form">
                                 <div class="form-group">
                                     <label class="sr-only" for="form-username">Usuario</label>
-                                    <input type="text" name="form-username" placeholder="Usuario" class="form-username form-control" id="form-username">
+                                    <input type="text" name="username" placeholder="Usuario" class="form-username form-control" id="form-username">
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-password">Contraseña</label>
-                                    <input type="password" name="form-password" placeholder="Contraseña" class="form-password form-control" id="form-password">
+                                    <input type="password" name="password" placeholder="Contraseña" class="form-password form-control" id="form-password">
                                 </div>
-                                <button type="submit" class="btn">Entrar</button>
+                                <button type="submit" name="submit" value="submit" class="btn">Entrar</button>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </div>
                     </div>
