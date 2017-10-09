@@ -309,8 +309,8 @@ public class HomeControllerTests {
                 return null;
             }
         };
-        /*ModelAndView redirect = controller.defaultAfterLogin(request);
-        assertEquals("redirect:/admin/index", redirect);*/
+        String redirect = controller.defaultAfterLogin(request);
+        assertEquals("redirect:/admin/index", redirect);
     }
 
     @Test
