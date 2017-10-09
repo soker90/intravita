@@ -7,8 +7,7 @@
 
 </head>
 
-<body onload='document.loginForm.username.focus();' >
-<p>Hora actual: <c:out value="${model.now}"/></p>
+<body onload='document.loginForm.username.focus();'>
 
 <div class="top-content">
 

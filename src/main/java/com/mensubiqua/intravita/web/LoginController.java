@@ -22,9 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
-    protected final Log logger = LogFactory.getLog(getClass());
-
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
                               @RequestParam(value = "logout", required = false) String logout) {
@@ -38,12 +35,6 @@ public class LoginController {
             model.addObject("msg", "Has cerrado sesión correctamente");
         }
         model.setViewName("login");
-
-        String now = (new Date()).toString();
-        logger.info("Returning login view with " + now);
-
-
-        model.addObject("now", now);
 
         return model;
 

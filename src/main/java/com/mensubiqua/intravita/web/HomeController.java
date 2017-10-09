@@ -1,10 +1,13 @@
 package com.mensubiqua.intravita.web;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +23,6 @@ public class HomeController {
         if (request.isUserInRole("ROLE_USER")) {
             return "redirect:/user/index";
         }
-
         return "redirect:/login";
     }
 
@@ -47,5 +49,21 @@ public class HomeController {
 
     }
 
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public ModelAndView error403(Principal user){
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("head", "Error 403");
+        model.addObject("title", "Error 403 - Acceso denegado");
+        if (user != null){
+            model.addObject("msg", "Hola "+user.getName()+", no tienes permiso para acceder a esta página");
+        }else{
+            model.addObject("msg", "No tienes permiso para acceder a esta página");
+        }
+
+        model.setViewName("error");
+        return model;
+
+    }
 
 }
