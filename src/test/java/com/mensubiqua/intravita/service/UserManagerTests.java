@@ -11,7 +11,7 @@ import org.junit.Test;
 public class UserManagerTests {
 
     private UserManager userManager;
-    private List<User> users;
+    private ArrayList<User> users;
 
     private static int USER_COUNT = 2;
 
