@@ -44,7 +44,7 @@
                                     <label class="sr-only" for="form-password">Contraseña</label>
                                     <input type="password" name="password" placeholder="Contraseña" class="form-password form-control" id="form-password">
                                 </div>
-                                <button type="submit" name="submit" value="submit" class="btn">Entrar</button>
+                                <button id="form-login" type="submit" name="submit" value="submit" class="btn">Entrar</button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </div>

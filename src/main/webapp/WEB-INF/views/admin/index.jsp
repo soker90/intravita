@@ -3,7 +3,7 @@
 <%@page session="true"%>
 <html>
     <body>
-        <h1>Title : ${title}</h1>
+        <h1 id="title">Title : ${title}</h1>
         <h1>Message : ${message}</h1>
 
         <c:url value="/j_spring_security_logout" var="logoutUrl" />
@@ -23,7 +23,7 @@
 
         <c:if test="${pageContext.request.userPrincipal.name != null}">
             <h2>
-                Bienvenido : ${pageContext.request.userPrincipal.name} | <a
+                Bienvenido : ${pageContext.request.userPrincipal.name} | <a id="logout"
                     href="javascript:formSubmit()"> Salir</a>
             </h2>
         </c:if>
