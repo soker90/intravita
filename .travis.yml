@@ -13,6 +13,3 @@ addons:
     packages:
       - oracle-java8-installer
 
-script:
-  - javac -version
-
