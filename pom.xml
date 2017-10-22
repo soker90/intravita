@@ -4,6 +4,12 @@
   <artifactId>PruebaSpring</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  <properties>
+    <jdk.version>1.8</jdk.version>
+    <spring.version>5.0.0.RELEASE</spring.version>
+    <jstl.version>1.2</jstl.version>
+    <cucumber.version>1.2.5</cucumber.version>
+</properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -55,5 +61,18 @@
   		<artifactId>json</artifactId>
   		<version>20170516</version>
   	</dependency>
+  	<dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet.jsp.jstl</groupId>
+      <artifactId>jstl-api</artifactId>
+      <version>${jstl.version}</version>
+      <scope>compile</scope>
+</dependency>
   </dependencies>
 </project>

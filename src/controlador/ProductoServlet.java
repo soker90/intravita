@@ -66,7 +66,7 @@ public class ProductoServlet {
 			operacionesDao.saveProduct(producto);
 			listaProducto = operacionesDao.show();
 			response.getOutputStream().println("LISTA DE PRODUCTOS\n------------------\n"+listaProducto);
-			response.getOutputStream().println("El producto '"+producto.getNombre()+"' ha sido añadido a su lista.");
+			response.getOutputStream().println("El producto '"+producto.getNombre()+"' ha sido aÃ±adido a su lista.");
 		}
 		
 	}
