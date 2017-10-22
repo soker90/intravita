@@ -1,169 +1,54 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.mensubiqua</groupId>
-  <artifactId>intravita</artifactId>
-  <packaging>war</packaging>
+  <groupId>PruebaSpring</groupId>
+  <artifactId>PruebaSpring</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>intravita Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-
-  <properties>
-    <jdk.version>1.8</jdk.version>
-    <spring.version>5.0.0.RELEASE</spring.version>
-    <spring.security.version>4.2.3.RELEASE</spring.security.version>
-    <jstl.version>1.2</jstl.version>
-    <cucumber.version>1.2.5</cucumber.version>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>${spring.version}</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>${spring.security.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-web</artifactId>
-      <version>${spring.security.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-config</artifactId>
-      <version>${spring.security.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>jstl</groupId>
-      <artifactId>jstl</artifactId>
-      <version>${jstl.version}</version>
-    </dependency>
-
-
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>4.0.0</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.servlet.jsp.jstl</groupId>
-      <artifactId>jstl-api</artifactId>
-      <version>${jstl.version}</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.taglibs</groupId>
-      <artifactId>taglibs-standard-impl</artifactId>
-      <version>1.2.5</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>info.cukes</groupId>
-      <artifactId>cucumber-java</artifactId>
-      <version>${cucumber.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>info.cukes</groupId>
-      <artifactId>cucumber-junit</artifactId>
-      <version>${cucumber.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>info.cukes</groupId>
-      <artifactId>cucumber-testng</artifactId>
-      <version>${cucumber.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-java</artifactId>
-      <version>3.6.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-firefox-driver</artifactId>
-      <version>3.6.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-remote-driver</artifactId>
-      <version>3.6.0</version>
-    </dependency>
-
-  </dependencies>
+  <packaging>war</packaging>
   <build>
-    <finalName>intravita</finalName>
+    <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>6.0</version>
-          </dependency>
-          <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm-commons</artifactId>
-            <version>6.0</version>
-          </dependency>
-        </dependencies>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
       </plugin>
       <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.3</version>
-          <executions>
-              <execution>
-                  <phase>package</phase>
-                  <goals><goal>copy</goal></goals>
-                  <configuration>
-                      <artifactItems>
-                          <artifactItem>
-                              <groupId>org.eclipse.jetty</groupId>
-                              <artifactId>jetty-runner</artifactId>
-                              <version>9.4.7.v20170914</version>
-                              <destFileName>jetty-runner.jar</destFileName>
-                          </artifactItem>
-                      </artifactItems>
-                  </configuration>
-              </execution>
-          </executions>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <warSourceDirectory>WebContent</warSourceDirectory>
+        </configuration>
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-web</artifactId>
+  		<version>4.3.3.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-webmvc</artifactId>
+  		<version>4.3.3.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-jdbc</artifactId>
+  		<version>4.3.3.RELEASE</version>
+  	</dependency>
+  	<dependency>
+   		<groupId>org.xerial</groupId>
+   		<artifactId>sqlite-jdbc</artifactId>
+   		<version>3.15.1</version>
+  </dependency>
+  	<dependency>
+  		<groupId>org.json</groupId>
+  		<artifactId>json</artifactId>
+  		<version>20170516</version>
+  	</dependency>
+  </dependencies>
 </project>

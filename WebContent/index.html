@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>PruebaSpring</title>
+</head>
+<body>
+<h1>Ejemplo Lista de la Compra (spring(MVC) - SQLite(BD))</h1>
+¿Que desea realizar con su lista de la compra? <br/> <br/>
+<form action="mostrar.do" method="post"> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consultar mi lista -  
+<input type=submit value="Consultar"/>	
+<br/> <br/>
+</form>
+<form action="descargar.do" method="post"> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descargar mi lista -  
+<input type=submit value="Descargar"/>	
+<br/> <br/>
+</form>
+<form action="anadir.do" method="post"> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Añadir <input type="text" name="txtProductAdd" onFocus="if(this.value!='')this.value=''"/> a mis productos -
+<input type=submit value="Añadir"/>
+<br/> <br/>
+</form>
+<form action="eliminar.do" method="post"> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Eliminar <input type="text" name="txtProductDel" onFocus="if(this.value!='')this.value=''"/> de mis productos -
+<input type=submit value="Eliminar"/>
+</form>
+</body>
+</html>
