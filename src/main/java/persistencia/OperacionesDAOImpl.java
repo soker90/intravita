@@ -1,4 +1,4 @@
-package persistencia;
+package main.java.persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import org.springframework.stereotype.Component;
 
-import modelo.Producto;
+import main.java.modelo.Producto;
 
 @Component
 public class OperacionesDAOImpl implements OperacionesDAO {

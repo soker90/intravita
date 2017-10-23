@@ -1,4 +1,4 @@
-package tests.controlador;
+package tests.java.controlador;
 
 import java.util.concurrent.TimeUnit;
 

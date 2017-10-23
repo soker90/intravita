@@ -1,4 +1,4 @@
-package tests.persistencia;
+package tests.java.persistencia;
 
 import com.mensubiqua.intravita.domain.User;
 import cucumber.api.DataTable;

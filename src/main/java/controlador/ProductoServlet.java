@@ -1,4 +1,4 @@
-package controlador;
+package main.java.controlador;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,8 +10,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import modelo.Producto;
-import persistencia.OperacionesDAOImpl;
+import main.java.modelo.Producto;
+import main.java.persistencia.OperacionesDAOImpl;
 
 @Controller //Indica que es un controlador
 public class ProductoServlet {

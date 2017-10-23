@@ -1,4 +1,4 @@
-package tests.modelo;
+package tests.java.modelo;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

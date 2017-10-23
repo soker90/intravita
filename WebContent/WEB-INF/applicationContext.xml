@@ -13,8 +13,8 @@
 		
 	   <context:annotation-config></context:annotation-config>
        <!-- Scans the classpath of this application for @Components to deploy as beans -->
-       <context:component-scan base-package="modelo"></context:component-scan>
+       <context:component-scan base-package="main.java.modelo"></context:component-scan>
        <!-- Configures the @Controller programming model -->
-       <bean id="operacionesDAO" class="persistencia.OperacionesDAOImpl"/>
+       <bean id="operacionesDAO" class="main.java.persistencia.OperacionesDAOImpl"/>
 
 </beans>

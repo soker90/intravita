@@ -1,4 +1,4 @@
-package tests.controlador;
+package tests.java.controlador;
 
 import org.junit.Before;
 import org.springframework.stereotype.Controller;

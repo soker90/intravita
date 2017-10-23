@@ -1,4 +1,4 @@
-package tests.persistencia;
+package tests.java.persistencia;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;

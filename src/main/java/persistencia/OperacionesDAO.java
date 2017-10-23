@@ -1,6 +1,6 @@
-package persistencia;
+package main.java.persistencia;
 
-import modelo.Producto;
+import main.java.modelo.Producto;
 
 public interface OperacionesDAO {
 
