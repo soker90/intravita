@@ -1,0 +1,6 @@
+/home/edu/Proyectos/intravita/src/main/java/com/mensubiqua/intravita/controller/LoginController.java
+/home/edu/Proyectos/intravita/src/main/java/com/mensubiqua/intravita/controller/HomeController.java
+/home/edu/Proyectos/intravita/src/main/java/com/mensubiqua/intravita/dao/UserDAO.java
+/home/edu/Proyectos/intravita/src/main/java/com/mensubiqua/intravita/dao/DBBroker.java
+/home/edu/Proyectos/intravita/src/main/java/com/mensubiqua/intravita/dao/UserDAOImpl.java
+/home/edu/Proyectos/intravita/src/main/java/com/mensubiqua/intravita/model/User.java
