@@ -1,0 +1,15 @@
+sudo: false
+language: java
+
+jdk:
+  - oraclejdk8
+
+cache:
+  directories:
+  - "$HOME/.cache"
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
