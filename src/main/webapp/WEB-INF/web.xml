@@ -23,7 +23,7 @@
     <servlet-name>intravita</servlet-name>
     <url-pattern>/</url-pattern>
     <url-pattern>*.do</url-pattern>
-    <url-pattern>/resources/**</url-pattern>
+    <url-pattern>/resources/</url-pattern>
   </servlet-mapping>
 
   <listener>
