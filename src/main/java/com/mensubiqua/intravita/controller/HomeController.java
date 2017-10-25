@@ -1,9 +1,13 @@
 package com.mensubiqua.intravita.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.mensubiqua.intravita.model.Session;
+
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,19 +15,30 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class HomeController {
 
+	@Autowired
+    private Session sesion;
+	
     @RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
-        if (request.isUserInRole("ROLE_ADMIN")) {
+    	System.out.println(sesion.getRol());
+    	
+    	if(sesion.getRol() == null)
+    		return "redirect:/login";
+    	
+        if (sesion.getRol().equals("ROLE_ADMIN")) {
             return "redirect:/admin/index";
         }
 
-        if (request.isUserInRole("ROLE_USER")) {
+        if (sesion.getRol().equals("ROLE_USER")) {
             return "redirect:/user/index";
         }
+    	
+    	
+    	
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/user/index**", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/index**")
     public ModelAndView homePage() {
 
         ModelAndView model = new ModelAndView();

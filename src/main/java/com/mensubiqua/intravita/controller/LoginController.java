@@ -2,6 +2,7 @@ package com.mensubiqua.intravita.controller;
 
 
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Session;
 import com.mensubiqua.intravita.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,14 +12,17 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@SessionAttributes("user")
 public class LoginController {
 
     @Autowired
     UserDAOImpl userDAO;
+    
+    @Autowired
+    private Session sesion;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
+    	System.out.println(sesion.getName());
         return "login";
     }
 
@@ -52,7 +56,7 @@ public class LoginController {
         model.addObject("user", user);
         if(user != null) {
         	userDAO.delete(user.getNickname());
-        	model.addObject("mensaje2", "Usuario borrado con éxito");
+        	model.addObject("mensaje2", "Usuario borrado con ï¿½xito");
         	model.setViewName("login");
         }else {
         	model.addObject("mensaje", "Error al borrar cuenta");	
@@ -68,14 +72,17 @@ public class LoginController {
 
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
-        else if (!password.equalsIgnoreCase(user.getPassword())) model.addObject("mensaje2", "Las contraseña es incorrecta");
+        else if (!password.equalsIgnoreCase(user.getPassword())) model.addObject("mensaje2", "Las contraseï¿½a es incorrecta");
 
         else {
-            if (user.getRol().equalsIgnoreCase("ROLE_ADMIN")) model.setViewName("admin/index");
-            else model.setViewName("user/index");
+        	sesion.setName(user.getNombre());
+            sesion.setRol(user.getRol());
             model.addObject("user", user);
+            return new ModelAndView("redirect:/default");
         }
+        
         return model;
+        
     }
 
 }

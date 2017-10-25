@@ -25,20 +25,20 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Linux"/>
-    <property name="classworlds.conf" value="/home/edu/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf3754398346358226860.tmp"/>
+    <property name="classworlds.conf" value="/home/edu/Proyectos/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf1888676034578439109.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="4.13.8-1-ARCH"/>
+    <property name="os.version" value="4.9.53-1-MANJARO"/>
     <property name="user.home" value="/home/edu"/>
     <property name="user.timezone" value="Europe/Madrid"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="1.8"/>
     <property name="user.name" value="edu"/>
-    <property name="java.class.path" value="/usr/lib/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.8.2.20171007-0216/jars/plexus-classworlds-2.5.2.jar"/>
+    <property name="java.class.path" value="/usr/lib/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.8.1.20170728-1531/jars/plexus-classworlds-2.5.2.jar"/>
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/usr/lib/jvm/java-8-jdk/jre"/>
