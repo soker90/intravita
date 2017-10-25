@@ -42,7 +42,7 @@ public abstract class Funciones {
 
             return new String(original);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            
         }
 
         return null;

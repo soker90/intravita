@@ -2,7 +2,12 @@ package com.mensubiqua.intravita.dao;
 
 import com.mongodb.*;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.bson.BsonDocument;
 import org.bson.Document;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -51,5 +56,10 @@ public class DBBroker<T> {
         BasicDBObject query = new BasicDBObject(field, value);
 
         return this.db.getCollection(collection).find(query).first();
+    }
+    
+    public MongoCollection<Document> selectAll(String collection)
+    {
+    	return this.db.getCollection(collection);
     }
 }

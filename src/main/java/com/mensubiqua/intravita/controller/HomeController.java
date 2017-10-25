@@ -6,15 +6,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.Session;
+import com.mensubiqua.intravita.model.User;
 
+import java.awt.List;
 import java.security.Principal;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
 
+	@Autowired
+    UserDAOImpl userDAO;
+	
 	@Autowired
     private Session sesion;
 	
@@ -40,24 +47,60 @@ public class HomeController {
 
     @RequestMapping(value = "/user/index**")
     public ModelAndView homePage() {
-
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Web para usuarios");
-        model.addObject("message", "Página para usuarios correintes");
-        model.setViewName("user/index");
-        return model;
+    	if(sesion.getRol() != null)
+    	{
+	    	if(sesion.getRol().equals("ROLE_USER") | sesion.getRol().equals("ROLE_ADMIN"))
+	    	{
+	    		ModelAndView model = new ModelAndView();
+	            model.addObject("title", "Web para usuarios");
+	            model.addObject("message", "Página para usuarios correintes");
+	            model.setViewName("user/index");
+	            return model;
+	    	}
+    	}
+    	
+    	return new ModelAndView("redirect:/default");
 
     }
 
     @RequestMapping(value = "/admin/index**", method = RequestMethod.GET)
     public ModelAndView adminPage() {
-
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Página para admins");
-        model.addObject("message", "Página para administradores");
-        model.setViewName("admin/index");
-
-        return model;
+    	if(sesion.getRol() != null)
+    	{
+	    	if(sesion.getRol().equals("ROLE_ADMIN"))
+	    	{
+		        ModelAndView model = new ModelAndView();
+		        model.addObject("title", "Página para admins");
+		        model.addObject("message", "Página para administradores");
+		        ArrayList<String[]> listVar = new ArrayList<String[]>();
+		        
+		        ArrayList<User> users = userDAO.selectAll();
+		        
+		        for(User user: users)
+		        {
+		        	String boton = "superadmin";
+		        	//TODO poner excepcion para superusuario cuando se cree
+		        	if(user.getRol().equals("ROLE_ADMIN"))
+		        		boton="admin";
+		        	else if (user.getRol().equals("ROLE_USER")) {
+						
+							boton = "user";
+							
+						
+					}
+		        	String[] u = {user.getNombre(),user.getApellido(), boton};
+			        
+			        listVar.add(u);
+		        }
+		        
+		        model.addObject("listName", listVar.iterator());
+		        model.setViewName("admin/index");
+		
+		        return model;
+	    	}
+    	}
+    	
+    	return new ModelAndView("redirect:/default");
 
     }
 

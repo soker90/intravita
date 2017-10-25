@@ -2,6 +2,12 @@ package com.mensubiqua.intravita.dao;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.model.User;
+import com.mongodb.DBCursor;
+import com.mongodb.client.MongoCollection;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.bson.Document;
 import org.springframework.stereotype.Component;
 
@@ -28,4 +34,23 @@ public class UserDAOImpl implements UserDAO{
 
         return user;
     }
+
+	public ArrayList<User> selectAll() {
+		MongoCollection<Document> collection = DBBroker.get().selectAll(COLLECTION);
+		ArrayList<User> users = new ArrayList<User>();
+		
+		   
+		for (Document document : collection.find()) {
+			String nombre = Funciones.decrypt(document.getString("nombre"));
+			String apellido = Funciones.decrypt(document.getString("apellido"));
+			String email = Funciones.decrypt(document.getString("email"));
+			String nickname = Funciones.decrypt(document.getString("nickname"));
+			users.add(new User(nombre, apellido,
+	        		email, document.getString("password"), document.getString("rol"), 
+	        		nickname));
+		}
+
+		
+		return users;
+	}
 }
