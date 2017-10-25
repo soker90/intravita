@@ -16,12 +16,12 @@ public class User {
     private String rol;
     private String email;
 
-    public User(String nombre, String apellido, String email, String password, String rol) {
+    public User(String nombre, String apellido, String email, String password, String rol, String nickname) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.password = password;
-        this.nickname = nombre + "." + apellido;
+        this.nickname = nickname;
         this.rol = rol;
     }
 

@@ -18,7 +18,7 @@ public class UserDAOImplStep {
 
 	@When("^Inserto un usuario$")
 	public void inserto_un_usuario() throws Throwable {
-	    user = new User("Miguel", "Ampu", "ampu@gmail.com", "1234", "ROLE_USER");
+	    user = new User("Miguel", "Ampu", "ampu@gmail.com", "1234", "ROLE_USER","miguel.ampu");
 	    ud.insert(user);
 	}
 
@@ -29,7 +29,7 @@ public class UserDAOImplStep {
 
 	@When("^Borro un usuario$")
 	public void borro_un_usuario() throws Throwable {
-		user = new User("Miguel", "Ampu", "ampu@gmail.com", "1234", "ROLE_USER");
+		user = new User("Miguel", "Ampu", "ampu@gmail.com", "1234", "ROLE_USER","miguel.ampu");
 	    ud.delete(user.getNickname());
 	}
 

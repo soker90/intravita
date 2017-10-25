@@ -1,5 +1,6 @@
 package com.mensubiqua.intravita.dao;
 
+import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.model.User;
 import org.bson.Document;
 import org.springframework.stereotype.Component;
@@ -15,15 +16,15 @@ public class UserDAOImpl implements UserDAO{
     }
 
     public void delete(String nickname) {
-        DBBroker.get().deleteOne(ID, nickname, COLLECTION);
+        DBBroker.get().deleteOne(ID, Funciones.encrypt(nickname), COLLECTION);
     }
 
     public User find(String nickname) {
         Document document = DBBroker.get().find(ID, nickname, COLLECTION);
         User user = null;
 
-        if (document != null) user = new User(document.getString("nombre"), document.getString("apellido"),
-                document.getString("email"), document.getString("password"), document.getString("rol"));
+        if (document != null) user = new User(Funciones.decrypt(document.getString("nombre")), Funciones.decrypt(document.getString("apellido")),
+        		Funciones.decrypt(document.getString("email")), document.getString("password"), document.getString("rol"), Funciones.decrypt(document.getString("nickname")));
 
         return user;
     }
