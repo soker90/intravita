@@ -81,14 +81,14 @@ public class HomeController {
 		        	String boton = "superadmin";
 		        	//TODO poner excepcion para superusuario cuando se cree
 		        	if(user.getRol().equals("ROLE_ADMIN"))
-		        		boton="admin";
+		        		boton="Sí";
 		        	else if (user.getRol().equals("ROLE_USER")) {
 						
-							boton = "user";
+							boton = "No";
 							
 						
 					}
-		        	String[] u = {user.getNombre(),user.getApellido(), boton};
+		        	String[] u = {user.getNombre(),user.getApellido(), boton, "#"};
 			        
 			        listVar.add(u);
 		        }

@@ -38,7 +38,7 @@
 			<tr>
 			    <td><c:out value="${listVar[0]}"/></td>
 			    <td><c:out value="${listVar[1]}"/></td>
-			    <td><c:out value="${listVar[2]}"/></td>
+			    <td><a href="<c:out value="${listVar[3]}"/>"><button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button></a></td>
 		  	</tr>
 		</c:forEach>
 		</table> 
