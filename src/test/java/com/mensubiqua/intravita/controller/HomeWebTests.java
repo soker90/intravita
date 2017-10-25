@@ -7,8 +7,10 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class HomeWebTests {
     private static WebDriver driver;
-    public static void run()
+    private static String root;
+    public static void run(String root)
     {
+    	HomeWebTests.root = root;
          driver = SeleniumTests.getDriver();
         default_test();
         admin_index();
@@ -19,24 +21,24 @@ public abstract class HomeWebTests {
     {
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://localhost:8443/default");
+        driver.get(root + "/default");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         if(driver.getCurrentUrl().contains("/login"))
             System.out.println("CORRECTO: Redirección de /default correcta para usuarios Anonimo");
         else
             System.out.println("FALLA: Redirección de /default correcta para usuarios Anonimo");
 
-        LoginWebTests.login("user", "user");
-        driver.get("https://localhost:8443/default");
+        LoginWebTests.login("user.user", "user");
+        driver.get(root +  "/default");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         if(driver.getCurrentUrl().contains("/user/index"))
             System.out.println("CORRECTO: Redirección de /default para usuarios normales");
         else
-            System.out.println("FALLA: Redirección de /default para usuarios normales");
+            System.out.println("FALLA: Redirección de /default para usuarios normales: " + driver.getCurrentUrl());
         LoginWebTests.logout();
 
         LoginWebTests.login("admin", "admin");
-        driver.get("https://localhost:8443/default");
+        driver.get(root +  "/default");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         if(driver.getCurrentUrl().contains("/admin/index"))
             System.out.println("CORRECTO: Redirección de /default para administradores");
@@ -48,7 +50,7 @@ public abstract class HomeWebTests {
     private static void admin_index()
     {
         LoginWebTests.login("admin", "admin");
-        driver.get("https://localhost:8443/admin/index");
+        driver.get(root +  "/admin/index");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println(driver.findElement(By.id("title")).getText());
         if(driver.findElement(By.id("title")).getText().contains("Página para admins"))
@@ -56,7 +58,7 @@ public abstract class HomeWebTests {
         else
             System.out.println("FALLA: Carga del index de administradores");
 
-        driver.get("https://localhost:8443/user/index");
+        driver.get(root +  "/user/index");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println(driver.findElement(By.id("title")).getText());
         if(driver.findElement(By.id("title")).getText().contains("Web para usuarios"))
@@ -69,8 +71,8 @@ public abstract class HomeWebTests {
 
     private static void user_index()
     {
-        LoginWebTests.login("user", "user");
-        driver.get("https://localhost:8443/user/index");
+        LoginWebTests.login("user.user", "user");
+        driver.get(root +  "/user/index");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println(driver.findElement(By.id("title")).getText());
         if(driver.findElement(By.id("title")).getText().contains("Web para usuarios"))

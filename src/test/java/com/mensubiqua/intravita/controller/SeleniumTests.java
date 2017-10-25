@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class SeleniumTests {
     private static WebDriver driver = null;
     public static void main(String[] args) {
+    	String root = "https://localhost:8443/intravita";
 
         if(System.getProperty("os.name").equals("Linux"))
             System.setProperty("webdriver.gecko.driver", "lib/geckodriver");
@@ -14,8 +15,8 @@ public class SeleniumTests {
 
         driver = new FirefoxDriver();
 
-        LoginWebTests.run();
-        HomeWebTests.run();
+        LoginWebTests.run(root);
+        HomeWebTests.run(root);
 
         driver.quit();
 

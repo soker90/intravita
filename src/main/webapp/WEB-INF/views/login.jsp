@@ -82,7 +82,7 @@
                                     <label class="sr-only" for="form-password2">Repita contraseña</label><br>
                                     <input type="password" name="password2" placeholder="Contraseña" class="form-email form-control" id="form-password2">
                                     </div>
-                                <button type="submit" class="btn">Registrarse</button>
+                                <button id="registrar" type="submit" class="btn">Registrarse</button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </div>
