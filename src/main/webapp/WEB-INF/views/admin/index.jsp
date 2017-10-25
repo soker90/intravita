@@ -23,7 +23,7 @@
         <h2>
             Bienvenido : ${user.nickname} | <a id="logout"
                                                href="javascript:formSubmit()"> Salir</a>
-            <a id="borrarCuenta" href="/borrarCuenta" >Borrar Cuenta</a>
+            <a id="borrarCuenta" href="/intravita/borrarCuenta" >Borrar Cuenta</a>
         </h2>
     </body>
 </html>

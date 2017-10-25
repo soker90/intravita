@@ -49,18 +49,18 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "borrarCuenta", method = RequestMethod.GET)
-    public ModelAndView deleteAccount(HttpSession session) {
+    @RequestMapping(value = "/borrarCuenta")
+    public ModelAndView deleteAccount() {
     	ModelAndView model = new ModelAndView();
-        User user = (User) session.getAttribute("user");
-        model.addObject("user", user);
-        if(user != null) {
-        	userDAO.delete(user.getNickname());
-        	model.addObject("mensaje2", "Usuario borrado con �xito");
+        if(sesion.getNickname() != null) {
+        	userDAO.delete(sesion.getNickname());
+        	model.addObject("mensaje2", "Usuario borrado correctamente");
         	model.setViewName("login");
         }else {
         	model.addObject("mensaje", "Error al borrar cuenta");	
         }
+        model.addObject("user",sesion.getNickname());
+        sesion.setRol(null);
         return model;
     }
 
@@ -72,11 +72,15 @@ public class LoginController {
 
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
-        else if (!password.equalsIgnoreCase(user.getPassword())) model.addObject("mensaje2", "Las contrase�a es incorrecta");
+        else if (!password.equalsIgnoreCase(user.getPassword())) model.addObject("mensaje2", "Las contraseña es incorrecta");
 
         else {
         	sesion.setName(user.getNombre());
             sesion.setRol(user.getRol());
+            sesion.setApellido(user.getApellido());
+            sesion.setEmail(user.getEmail());
+            sesion.setFoto(user.getFoto());
+            sesion.setNickname(user.getNickname());
             model.addObject("user", user);
             return new ModelAndView("redirect:/default");
         }
