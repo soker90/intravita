@@ -33,7 +33,7 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							  </button>
-							  <div class="navbar-brand logo">I</div>
+							  <div class="navbar-brand logo">In</div>
 							</div>
 							<nav class="collapse navbar-collapse" role="navigation">
 							
@@ -41,16 +41,18 @@
 							  <li>
 								<a href="/intravita/default"><i class="glyphicon glyphicon-home"></i> Inicio</a>
 							  </li>
-							  <li>
-								<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Nueva publicación </a>
-							  </li>
+							  <c:if test="${vista eq 'usuario'}">
+								  	<li>
+										<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Nueva publicación </a>
+								  	</li>
+							  	</c:if>
 							  <c:if test="${user.rol eq 'ROLE_ADMIN'}">
 							  	<c:if test="${vista eq 'usuario'}">
 								  	<li>
 										<a href="/intravita/admin/index"><span class="badge">Usuario</span></a>
 								  	</li>
 							  	</c:if>
-							  	<c:if test="${vista eq 'usuario'}">
+							  	<c:if test="${vista eq 'admin'}">
 								  	<li>
 										<a href="/intravita/user/index"><span class="badge">Administrador</span></a>
 								  	</li>
@@ -79,10 +81,10 @@
 								<div class="row">
 								  
 								 <!-- main col left --> 
-								 <div class="col-sm-5">
+								 <div class="col-sm-3">
 								   
 									  <div class="panel panel-default">
-										<div class="panel-thumbnail"><img src="/intravita/resources/img/bg_5.jpg" class="img-responsive"></div>
+										<div class="panel-thumbnail"><img src="/intravita/resources/img/user.jpg" class="img-responsive"></div>
 										<div class="panel-body">
 										  <p class="lead"><c:out value="${user.nombre}"/> <c:out value="${user.apellido}"/></p>
 										  <p>400 Amigos</p>

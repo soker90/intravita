@@ -28,7 +28,7 @@
 					  
 								  
  <!-- main col right -->
- <div class="col-sm-7">
+ <div class="col-sm-9">
 
    <div class="panel panel-default">
    	  <div class="panel-heading"><h4>Usuarios</h4></div>
@@ -42,6 +42,8 @@
 	            	<th>Nombre</th>
 	 				<th>Apellidos</th>
 	 				<th>Admin</th>
+	 				<th>Editar</th>
+	 				<th>Eliminar</th>
 	            </tr>
 	        </thead>
 	        <tfoot>
@@ -49,6 +51,8 @@
 	                <th>Nombre</th>
 	 				<th>Apellidos</th>
 	 				<th>Admin</th>
+	 				<th>Editar</th>
+	 				<th>Eliminar</th>
 	            </tr>
 	        </tfoot>
 	        <tbody>
@@ -58,6 +62,49 @@
 	 			    <td><c:out value="${listVar[0]}"/></td>
 	 			    <td><c:out value="${listVar[1]}"/></td>
 	 			    <td><a href="<c:out value="${listVar[3]}"/>"><button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button></a></td>
+	 			    <td><a href="#"><button type="button" class="btn btn-warning">Editar</button></a></td>
+	 				<td><a href="#"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+	 		  	</tr>
+	 		</c:forEach>
+	 		</tbody>
+ 		</table>
+		
+		<hr>
+		
+	  </div>
+   </div>
+   
+   <div class="panel panel-default">
+   	  <div class="panel-heading"><h4>Publicaciones</h4></div>
+	  <div class="panel-body">
+		<div class="clearfix"></div>
+		<hr>
+		
+		<table id="publicaciones" class="table table-striped table-bordered" cellspacing="0" width="100%">
+			<thead>
+	            <tr>
+	            	<th>Usuario</th>
+	 				<th>Texto</th>
+	 				<th>Editar</th>
+	 				<th>Eliminar</th>
+	            </tr>
+	        </thead>
+	        <tfoot>
+	            <tr>
+	                <th>Usuario</th>
+	 				<th>Texto</th>
+	 				<th>Editar</th>
+	 				<th>Eliminar</th>
+	            </tr>
+	        </tfoot>
+	        <tbody>
+	
+	 		<c:forEach var="listVar" items="${listName}">
+	 			<tr>
+	 			    <td><c:out value="${listVar[0]}"/></td>
+	 			    <td><a href="<c:out value="${listVar[3]}"/>"><button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button></a></td>
+	 			    <td><a href="#"><button type="button" class="btn btn-warning">Editar</button></a></td>
+	 				<td><a href="#"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
 	 		  	</tr>
 	 		</c:forEach>
 	 		</tbody>
@@ -78,6 +125,7 @@
  <script>
  	$(document).ready(function() {
 	    $('#usuarios').DataTable();
+	    $('#publicaciones').DataTable();
 	} );
  </script>
 

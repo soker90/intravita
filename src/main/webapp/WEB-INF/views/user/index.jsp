@@ -49,7 +49,7 @@
 					  
 								  
  <!-- main col right -->
- <div class="col-sm-7">
+ <div class="col-sm-9">
 
    <div class="panel panel-default">
 	  <div class="panel-body">
