@@ -14,6 +14,7 @@
     <spring.security.version>4.2.3.RELEASE</spring.security.version>
     <jstl.version>1.2</jstl.version>
     <cucumber.version>1.2.5</cucumber.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
