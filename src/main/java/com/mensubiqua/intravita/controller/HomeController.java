@@ -71,7 +71,7 @@ public class HomeController {
 
     }
 
-    @RequestMapping(value = "/admin/index**", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/index**")
     public ModelAndView adminPage(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
     	

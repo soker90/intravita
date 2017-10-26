@@ -48,8 +48,9 @@
 		  </div>
 		  </div>
 		</div>
-        <script type="text/javascript" src="/intravita/resources/js/jquery.js"></script>
+        <script type="text/javascript" src="/intravita/resources/js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="/intravita/resources/js/bootstrap.js"></script>
+        
         <script type="text/javascript">
         $(document).ready(function() {
 			$('[data-toggle=offcanvas]').click(function() {
@@ -62,4 +63,13 @@
 			});
         });
         </script>
+        
+        <script type="text/javascript" src="/intravita/resources/js/jquery.dataTables.min.js"></script>
+ 		<script type="text/javascript" src="/intravita/resources/js/dataTables.bootstrap.min.js"></script>
+  
+	 <script>
+	 	$(document).ready(function() {
+		    $('#usuarios').DataTable();
+		} );
+	 </script>
 </body></html>

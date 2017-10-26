@@ -9,6 +9,8 @@
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <link href="/intravita/resources/css/facebook.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+        
                 <title>Intravita</title>
         
     </head>
@@ -43,9 +45,16 @@
 								<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Nueva publicación </a>
 							  </li>
 							  <c:if test="${user.rol eq 'ROLE_ADMIN'}">
-							  	<li>
-									<a href="/intravita/admin/index"><span class="badge">Usuario</span></a>
-							  	</li>
+							  	<c:if test="${vista eq 'usuario'}">
+								  	<li>
+										<a href="/intravita/admin/index"><span class="badge">Usuario</span></a>
+								  	</li>
+							  	</c:if>
+							  	<c:if test="${vista eq 'usuario'}">
+								  	<li>
+										<a href="/intravita/user/index"><span class="badge">Administrador</span></a>
+								  	</li>
+							  	</c:if>
 							  </c:if>
 							  
 							  

@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <c:set var="user" value="${user}" scope="request" /> <!-- Esto envia variables a las vistas de los includes -->
+<c:set var="vista" value="usuario" scope="request" />
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <!-- <html>
 <html>
