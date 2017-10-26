@@ -4,28 +4,6 @@
 <c:set var="user" value="${user}" scope="request" /> <!-- Esto envia variables a las vistas de los includes -->
 <c:set var="vista" value="admin" scope="request" />
 <%@ include file="/WEB-INF/views/header.jsp" %>
-
-<!--
-<html>
-    <body>
-        <h1 id="title">Bienvenido admin ${user.nickname}</h1>
-
-        <h2>
-                Bienvenido : ${user.nickname} | <a id="logout"
-                    href="../logout"> Salir</a>
-                <a id="borrarCuenta" href="../borrarCuenta" >Borrar Cuenta</a>
-        </h2>
-        
-        <p><a href="/intravita/user/index">Ir a vista de usuario</a></p>
- -        <br/>
- -		
-
-        
-    </body>
-</html>
--->
-
-					  
 								  
  <!-- main col right -->
  <div class="col-sm-9">
@@ -34,7 +12,6 @@
    	  <div class="panel-heading"><h4>Usuarios</h4></div>
 	  <div class="panel-body">
 		<div class="clearfix"></div>
-		<hr>
 		
 		<table id="usuarios" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
@@ -61,9 +38,23 @@
 	 			<tr>
 	 			    <td><c:out value="${listVar[0]}"/></td>
 	 			    <td><c:out value="${listVar[1]}"/></td>
-	 			    <td><a href="<c:out value="${listVar[3]}"/>"><button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button></a></td>
-	 			    <td><a href="#"><button type="button" class="btn btn-warning">Editar</button></a></td>
-	 				<td><a href="#"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+	 			    <td><c:if test="${listVar[3] ne 'super.admin'}">
+	 			    <button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button>
+	 			    </c:if></td>
+	 			    
+	 				<td><c:if test="${listVar[3] ne 'super.admin'}">
+	 				<form action="/intravita/admin/editarUsuario" method="post">
+		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
+		 			    <button type="submit" name="submit" value="submit" class="btn btn-warning">Editar</button>
+		 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	 			    </form></c:if></td>
+	 			    
+	 				<td><c:if test="${listVar[3] ne 'super.admin'}">
+	 				<form action="/intravita/admin/borrarUsuario" method="post">
+		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
+		 			    <button type="submit" name="submit" value="submit" class="btn btn-danger">Eliminar</button>
+		 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	 			    </form></c:if></td>
 	 		  	</tr>
 	 		</c:forEach>
 	 		</tbody>
@@ -78,7 +69,6 @@
    	  <div class="panel-heading"><h4>Publicaciones</h4></div>
 	  <div class="panel-body">
 		<div class="clearfix"></div>
-		<hr>
 		
 		<table id="publicaciones" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
@@ -105,6 +95,7 @@
 	 			    <td><a href="<c:out value="${listVar[3]}"/>"><button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button></a></td>
 	 			    <td><a href="#"><button type="button" class="btn btn-warning">Editar</button></a></td>
 	 				<td><a href="#"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+
 	 		  	</tr>
 	 		</c:forEach>
 	 		</tbody>

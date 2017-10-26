@@ -40,7 +40,7 @@ public class LoginController {
         model.setViewName("login");
     	
         if (!request.getParameter("password").equals(request.getParameter("password2"))) 
-        	model.addObject("mensaje", "Las contraseñas no coinciden");
+        	model.addObject("mensaje", "Las contraseï¿½as no coinciden");
 
         else if (userDAO.find(Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido"))) != null) 
         	model.addObject("mensaje", "Este usuario ya existe");
@@ -57,14 +57,7 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "borrarCuenta", method = RequestMethod.GET)
-    public String deleteAccount(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        userDAO.delete(Funciones.encrypt(user.getNickname()));
-        session.invalidate();
 
-        return "redirect:/default";
-    }
 
     @RequestMapping(value = "logear", method = RequestMethod.POST)
     public ModelAndView logear(HttpServletRequest request)  {
@@ -76,7 +69,7 @@ public class LoginController {
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
         else if (!Funciones.encrypt_md5(request.getParameter("password")).equals(user.getPassword())) 
-        	model.addObject("mensaje2", "Las contraseñas no coinciden");
+        	model.addObject("mensaje2", "Las contraseÃ±as no coinciden");
 
         else {
             request.getSession().setAttribute("user", user);

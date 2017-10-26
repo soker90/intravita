@@ -65,7 +65,7 @@
 							  <li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
 								<ul class="dropdown-menu">
-								  <li><a href="">Perfil</a></li>
+								  <li><a href="/intravita/user/perfil">Perfil</a></li>
 								  <li><a href="/intravita/logout">Salir</a></li>
 								</ul>
 							  </li>
