@@ -50,16 +50,21 @@ public class HomeController {
     public ModelAndView homePage(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
     	
-    	if(user.getRol() != null)
-    	{
-	    	if(user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN"))
+    	try {
+    	
+	    	if(user.getRol() != null)
 	    	{
-	    		ModelAndView model = new ModelAndView();
-	            model.addObject("title", "Web para usuarios");
-	            model.addObject("message", "Pagina para usuarios corrientes");
-	            model.setViewName("user/index");
-	            return model;
+		    	if(user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN"))
+		    	{
+		    		ModelAndView model = new ModelAndView();
+		            model.addObject("title", "Web para usuarios");
+		            model.addObject("message", "Pagina para usuarios corrientes");
+		            model.setViewName("user/index");
+		            return model;
+		    	}
 	    	}
+    	} catch (Exception e) {
+            return new ModelAndView("redirect:/default");
     	}
     	
     	return new ModelAndView("redirect:/default");
@@ -70,37 +75,42 @@ public class HomeController {
     public ModelAndView adminPage(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
     	
-    	if(user.getRol() != null)
-    	{
-	    	if(user.getRol().equals("ROLE_ADMIN"))
+    	try {
+    	
+	    	if(user.getRol() != null)
 	    	{
-		        ModelAndView model = new ModelAndView();
-		        model.addObject("title", "Página para admins");
-		        model.addObject("message", "Página para administradores");
-		        ArrayList<String[]> listVar = new ArrayList<String[]>();
-		        
-		        ArrayList<User> users = userDAO.selectAll();
-		        
-		        for(User user1: users)
-		        {
-		        	String boton = "superadmin";
-		        	//TODO poner excepcion para superusuario cuando se cree
-		        	if(user1.getRol().equals("ROLE_ADMIN"))
-		        		boton="Sí";
-		        	else if (user1.getRol().equals("ROLE_USER")) {
-						
-							boton = "No";
-					}
-		        	String[] u = {user1.getNombre(),user1.getApellido(), boton, "#"};
+		    	if(user.getRol().equals("ROLE_ADMIN"))
+		    	{
+			        ModelAndView model = new ModelAndView();
+			        model.addObject("title", "Página para admins");
+			        model.addObject("message", "Página para administradores");
+			        ArrayList<String[]> listVar = new ArrayList<String[]>();
 			        
-			        listVar.add(u);
-		        }
-		        
-		        model.addObject("listName", listVar.iterator());
-		        model.setViewName("admin/index");
-		
-		        return model;
+			        ArrayList<User> users = userDAO.selectAll();
+			        
+			        for(User user1: users)
+			        {
+			        	String boton = "superadmin";
+			        	//TODO poner excepcion para superusuario cuando se cree
+			        	if(user1.getRol().equals("ROLE_ADMIN"))
+			        		boton="Sí";
+			        	else if (user1.getRol().equals("ROLE_USER")) {
+							
+								boton = "No";
+						}
+			        	String[] u = {user1.getNombre(),user1.getApellido(), boton, "#"};
+				        
+				        listVar.add(u);
+			        }
+			        
+			        model.addObject("listName", listVar.iterator());
+			        model.setViewName("admin/index");
+			
+			        return model;
+		    	}
 	    	}
+    	} catch (Exception e) {
+            return new ModelAndView("redirect:/default");
     	}
     	
     	return new ModelAndView("redirect:/default");
