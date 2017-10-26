@@ -31,7 +31,7 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							  </button>
-							  <a href="http://usebootstrap.com/theme/facebook" class="navbar-brand logo">I</a>
+							  <div class="navbar-brand logo">I</div>
 							</div>
 							<nav class="collapse navbar-collapse" role="navigation">
 							
