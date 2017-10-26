@@ -22,15 +22,17 @@ public class UserDAOImpl implements UserDAO{
     }
 
     public void delete(String nickname) {
-        DBBroker.get().deleteOne(ID, Funciones.encrypt(nickname), COLLECTION);
+        DBBroker.get().deleteOne(ID, nickname, COLLECTION);
     }
 
     public User find(String nickname) {
         Document document = DBBroker.get().find(ID, nickname, COLLECTION);
         User user = null;
 
-        if (document != null) user = new User(Funciones.decrypt(document.getString("nombre")), Funciones.decrypt(document.getString("apellido")),
-        		Funciones.decrypt(document.getString("email")), document.getString("password"), document.getString("rol"), Funciones.decrypt(document.getString("nickname")));
+        if (document != null) 
+        	user = new User(Funciones.decrypt(document.getString("nombre")), Funciones.decrypt(document.getString("apellido")),
+        		Funciones.decrypt(document.getString("email")), document.getString("password"), document.getString("rol"),
+        		Funciones.decrypt(document.getString("nickname")));
 
         return user;
     }

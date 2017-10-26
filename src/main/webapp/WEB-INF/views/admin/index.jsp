@@ -5,42 +5,10 @@
     <body>
         <h1 id="title">Bienvenido admin ${user.nickname}</h1>
 
-        <c:url value="/j_spring_security_logout" var="logoutUrl" />
-
-        <!-- csrt for log out-->
-        <form action="${logoutUrl}" method="post" id="logoutForm">
-            <input type="hidden"
-                   name="${_csrf.parameterName}"
-                   value="${_csrf.token}" />
-        </form>
-
-        <script>
-            function formSubmit() {
-                document.getElementById("logoutForm").submit();
-            }
-        </script>
-
         <h2>
-            Bienvenido : ${user.nickname} | <a id="logout"
-                                               href="javascript:formSubmit()"> Salir</a>
-            <a id="borrarCuenta" href="/intravita/borrarCuenta" >Borrar Cuenta</a>
+                Bienvenido : ${user.nickname} | <a id="logout"
+                    href="logout"> Salir</a>
+                <a id="borrarCuenta" href="borrarCuenta" >Borrar Cuenta</a>
         </h2>
-        <p><a href="/intravita/user/index">Ir a vista de usuario</a></p>
-        <br/>
-		
-		<table>
-		<tr>
-			<th>Nombre</th>
-			<th>Apellidos</th>
-			<th>Admin</th>
-		</tr>
-		<c:forEach var="listVar" items="${listName}">
-			<tr>
-			    <td><c:out value="${listVar[0]}"/></td>
-			    <td><c:out value="${listVar[1]}"/></td>
-			    <td><a href="<c:out value="${listVar[3]}"/>"><button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button></a></td>
-		  	</tr>
-		</c:forEach>
-		</table> 
     </body>
 </html>

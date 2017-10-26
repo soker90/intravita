@@ -3,7 +3,6 @@ package com.mensubiqua.intravita.controller;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
-import com.mensubiqua.intravita.model.Session;
 import com.mensubiqua.intravita.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
@@ -26,9 +26,6 @@ public class LoginController {
 
     @Autowired
     UserDAOImpl userDAO;
-    
-    @Autowired
-    private Session sesion;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {    	
@@ -36,35 +33,22 @@ public class LoginController {
     }
 
     @RequestMapping(value = "registro", method = RequestMethod.POST)
-    public ModelAndView registrar(@RequestParam(value = "nombre", required = true) String nombre,
-                                  @RequestParam(value = "apellido", required = true) String apellido,
-                                  @RequestParam(value = "email", required = true) String email,
-                                  @RequestParam(value = "password", required = true) String password,
-                                  @RequestParam(value = "password2", required = true) String password2)  {
-    	
+    public ModelAndView registrar(HttpServletRequest request)  {
+
+    	User user = null;
     	ModelAndView model = new ModelAndView();
         model.setViewName("login");
-        String pass_md5 = null;
     	
-    	byte[] thedigest = null;
-    		try {
-    			byte[] bytesOfMessage = password.getBytes("UTF-8");
+        if (!request.getParameter("password").equals(request.getParameter("password2"))) 
+        	model.addObject("mensaje", "Las contraseñas no coinciden");
 
-    			MessageDigest md = MessageDigest.getInstance("MD5");
-    			thedigest = md.digest(bytesOfMessage);
-    			pass_md5 = DatatypeConverter.printHexBinary(thedigest).toLowerCase();
-    		}catch(Exception e)
-    		{
-    			model.addObject("mensaje", "Error desconocido");
-    			return model;
-    		}
-    	
-        User user = new User(Funciones.encrypt(nombre), Funciones.encrypt(apellido), Funciones.encrypt(email), pass_md5, "ROLE_USER", Funciones.encrypt(nombre+"."+apellido));
-        if (!password.equalsIgnoreCase(password2) & pass_md5 != null) model.addObject("mensaje", "Las contraseÃ±as no coinciden");
-
-        else if (userDAO.find(user.getNickname()) != null) model.addObject("mensaje", "Este usuario ya existe");
+        else if (userDAO.find(Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido"))) != null) 
+        	model.addObject("mensaje", "Este usuario ya existe");
 
         else {
+            user = new User(Funciones.encrypt(request.getParameter("nombre")), Funciones.encrypt(request.getParameter("apellido")),
+            		Funciones.encrypt(request.getParameter("email")), Funciones.encrypt_md5(request.getParameter("password")),
+            		"ROLE_USER", Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido")));
             userDAO.insert(user);
             model.addObject("mensaje", "Usuario creado con exito");
         }
@@ -73,60 +57,39 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "/borrarCuenta")
-    public ModelAndView deleteAccount() {
-    	ModelAndView model = new ModelAndView();
-        if(sesion.getNickname() != null) {
-        	System.out.println(sesion.getNickname());
-        	userDAO.delete(sesion.getNickname());
-        	model.addObject("mensaje2", "Usuario borrado correctamente");
-        	model.setViewName("login");
-        }else {
-        	model.addObject("mensaje", "Error al borrar cuenta");	
-        }
-        model.addObject("user",sesion.getNickname());
-        sesion.setRol(null);
-        return model;
+    @RequestMapping(value = "borrarCuenta", method = RequestMethod.GET)
+    public String deleteAccount(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        userDAO.delete(Funciones.encrypt(user.getNickname()));
+        session.invalidate();
+
+        return "redirect:/default";
     }
 
     @RequestMapping(value = "logear", method = RequestMethod.POST)
-    public ModelAndView logear(@RequestParam String username, @RequestParam String password)  {
+    public ModelAndView logear(HttpServletRequest request)  {
         ModelAndView model = new ModelAndView();
-        User user = userDAO.find(Funciones.encrypt(username));
-        model.setViewName("login");
+        User user = userDAO.find(Funciones.encrypt(request.getParameter("username")));
+        
+        model.setViewName("redirect:/default");
     	
-    	byte[] thedigest = null;
-    		try {
-    			byte[] bytesOfMessage = password.getBytes("UTF-8");
-
-    			MessageDigest md = MessageDigest.getInstance("MD5");
-    			thedigest = md.digest(bytesOfMessage);
-    			password = DatatypeConverter.printHexBinary(thedigest).toLowerCase();
-    		}catch(Exception e)
-    		{
-    			model.addObject("mensaje", "Error desconocido");
-    			return model;
-    		}
-    	
-    		
-
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
-        else if (!password.equalsIgnoreCase(user.getPassword())) model.addObject("mensaje2", "Las contraseÃ±a es incorrecta");
+        else if (!Funciones.encrypt_md5(request.getParameter("password")).equals(user.getPassword())) 
+        	model.addObject("mensaje2", "Las contraseñas no coinciden");
 
         else {
-        	sesion.setName(user.getNombre());
-            sesion.setRol(user.getRol());
-            sesion.setApellido(user.getApellido());
-            sesion.setEmail(user.getEmail());
-            sesion.setFoto(user.getFoto());
-            sesion.setNickname(user.getNickname());
-            model.addObject("user", user);
-            return new ModelAndView("redirect:/default");
+            request.getSession().setAttribute("user", user);
         }
-        
+
         return model;
         
+    }
+    
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logout(HttpSession sesion) {
+    	sesion.invalidate();
+        return "redirect:/default";
     }
 
 }

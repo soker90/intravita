@@ -1,9 +1,12 @@
 package com.mensubiqua.intravita.auxiliar;
 
 
+import java.security.MessageDigest;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -46,5 +49,22 @@ public abstract class Funciones {
         }
 
         return null;
+    }
+    
+    public static String encrypt_md5(String password) {
+    	String pass_md5;
+    	byte[] thedigest = null;
+    	
+		try {
+			byte[] bytesOfMessage = password.getBytes("UTF-8");
+
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			thedigest = md.digest(bytesOfMessage);
+			pass_md5 = DatatypeConverter.printHexBinary(thedigest).toLowerCase();
+		}catch(Exception e)
+		{
+			return "error";
+		}
+		return pass_md5;
     }
 }
