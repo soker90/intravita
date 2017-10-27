@@ -55,6 +55,12 @@ public class UserDAOImpl implements UserDAO{
 		
 		return users;
 	}
+	
+	 public void updateRole(String nickname) {
+		   String nicknameDB = Funciones.encrypt(nickname);
+		   DBBroker.get().updateRole(ID, nicknameDB, COLLECTION);
+		   
+	   }
 
 	public void update(User user) {
 		// TODO Auto-generated method stub
@@ -62,4 +68,6 @@ public class UserDAOImpl implements UserDAO{
 		// en la BBDD en base a su nick
 		
 	}
+	
+	  
 }

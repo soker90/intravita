@@ -11,5 +11,6 @@ public interface UserDAO {
     public User find(String nickname);
     public ArrayList<User> selectAll();
     public void update(User user);
+    public void updateRole(String nickname);
 
 }
