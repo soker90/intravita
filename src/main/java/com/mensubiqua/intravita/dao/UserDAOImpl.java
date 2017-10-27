@@ -56,9 +56,9 @@ public class UserDAOImpl implements UserDAO{
 		return users;
 	}
 	
-	 public void updateRole(String nickname) {
+	 public void updateRole(String nickname, String rol) {
 		   String nicknameDB = Funciones.encrypt(nickname);
-		   DBBroker.get().updateRole(ID, nicknameDB, COLLECTION);
+		   DBBroker.get().updateRole(ID, nicknameDB, COLLECTION, rol);
 		   
 	   }
 

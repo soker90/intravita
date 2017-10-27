@@ -47,13 +47,7 @@ public class DBBroker<T> {
     }
 
     
-    public void updateRole(String field, String value, String collection){       
-        
-        BasicDBObject newDocument = new BasicDBObject();
-        newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_ADMIN"));
-        BasicDBObject searchQuery = new BasicDBObject().append(field, value);
-        this.db.getCollection(collection).updateOne(searchQuery, newDocument);
-    }
+    
     public void deleteOne(String field, String value, String collection){
         BasicDBObject query = new BasicDBObject(field, value);
 
@@ -69,6 +63,18 @@ public class DBBroker<T> {
     public MongoCollection<Document> selectAll(String collection)
     {
     	return this.db.getCollection(collection);
+    }
+    
+    public void updateRole(String field, String value, String collection, String rol){       
+    	BasicDBObject newDocument = new BasicDBObject();
+        if(rol == "ROLE_ADMIN") {
+        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_ADMIN"));
+        }else if(rol == "ROLE_USER") {
+        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_USER"));
+        }   	
+        
+        BasicDBObject searchQuery = new BasicDBObject().append(field, value);
+        this.db.getCollection(collection).updateOne(searchQuery, newDocument);
     }
     
     
