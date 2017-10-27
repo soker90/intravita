@@ -39,7 +39,12 @@
 	 			    <td><c:out value="${listVar[0]}"/></td>
 	 			    <td><c:out value="${listVar[1]}"/></td>
 	 			    <td><c:if test="${listVar[3] ne 'super.admin'}">
-	 			    <button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button>
+	 			    <form action="/intravita/admin/updateRol" method="post">
+		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
+		 			    <input type="text" id="rol" name="rol" hidden="hidden" value="${listVar[2]}">
+		 			    <button type="submit" name="submit" value="submit" class="btn btn-primary">${listVar[2]}</button>
+		 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	 			    </form>
 	 			    </c:if></td>
 	 			    
 	 				<td><c:if test="${listVar[3] ne 'super.admin'}">

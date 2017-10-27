@@ -141,5 +141,15 @@ public class AdminController {
     	return new ModelAndView("redirect:/default");
         
     }
+    
+    @RequestMapping(value = "/admin/updateRol", method = RequestMethod.POST)
+    public ModelAndView updateRol(HttpServletRequest request) {
+    	String rol = request.getParameter("rol");
+    	if(rol.equals("No")) rol="ROLE_ADMIN"; else rol="ROLE_USER"; 
+    	
+    	userDAO.updateRole(request.getParameter("username"), rol);
+        
+        return new ModelAndView("redirect:/default");
+    }
 
 }
