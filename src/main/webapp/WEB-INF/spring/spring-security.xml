@@ -8,8 +8,6 @@
 
     <http auto-config="true" use-expressions="true">
         <access-denied-handler error-page="/error"/>
-        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
         <form-login
                 login-page="/login"
                 default-target-url="/default"
@@ -34,4 +32,3 @@
 
 
 </beans:beans>
-

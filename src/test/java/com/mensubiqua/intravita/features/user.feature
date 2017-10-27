@@ -30,12 +30,17 @@ Feature: User
     When Cambio de username a "balboa"
     Then El username es "balboa"
 
-  Scenario: Cambio de contraseña
+  Scenario: Cambio de contrasena
     Given Tengo un usuario inicializado
-    When Cambio de contraseña a "pojo"
-    Then La contraseña es "pojo"
+    When Cambio de contrasena a "pojo"
+    Then La contrasena es "pojo"
 
-  Scenario: Cambio de contraseña
+  Scenario: Cambio de contrasena
     Given Tengo un usuario inicializado
-    When Cambio de contraseña a "balboa"
-    Then La contraseña es "balboa"
+    When Cambio de contrasena a "balboa"
+    Then La contrasena es "balboa"
+    
+    Scenario: Cambio de email
+    	Given Tengo un usuario inicializado
+    	When Cambio de email a "email@gmail.com"
+    	Then El email es "email@gmail.com"

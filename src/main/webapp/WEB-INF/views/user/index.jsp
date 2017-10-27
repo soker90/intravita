@@ -1,31 +1,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
-<html>
-    <body>
-        <h1 id="title">Title : ${title}</h1>
-        <h1>Message : ${message}</h1>
+<c:set var="user" value="${user}" scope="request" /> <!-- Esto envia variables a las vistas de los includes -->
+<c:set var="vista" value="usuario" scope="request" />
+<%@ include file="/WEB-INF/views/header.jsp" %>
 
-        <c:url value="/j_spring_security_logout" var="logoutUrl" />
+ <!-- main col right -->
+ <div class="col-sm-9">
 
-        <!-- csrt for log out-->
-        <form action="${logoutUrl}" method="post" id="logoutForm">
-            <input type="hidden"
-                   name="${_csrf.parameterName}"
-                   value="${_csrf.token}" />
-        </form>
+   <div class="panel panel-default">
+	  <div class="panel-body">
+		<div class="clearfix"></div>
+		<hr>
+		
+		<p>Texto de mi publicación.</p>
+		
+		<hr>
+		<form>
+		<div class="input-group">
+		  <div class="input-group-btn">
+		  <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+		  <button class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button><button class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
+		  </div>
+		</div>
+		</form>
+		
+	  </div>
+   </div>
 
-        <script>
-            function formSubmit() {
-                document.getElementById("logoutForm").submit();
-            }
-        </script>
 
-        <c:if test="${pageContext.request.userPrincipal.name != null}">
-            <h2>
-                Bienvenido : ${pageContext.request.userPrincipal.name} | <a id="logout"
-                    href="javascript:formSubmit()"> Salir</a>
-            </h2>
-        </c:if>
-    </body>
-</html>
+ </div>
+
+	
+<%@ include file="/WEB-INF/views/footer.jsp" %>
