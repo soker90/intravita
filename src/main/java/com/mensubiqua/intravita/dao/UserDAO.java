@@ -10,5 +10,6 @@ public interface UserDAO {
     public void delete(String nickname);
     public User find(String nickname);
     public ArrayList<User> selectAll();
+    public void update(User user);
 
 }

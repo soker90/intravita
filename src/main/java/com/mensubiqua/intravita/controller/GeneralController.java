@@ -1,32 +1,52 @@
 package com.mensubiqua.intravita.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.awt.List;
+import java.security.Principal;
+import java.util.ArrayList;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.xml.bind.DatatypeConverter;
 
 @Controller
-public class LoginController {
+public class GeneralController {
 
-    @Autowired
+	@Autowired
     UserDAOImpl userDAO;
-
+	
+    @RequestMapping({"/default", "/"})
+    public String defaultAfterLogin(HttpSession sesion) {
+    	User user = (User) sesion.getAttribute("user");
+    	
+    	try {
+    		
+	    	if(user.getRol() == null)
+	    		return "redirect:/login";
+	    	
+	        if (user.getRol().equalsIgnoreCase("ROLE_ADMIN")) {
+	            return "redirect:/admin";
+	        }
+	
+	        if (user.getRol().equalsIgnoreCase("ROLE_USER")) {
+	            return "redirect:/user";
+	        }
+    	} catch (Exception e) {
+            return "redirect:/login";
+    	}
+    	
+        return "redirect:/login";
+    }
+    
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {    	
         return "login";
@@ -40,7 +60,7 @@ public class LoginController {
         model.setViewName("login");
     	
         if (!request.getParameter("password").equals(request.getParameter("password2"))) 
-        	model.addObject("mensaje", "Las contrase�as no coinciden");
+        	model.addObject("mensaje", "Las contraseñas no coinciden");
 
         else if (userDAO.find(Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido"))) != null) 
         	model.addObject("mensaje", "Este usuario ya existe");
@@ -83,6 +103,25 @@ public class LoginController {
     public String logout(HttpSession sesion) {
     	sesion.invalidate();
         return "redirect:/default";
+    }
+
+
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public ModelAndView error403(Principal user){
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("head", "Error 403");
+        model.addObject("title", "Error 403 - Acceso denegado");
+        if (user != null){
+            model.addObject("msg", "Hola "+user.getName()+", no tienes permiso para acceder a esta página");
+        }else{
+            model.addObject("msg", "No tienes permiso para acceder a esta página");
+        }
+
+        model.setViewName("error");
+        return model;
+
     }
 
 }

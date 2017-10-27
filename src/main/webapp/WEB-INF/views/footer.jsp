@@ -28,24 +28,30 @@
 		<!--post modal-->
 		<div id="postModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 		  <div class="modal-dialog">
-		  <div class="modal-content">
-			  <div class="modal-header">
-				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					Nueva publicación
-			  </div>
-			  <div class="modal-body">
+			  <div class="modal-content">
+				  <div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						Nueva publicación
+				  </div>
 				  <form class="form center-block">
-					<div class="form-group">
-					  <textarea class="form-control input-lg" autofocus="" placeholder="Escribe aqui tu publicación"></textarea>
-					</div>
-				  </form>
-			  </div>
-			  <div class="modal-footer">
-				  <div>
-				  <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Aceptar</button>
-				  </div>	
-			  </div>
-		  </div>
+					  <div class="modal-body">
+						  
+						<div class="form-group">
+						  <textarea class="form-control input-lg" autofocus="" placeholder="Escribe aqui tu publicación"></textarea>
+						</div>
+						  
+					  </div>
+					  <div class="modal-footer">
+				        <div class="col-xs-5 selectContainer">
+				            <select class="form-control" name="privacidad">
+				                <option value="publica">Publica</option>
+				                <option value="privada">Privada</option>
+				            </select>
+				        </div>
+						<button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Aceptar</button>
+					  </div>
+				  </form>	
+				</div>
 		  </div>
 		</div>
         <script type="text/javascript" src="/intravita/resources/js/jquery-1.11.1.min.js"></script>

@@ -72,7 +72,41 @@ public class UserController {
 
     }
     
-    @RequestMapping(value = "borrarCuenta", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/editarCuenta", method = RequestMethod.POST)
+    public ModelAndView updateAccount(HttpSession session, HttpServletRequest request) {
+        User user = (User) session.getAttribute("user");
+        user.setNickname(request.getParameter("nick"));
+        user.setNombre(request.getParameter("nombre"));
+        user.setApellido(request.getParameter("apellidos"));
+        user.setFoto(request.getParameter("foto"));
+        user.setEmail(request.getParameter("email"));
+        
+        userDAO.update(user);
+        
+        return new ModelAndView("redirect:/default");
+    }
+    
+    @RequestMapping(value = "/user/cambiarPassword", method = RequestMethod.POST)
+    public ModelAndView updatePassword(HttpSession session, HttpServletRequest request) {
+        User user = (User) session.getAttribute("user");
+        if(Funciones.encrypt_md5(request.getParameter("password_old")).equals(user.getPassword()))
+        {
+        	if(request.getParameter("password").equals(request.getParameter("password2")))
+        	{
+        		user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
+        		userDAO.update(user);
+        	} else {
+        		//TODO enviar un mensaje a una variable de sesion
+        	}
+        } else {
+        	//TODO enviar un mensaje a una variable de sesion
+        }
+        
+        
+        return new ModelAndView("redirect:/default");
+    }
+    
+    @RequestMapping(value = "/user/borrarCuenta", method = RequestMethod.GET)
     public String deleteAccount(HttpSession session) {
         User user = (User) session.getAttribute("user");
         userDAO.delete(Funciones.encrypt(user.getNickname()));
@@ -80,5 +114,6 @@ public class UserController {
 
         return "redirect:/default";
     }
+    
 
 }

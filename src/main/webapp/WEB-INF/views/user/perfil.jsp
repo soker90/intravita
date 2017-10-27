@@ -14,7 +14,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form>
+		<form action="/intravita/user/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
 		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user.nickname}">
@@ -40,8 +40,9 @@
 		    </div>     
 		    
 		    <div class="form-group">
-		        <button type="submit" class="btn btn-primary">Aceptar</button>
-		    </div>     
+		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
+		    </div> 
+		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		    
 		</form>
 		
@@ -55,10 +56,14 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form>   
+		<form action="/intravita/user/cambiarPassword" method="post">   
+		    <div class="form-group">
+		        <label for="password_id" class="control-label">Contraseña actual</label>
+		        <input type="password" class="form-control" id="password_old" name="password_old">
+		    </div>   
 		    
 		    <div class="form-group">
-		        <label for="password_id" class="control-label">Contraseña</label>
+		        <label for="password_id" class="control-label">Contraseña nueva</label>
 		        <input type="password" class="form-control" id="password" name="password">
 		    </div>   
 		    
@@ -68,8 +73,9 @@
 		    </div>   
 		    
 		    <div class="form-group">
-		        <button type="submit" class="btn btn-primary">Aceptar</button>
-		    </div>     
+		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
+		    </div> 
+		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  
 		    
 		</form>
 		
@@ -78,26 +84,28 @@
 	  </div>
    </div>
    
-   <div class="panel panel-default">
-   	  <div class="panel-heading"><h4>Borrar cuenta</h4></div>
-	  <div class="panel-body">
-		<div class="clearfix"></div>
-		
-		<form action="/intravita/borrarCuenta">   
-		    
-		    <div class="form-group">
-		        <label for="borrar_id" class="control-label">Esta operación no se puede deshacer</label>
-		    </div>
-		    <div class="form-group">
-		        <button type="submit" class="btn btn-danger">Borrar cuenta</button>
-		    </div>      
-		    
-		</form>
-		
-		<hr>
-		
-	  </div>
-   </div>
+   <c:if test="${user.nickname ne 'super.admin' }">
+	   <div class="panel panel-default">
+	   	  <div class="panel-heading"><h4>Borrar cuenta</h4></div>
+		  <div class="panel-body">
+			<div class="clearfix"></div>
+			
+			<form action="/intravita/user/borrarCuenta">   
+			    
+			    <div class="form-group">
+			        <label for="borrar_id" class="control-label">Esta operación no se puede deshacer</label>
+			    </div>
+			    <div class="form-group">
+			        <button type="submit" class="btn btn-danger">Borrar cuenta</button>
+			    </div>      
+			    
+			</form>
+			
+			<hr>
+			
+		  </div>
+	   </div>
+   </c:if>
    
 
 

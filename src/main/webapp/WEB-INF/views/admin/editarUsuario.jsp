@@ -10,11 +10,11 @@
  <div class="col-sm-9">
 
    <div class="panel panel-default">
-   	  <div class="panel-heading"><h4>Perfil</h4></div>
+   	  <div class="panel-heading"><h4>Editar usuario</h4></div>
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form>
+		<form action="/intravita/admin/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
 		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user_edit.nickname}">
@@ -40,12 +40,9 @@
 		    </div>     
 		    
 		    <div class="form-group">
-		        <label for="email_id" class="control-label">Cambiar Rol(pendiente)</label>
+		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 		    </div> 
-		    
-		    <div class="form-group">
-		        <button type="submit" class="btn btn-primary">Aceptar</button>
-		    </div>     
+		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>   
 		    
 		</form>
 		
@@ -60,6 +57,7 @@
 		<div class="clearfix"></div>
 		
 		<form>   
+			<input type="text" id="nick" name="nick" readonly value="${user_edit.nickname}" hidden="">
 		    
 		    <div class="form-group">
 		        <label for="password_id" class="control-label">Contraseña</label>

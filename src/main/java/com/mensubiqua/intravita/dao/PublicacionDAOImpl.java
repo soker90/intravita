@@ -1,6 +1,7 @@
 package com.mensubiqua.intravita.dao;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.User;
 import com.mongodb.DBCursor;
 import com.mongodb.client.MongoCollection;
@@ -12,21 +13,21 @@ import org.bson.Document;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDAOImpl implements UserDAO{
+public class PublicacionDAOImpl implements PublicacionDAO{
 
-    private final String COLLECTION = "users";
-    private final String ID = "nickname";
+    private final String COLLECTION = "publicaciones";
+    private final String ID = ""; //TODO
 
-    public void insert(User user) {
-        DBBroker.get().insertOne(user, COLLECTION);
+    public void insert(Publicacion p) {
+        //DBBroker.get().insertOne(user, COLLECTION);
     }
 
-    public void delete(String nickname) {
-        DBBroker.get().deleteOne(ID, nickname, COLLECTION);
+    public void delete(int id) {
+        //DBBroker.get().deleteOne(ID, nickname, COLLECTION);
     }
 
-    public User find(String nickname) {
-        Document document = DBBroker.get().find(ID, nickname, COLLECTION);
+    public Publicacion find(int id) {
+        /*Document document = DBBroker.get().find(ID, nickname, COLLECTION);
         User user = null;
 
         if (document != null) 
@@ -34,11 +35,12 @@ public class UserDAOImpl implements UserDAO{
         		Funciones.decrypt(document.getString("email")), document.getString("password"), document.getString("rol"),
         		Funciones.decrypt(document.getString("nickname")));
 
-        return user;
+        return user;*/
+    	return null;
     }
 
-	public ArrayList<User> selectAll() {
-		MongoCollection<Document> collection = DBBroker.get().selectAll(COLLECTION);
+	public ArrayList<Publicacion> selectAll() {
+		/*MongoCollection<Document> collection = DBBroker.get().selectAll(COLLECTION);
 		ArrayList<User> users = new ArrayList<User>();
 		
 		   
@@ -53,13 +55,8 @@ public class UserDAOImpl implements UserDAO{
 		}
 
 		
-		return users;
-	}
-
-	public void update(User user) {
-		// TODO Auto-generated method stub
-		// Entra un usuario con sus atributos sin encriptar y se tiene que actualizar
-		// en la BBDD en base a su nick
+		return users;*/
 		
+		return null;
 	}
 }

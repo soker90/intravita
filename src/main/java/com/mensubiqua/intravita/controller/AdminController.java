@@ -24,7 +24,7 @@ public class AdminController {
 	@Autowired
     UserDAOImpl userDAO;
 	
-	@RequestMapping(value = "/admin/index**")
+	@RequestMapping(value = "/admin/**")
     public ModelAndView adminPage(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
     	
@@ -73,7 +73,6 @@ public class AdminController {
     @RequestMapping(value = "/admin/borrarUsuario", method = RequestMethod.POST)
     public ModelAndView deleteUser(HttpServletRequest request) {
     	String username = request.getParameter("username");
-    	System.out.println(username);
     	if(!username.equals("super.admin"))
     		userDAO.delete(Funciones.encrypt(username));
 
@@ -105,5 +104,42 @@ public class AdminController {
 
     }
     
+    @RequestMapping(value = "/admin/editarCuenta", method = RequestMethod.POST)
+    public ModelAndView editAccount(HttpSession session, HttpServletRequest request) {
+        User user = new User();
+        user.setNickname(request.getParameter("nick"));
+        user.setNombre(request.getParameter("nombre"));
+        user.setApellido(request.getParameter("apellidos"));
+        user.setFoto(request.getParameter("foto"));
+        user.setEmail(request.getParameter("email"));
+        
+        userDAO.update(user);
+        
+        return new ModelAndView("redirect:/default");
+    }
+    
+    @RequestMapping(value = "/admin/cambiarPassword", method = RequestMethod.POST)
+    public ModelAndView updatePassword(HttpSession session, HttpServletRequest request) {
+    	if(!request.getParameter("nick").equals("super.admin"))
+    	{
+    		User user = userDAO.find(Funciones.encrypt(request.getParameter("nick")));
+            if(Funciones.encrypt_md5(request.getParameter("password_old")).equals(user.getPassword()))
+            {
+            	if(request.getParameter("password").equals(request.getParameter("password2")))
+            	{
+            		user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
+            		userDAO.update(user);
+            	} else {
+            		//TODO enviar un mensaje a una variable de sesion
+            	}
+            } else {
+            	//TODO enviar un mensaje a una variable de sesion
+            }
+            
+    	}
+    	
+    	return new ModelAndView("redirect:/default");
+        
+    }
 
 }
