@@ -65,7 +65,7 @@ public class DBBroker<T> {
     	return this.db.getCollection(collection);
     }
     
-    public void updateRole(BasicDBObject newDocument, BasicDBObject searchQuery, String collection){       
+    public void update(BasicDBObject newDocument, BasicDBObject searchQuery, String collection){       
     	 	
         this.db.getCollection(collection).updateOne(searchQuery, newDocument);
     }

@@ -68,16 +68,47 @@ public class UserDAOImpl implements UserDAO{
 	        }   	
 	        
 	        BasicDBObject searchQuery = new BasicDBObject().append(ID, nicknameDB);
-	        DBBroker.get().updateRole(newDocument, searchQuery, COLLECTION);	        
+	        DBBroker.get().update(newDocument, searchQuery, COLLECTION);	        
 		   
 	   }
 
-	public void update(User user) {
-		// TODO Auto-generated method stub
-		// Entra un usuario con sus atributos sin encriptar y se tiene que actualizar
-		// en la BBDD en base a su nick
+	 public void update(User user) {			
+
+			//encriptar las nuevas variables
+			String nicknameDB = Funciones.encrypt(user.getNickname());
+			String nombreDB = Funciones.encrypt(user.getNombre());
+			String apellidoDB = Funciones.encrypt(user.getApellido());
+			String emailDB = Funciones.encrypt(user.getEmail());
+			String nicknameNuevo = Funciones.encrypt(user.getNombre() + "." + user.getApellido());
+
+			
+
+			//crear documento de los nuevos valores
+			BasicDBObject values = new BasicDBObject();
+			values.append("nickname", nicknameNuevo);
+			values.append("nombre", nombreDB);
+			values.append("apellido", apellidoDB);
+			values.append("email", emailDB);
+			BasicDBObject set = new BasicDBObject();
+			set.append("$set", values);
+			//crear query de busqueda
+			BasicDBObject searchQuery = new BasicDBObject().append(ID, nicknameDB);
+			//llamada a dbbroker
+			DBBroker.get().update(set, searchQuery, COLLECTION);	
+
+		}
+	 
+	 public void updatePassword(User user) {
+		 String passwordDB = Funciones.encrypt(user.getPassword());
+		 String nicknameDB = Funciones.encrypt(user.getNickname());
+		 BasicDBObject set = new BasicDBObject();
+		 set.append("$set", new BasicDBObject().append("password", passwordDB));
+		 BasicDBObject searchQuery = new BasicDBObject().append(ID, nicknameDB);
+		 DBBroker.get().update(set, searchQuery, COLLECTION);
 		
-	}
+		 
+		 
+	 }
 	
 	  
 }
