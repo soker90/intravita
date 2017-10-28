@@ -66,9 +66,14 @@ public class GeneralController {
         	model.addObject("mensaje", "Este usuario ya existe");
 
         else {
-            user = new User(Funciones.encrypt(request.getParameter("nombre")), Funciones.encrypt(request.getParameter("apellido")),
-            		Funciones.encrypt(request.getParameter("email")), Funciones.encrypt_md5(request.getParameter("password")),
-            		"ROLE_USER", Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido")));
+        	String nombre = Funciones.encrypt(request.getParameter("nombre"));
+        	String apellido = Funciones.encrypt(request.getParameter("apellido"));
+        	String email = Funciones.encrypt(request.getParameter("email"));
+        	String password = Funciones.encrypt_md5(request.getParameter("password"));
+        	String nick = Funciones.encrypt((request.getParameter("nombre") + 
+        			"." + request.getParameter("apellido").toLowerCase()));
+            user = new User(nombre, apellido, email, password,
+            		"ROLE_USER", nick);
             userDAO.insert(user);
             model.addObject("mensaje", "Usuario creado con exito");
         }
@@ -82,7 +87,7 @@ public class GeneralController {
     @RequestMapping(value = "logear", method = RequestMethod.POST)
     public ModelAndView logear(HttpServletRequest request)  {
         ModelAndView model = new ModelAndView();
-        User user = userDAO.find(Funciones.encrypt(request.getParameter("username")));
+        User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));
         
         model.setViewName("redirect:/default");
     	
