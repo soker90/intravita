@@ -1,18 +1,29 @@
 package com.mensubiqua.intravita.controller;
 
+import org.eclipse.jdt.internal.compiler.batch.FileSystem.Classpath;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.common.reflect.ClassPath;
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
 
+import cucumber.runtime.io.Resource;
+
 import java.awt.List;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 
@@ -27,7 +38,7 @@ public class GeneralController {
     @RequestMapping({"/default", "/"})
     public String defaultAfterLogin(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
-    	
+
     	try {
     		
 	    	if(user.getRol() == null)
@@ -128,5 +139,38 @@ public class GeneralController {
         return model;
 
     }
+    
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	public String uploadFile(@RequestParam("file") MultipartFile file) {
+
+		if (!file.isEmpty()) {
+			try {
+				byte[] bytes = file.getBytes();
+				// Crear el directorio para almacenar el archivo
+				String rootPath = System.getProperty("catalina.home");
+
+				File dir = new File("classpath:/WEB-INF/resources" + File.separator + "tmpFiles");
+				
+				if (!dir.exists())
+					dir.mkdirs();
+
+				// Crear documento en el servidor
+				File serverFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+
+				System.out.println("Ubicación de documento = " + serverFile.getAbsolutePath());
+
+				//return "Documento subido correctamente = " + file.getOriginalFilename() + " Ubicacion del Archivo = " + serverFile.getAbsolutePath();
+			} catch (Exception e) {
+				//return "Ocurrio un error al subir documento" + file.getOriginalFilename() + " => " + e.getMessage();
+			}
+		} else {
+			//return "Ocurrio un error al subir " + file.getOriginalFilename() + " documento vacio.";
+		}
+		
+		return "redirect:/user/perfil";
+	}
 
 }
