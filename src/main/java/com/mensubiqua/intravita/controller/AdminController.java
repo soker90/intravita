@@ -44,7 +44,6 @@ public class AdminController {
 			        for(User user1: users)
 			        {
 			        	String boton = "superadmin";
-			        	//TODO poner excepcion para superusuario cuando se cree
 			        	if(user1.getRol().equals("ROLE_ADMIN"))
 			        		boton="Sí";
 			        	else if (user1.getRol().equals("ROLE_USER")) {

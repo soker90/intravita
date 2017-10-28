@@ -14,7 +14,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="/intravita/user/editarCuenta" method="post">
+		<form action="/intravita/user/editarCuenta" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
 		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user.nickname}">
@@ -31,7 +31,7 @@
 		                            
 		    <div class="form-group">
 		        <label for="foto_id" class="control-label">Foto</label>
-		        <input type="text" class="form-control" id="foto" name="foto" value="${user.foto}" placeholder="Introduzca un enlace a una imagen">
+		        <input type="file" name="foto">
 		    </div>                                    
 		                            
 		    <div class="form-group">
