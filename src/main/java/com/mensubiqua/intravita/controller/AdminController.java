@@ -111,6 +111,7 @@ public class AdminController {
         user.setApellido(request.getParameter("apellidos"));
         user.setFoto(request.getParameter("foto"));
         user.setEmail(request.getParameter("email"));
+        System.out.println(user.toString());
         
         userDAO.update(user);
         

@@ -14,7 +14,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="/intravita/user/editarCuenta" method="post" enctype="multipart/form-data">
+		<form action="/intravita/user/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
 		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user.nickname}">

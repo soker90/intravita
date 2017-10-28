@@ -64,7 +64,7 @@ public class UserDAOImpl implements UserDAO{
 			String nombreDB = Funciones.encrypt(user.getNombre());
 			String apellidoDB = Funciones.encrypt(user.getApellido());
 			String emailDB = Funciones.encrypt(user.getEmail());
-			String nicknameNuevo = Funciones.encrypt(user.getNombre() + "." + user.getApellido());
+			String nicknameNuevo = Funciones.encrypt(user.getNombre().toLowerCase() + "." + user.getApellido().toLowerCase());
 			
 
 			//crear documento de los nuevos valores

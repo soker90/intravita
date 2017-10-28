@@ -84,12 +84,12 @@ public class UserController {
         user.setNickname(request.getParameter("nick"));
         user.setNombre(request.getParameter("nombre"));
         user.setApellido(request.getParameter("apellidos"));
-        user.setFoto(request.getParameter("foto"));
+        //user.setFoto(//request.getParameter("foto"));
         user.setEmail(request.getParameter("email"));
         
         userDAO.update(user);
         
-        return new ModelAndView("redirect:/default");
+        return new ModelAndView("redirect:/user/perfil");
     }
     
     @RequestMapping(value = "/user/cambiarPassword", method = RequestMethod.POST)
