@@ -57,21 +57,6 @@ public class UserDAOImpl implements UserDAO{
 		return users;
 	}
 	
-	 public void updateRole(String nickname, String rol) {
-		   String nicknameDB = Funciones.encrypt(nickname);
-		   //DBBroker.get().updateRole(ID, nicknameDB, COLLECTION, rol);
-		   BasicDBObject newDocument = new BasicDBObject();
-	        if(rol == "ROLE_ADMIN") {
-	        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_ADMIN"));
-	        }else if(rol == "ROLE_USER") {
-	        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_USER"));
-	        }   	
-	        
-	        BasicDBObject searchQuery = new BasicDBObject().append(ID, nicknameDB);
-	        DBBroker.get().update(newDocument, searchQuery, COLLECTION);	        
-		   
-	   }
-
 	 public void update(User user) {			
 
 			//encriptar las nuevas variables
@@ -80,7 +65,6 @@ public class UserDAOImpl implements UserDAO{
 			String apellidoDB = Funciones.encrypt(user.getApellido());
 			String emailDB = Funciones.encrypt(user.getEmail());
 			String nicknameNuevo = Funciones.encrypt(user.getNombre() + "." + user.getApellido());
-
 			
 
 			//crear documento de los nuevos valores
@@ -97,6 +81,23 @@ public class UserDAOImpl implements UserDAO{
 			DBBroker.get().update(set, searchQuery, COLLECTION);	
 
 		}
+	
+	 public void updateRole(String nickname, String rol) {
+		   String nicknameDB = Funciones.encrypt(nickname);
+		   //DBBroker.get().updateRole(ID, nicknameDB, COLLECTION, rol);
+		   BasicDBObject newDocument = new BasicDBObject();
+	        if(rol == "ROLE_ADMIN") {
+	        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_ADMIN"));
+	        }else if(rol == "ROLE_USER") {
+	        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_USER"));
+	        }   	
+	        
+	        BasicDBObject searchQuery = new BasicDBObject().append(ID, nicknameDB);
+	        DBBroker.get().update(newDocument, searchQuery, COLLECTION);	        
+		   
+	   }
+
+
 	 
 	 public void updatePassword(User user) {
 		 String passwordDB = Funciones.encrypt(user.getPassword());
