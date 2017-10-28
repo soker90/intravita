@@ -24,7 +24,7 @@ public class UserController {
 	@Autowired
     UserDAOImpl userDAO;
 	
-    @RequestMapping(value = "/user/index**")
+    @RequestMapping(value = "/user/**")
     public ModelAndView homePage(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
     	
