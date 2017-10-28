@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.dao.PublicacionDAO;
+import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.User;
 
 import java.awt.List;
@@ -23,6 +26,9 @@ public class UserController {
 
 	@Autowired
     UserDAOImpl userDAO;
+	
+	@Autowired
+    PublicacionDAOImpl publicacionDAO;
 	
     @RequestMapping(value = "/user/**")
     public ModelAndView homePage(HttpSession sesion) {
@@ -113,6 +119,20 @@ public class UserController {
         session.invalidate();
 
         return "redirect:/default";
+    }
+    
+    @RequestMapping(value = "/user/publicar", method = RequestMethod.POST)
+    public ModelAndView publicar(HttpSession session, HttpServletRequest request)  {
+
+    	User user = (User) session.getAttribute("user");
+    	System.out.println(user.getNickname());
+    	
+        Publicacion p = new Publicacion(user.getNickname(), request.getParameter("texto"), 
+        		request.getParameter("privacidad"));
+        	
+            publicacionDAO.insert(p);
+
+            return new ModelAndView("redirect:/user");
     }
     
 

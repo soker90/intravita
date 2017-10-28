@@ -33,22 +33,23 @@
 					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						Nueva publicación
 				  </div>
-				  <form class="form center-block">
+				  <form class="form center-block" action="/intravita/user/publicar" method="post">
 					  <div class="modal-body">
 						  
 						<div class="form-group">
-						  <textarea class="form-control input-lg" autofocus="" placeholder="Escribe aqui tu publicación"></textarea>
+						  <textarea id="texto" name="texto" class="form-control input-lg" autofocus="" placeholder="Escribe aqui tu publicación"></textarea>
 						</div>
 						  
 					  </div>
 					  <div class="modal-footer">
 				        <div class="col-xs-5 selectContainer">
-				            <select class="form-control" name="privacidad">
+				            <select class="form-control" name="privacidad" id="texto">
 				                <option value="publica">Publica</option>
 				                <option value="privada">Privada</option>
 				            </select>
 				        </div>
-						<button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Aceptar</button>
+						<button type="submit" name="submit" value="submit" class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Aceptar</button>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					  </div>
 				  </form>	
 				</div>
