@@ -2,6 +2,7 @@ package com.mensubiqua.intravita.dao;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.model.User;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.client.MongoCollection;
 
@@ -58,7 +59,16 @@ public class UserDAOImpl implements UserDAO{
 	
 	 public void updateRole(String nickname, String rol) {
 		   String nicknameDB = Funciones.encrypt(nickname);
-		   DBBroker.get().updateRole(ID, nicknameDB, COLLECTION, rol);
+		   //DBBroker.get().updateRole(ID, nicknameDB, COLLECTION, rol);
+		   BasicDBObject newDocument = new BasicDBObject();
+	        if(rol == "ROLE_ADMIN") {
+	        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_ADMIN"));
+	        }else if(rol == "ROLE_USER") {
+	        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_USER"));
+	        }   	
+	        
+	        BasicDBObject searchQuery = new BasicDBObject().append(ID, nicknameDB);
+	        DBBroker.get().updateRole(newDocument, searchQuery, COLLECTION);	        
 		   
 	   }
 

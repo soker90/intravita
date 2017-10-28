@@ -65,15 +65,8 @@ public class DBBroker<T> {
     	return this.db.getCollection(collection);
     }
     
-    public void updateRole(String field, String value, String collection, String rol){       
-    	BasicDBObject newDocument = new BasicDBObject();
-        if(rol == "ROLE_ADMIN") {
-        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_ADMIN"));
-        }else if(rol == "ROLE_USER") {
-        	newDocument.append("$set", new BasicDBObject().append("rol", "ROLE_USER"));
-        }   	
-        
-        BasicDBObject searchQuery = new BasicDBObject().append(field, value);
+    public void updateRole(BasicDBObject newDocument, BasicDBObject searchQuery, String collection){       
+    	 	
         this.db.getCollection(collection).updateOne(searchQuery, newDocument);
     }
     
