@@ -76,7 +76,6 @@
                                     <input type="text" name="username" placeholder="Usuario" class="form-username form-control" id="form-username">
                                 </div>
                                 <button id="form-login" type="submit" name="submit" value="submit" class="btn">Enviar recuperación</button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </div>
                     </div>

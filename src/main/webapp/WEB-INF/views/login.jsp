@@ -80,7 +80,6 @@
                                     <input type="password" name="password" placeholder="Contraseña" class="form-password form-control" id="form-password">
                                 </div>
                                 <button id="form-login" type="submit" name="submit" value="submit" class="btn">Entrar</button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </div>
                     </div>
@@ -121,7 +120,6 @@
                                     <input type="password" name="password2" placeholder="Contraseña" class="form-email form-control" id="form-password2">
                                     </div>
                                 <button id="registrar" type="submit" class="btn">Registrarse</button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </div>
                     </div>

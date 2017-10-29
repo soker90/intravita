@@ -11,7 +11,6 @@
   <properties>
     <jdk.version>1.8</jdk.version>
     <spring.version>5.0.0.RELEASE</spring.version>
-    <spring.security.version>4.2.3.RELEASE</spring.security.version>
     <jstl.version>1.2</jstl.version>
     <cucumber.version>1.2.5</cucumber.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,22 +39,6 @@
       <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
       <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>${spring.security.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-web</artifactId>
-      <version>${spring.security.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-config</artifactId>
-      <version>${spring.security.version}</version>
     </dependency>
 
     <dependency>

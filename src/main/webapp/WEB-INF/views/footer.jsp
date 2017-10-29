@@ -49,7 +49,6 @@
 				            </select>
 				        </div>
 						<button type="submit" name="submit" value="submit" class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Aceptar</button>
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					  </div>
 				  </form>	
 				</div>

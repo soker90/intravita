@@ -43,7 +43,6 @@
 		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
 		 			    <input type="text" id="rol" name="rol" hidden="hidden" value="${listVar[2]}">
 		 			    <button type="submit" name="submit" value="submit" class="btn btn-primary">${listVar[2]}</button>
-		 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	 			    </form>
 	 			    </c:if></td>
 	 			    
@@ -51,14 +50,12 @@
 	 				<form action="/intravita/admin/editarUsuario" method="post">
 		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
 		 			    <button type="submit" name="submit" value="submit" class="btn btn-warning">Editar</button>
-		 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	 			    </form></c:if></td>
 	 			    
 	 				<td><c:if test="${listVar[3] ne 'super.admin'}">
 	 				<form action="/intravita/admin/borrarUsuario" method="post">
 		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
 		 			    <button type="submit" name="submit" value="submit" class="btn btn-danger">Eliminar</button>
-		 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	 			    </form></c:if></td>
 	 		  	</tr>
 	 		</c:forEach>

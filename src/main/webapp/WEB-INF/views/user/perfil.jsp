@@ -37,7 +37,6 @@
 		    <div class="form-group">
 		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 		    </div> 
-		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		    
 		</form>
 		
@@ -58,7 +57,6 @@
 			<div class="form-group">
 				<button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 				<input type="text" id="nick" name="nick" hidden="" value="${user.nickname}">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</div>
 		</form>
 		
@@ -91,7 +89,6 @@
 		    <div class="form-group">
 		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 		    </div> 
-		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  
 		    
 		</form>
 		

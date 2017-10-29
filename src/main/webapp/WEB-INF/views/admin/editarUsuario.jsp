@@ -37,7 +37,6 @@
 		    <div class="form-group">
 		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 		    </div> 
-		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>   
 		    
 		</form>
 		
@@ -51,14 +50,13 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form id="imagenes" name="imagenes" method="POST" action="/intravita/uploadFile?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+		<form id="imagenes" name="imagenes" method="POST" action="/intravita/uploadFile" enctype="multipart/form-data">
 			<div class="form-group">
 				<input type="file" name="file" accept="image/jpeg"> 
 			</div>
 			<div class="form-group">
 				<button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 				<input type="text" id="nick" name="nick" hidden="" value="${user_edit.nickname}">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</div>
 		</form>
 		
