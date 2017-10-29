@@ -1,34 +1,25 @@
 package com.mensubiqua.intravita.controller;
 
-import org.eclipse.jdt.internal.compiler.batch.FileSystem.Classpath;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-
-import javax.servlet.http.HttpSession;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.google.common.reflect.ClassPath;
-import com.mensubiqua.intravita.auxiliar.Funciones;
-import com.mensubiqua.intravita.dao.UserDAOImpl;
-import com.mensubiqua.intravita.model.User;
-
-import cucumber.runtime.io.Resource;
-
-import java.awt.List;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
-import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.User;
 
 @Controller
 public class GeneralController {
