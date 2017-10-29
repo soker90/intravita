@@ -18,15 +18,15 @@ public class Variables {
     private String mensaje;
     
 	public Variables() {
-		this.url = "/";
+		this.url = "https://intravita.herokuapp.com/";
 		
 		try {
 			String ip = InetAddress.getLocalHost().toString();
 			if(ip.equals("127.0.0.1"))
-				this.url = "/intravita/";
+				this.url = "https://localhost:8443/intravita/";
 		} catch (UnknownHostException e1) {
 
-			this.url = "/";
+			this.url = "https://intravita.herokuapp.com/";
 		}
 	}
 

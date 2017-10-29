@@ -30,7 +30,7 @@ public class UserController {
 	
 	
 	
-    @RequestMapping(value = "/user**", method = RequestMethod.GET)
+    @RequestMapping(value = "/user**")
     public ModelAndView homePage(HttpSession sesion ) {
     	User user = (User) sesion.getAttribute("user");
     	
