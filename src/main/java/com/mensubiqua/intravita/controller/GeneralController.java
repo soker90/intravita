@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.Variables;
+import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
 
@@ -29,6 +30,9 @@ public class GeneralController {
 
 	@Autowired
     UserDAOImpl userDAO;
+	
+	@Autowired
+	PublicacionDAOImpl publicacionDAO;
 	
 	@Autowired
 	ServletContext servletContext;

@@ -20,120 +20,110 @@ import com.mensubiqua.intravita.model.User;
 public class UserController {
 
 	@Autowired
-    UserDAOImpl userDAO;
-	
+	UserDAOImpl userDAO;
+
 	@Autowired
 	Variables var;
-	
+
 	@Autowired
-    PublicacionDAOImpl publicacionDAO;
-	
-	
-	
-    @RequestMapping(value = "/user**")
-    public ModelAndView homePage(HttpSession sesion ) {
-    	User user = (User) sesion.getAttribute("user");
-    	
-    	try {
-    	
-	    	if(user.getRol() != null)
-	    	{
-		    	if(user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN"))
-		    	{
-		    		ModelAndView model = new ModelAndView();
-		            model.addObject("title", "Web para usuarios");
-		            model.addObject("message", "Pagina para usuarios corrientes");
-		            model.setViewName("user/index");
-		            return model;
-		    	}
-	    	}
-    	} catch (Exception e) {
-            return new ModelAndView("redirect:/default");
-    	}
-    	
-    	return new ModelAndView("redirect:/default");
+	PublicacionDAOImpl publicacionDAO;
 
-    }
-	
-    @RequestMapping(value = "/user/perfil**")
-    public ModelAndView perfil(HttpSession sesion) {
-    	User user = (User) sesion.getAttribute("user");
-    	
-    	try {
-    	
-	    	if(user.getRol() != null)
-	    	{
-		    	if(user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN"))
-		    	{
-		    		ModelAndView model = new ModelAndView();
-		            model.setViewName("user/perfil");
-		            return model;
-		    	}
-	    	}
-    	} catch (Exception e) {
-            return new ModelAndView("redirect:/default");
-    	}
-    	
-    	return new ModelAndView("redirect:/default");
+	@RequestMapping(value = "/user**")
+	public ModelAndView homePage(HttpSession sesion) {
+		User user = (User) sesion.getAttribute("user");
 
-    }
-    
-    @RequestMapping(value = "/user/editarCuenta**", method = RequestMethod.POST)
-    public ModelAndView updateAccount(HttpSession session, HttpServletRequest request) {
-        User user = (User) session.getAttribute("user");
-        user.setNickname(request.getParameter("nick"));
-        user.setNombre(request.getParameter("nombre"));
-        user.setApellido(request.getParameter("apellidos"));
-        //user.setFoto(//request.getParameter("foto"));
-        user.setEmail(request.getParameter("email"));
-        
-        userDAO.update(user);
-        
-        return new ModelAndView("redirect:/user/perfil");
-    }
-    
-    @RequestMapping(value = "/user/cambiarPassword**", method = RequestMethod.POST)
-    public ModelAndView updatePassword(HttpSession session, HttpServletRequest request) {
-        User user = (User) session.getAttribute("user");
-        if(Funciones.encrypt_md5(request.getParameter("password_old")).equals(user.getPassword()))
-        {
-        	if(request.getParameter("password").equals(request.getParameter("password2")))
-        	{
-        		user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
-        		userDAO.update(user);
-        	} else {
-        		//TODO enviar un mensaje a una variable de sesion
-        	}
-        } else {
-        	//TODO enviar un mensaje a una variable de sesion
-        }
-        
-        
-        return new ModelAndView("redirect:/default");
-    }
-    
-    @RequestMapping(value = "/user/borrarCuenta**", method = RequestMethod.GET)
-    public String deleteAccount(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        userDAO.delete(Funciones.encrypt(user.getNickname()));
-        session.invalidate();
+		try {
 
-        return "redirect:/default";
-    }
-    
-    @RequestMapping(value = "/user/publicar**", method = RequestMethod.POST)
-    public ModelAndView publicar(HttpSession session, HttpServletRequest request)  {
+			if (user.getRol() != null) {
+				if (user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN")) {
+					ModelAndView model = new ModelAndView();
+					model.addObject("title", "Web para usuarios");
+					model.addObject("message", "Pagina para usuarios corrientes");
+					model.setViewName("user/index");
+					return model;
+				}
+			}
+		} catch (Exception e) {
+			return new ModelAndView("redirect:/default");
+		}
 
-    	User user = (User) session.getAttribute("user");
-    	System.out.println(user.getNickname());
-    	
-        Publicacion p = new Publicacion(user.getNickname(), request.getParameter("texto"), 
-        		request.getParameter("privacidad"));
-        	
-            publicacionDAO.insert(p);
+		return new ModelAndView("redirect:/default");
 
-            return new ModelAndView("redirect:/user");
-    }
-    
+	}
+
+	@RequestMapping(value = "/user/perfil**")
+	public ModelAndView perfil(HttpSession sesion) {
+		User user = (User) sesion.getAttribute("user");
+
+		try {
+
+			if (user.getRol() != null) {
+				if (user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN")) {
+					ModelAndView model = new ModelAndView();
+					model.setViewName("user/perfil");
+					return model;
+				}
+			}
+		} catch (Exception e) {
+			return new ModelAndView("redirect:/default");
+		}
+
+		return new ModelAndView("redirect:/default");
+
+	}
+
+	@RequestMapping(value = "/user/editarCuenta**", method = RequestMethod.POST)
+	public ModelAndView updateAccount(HttpSession session, HttpServletRequest request) {
+		User user = (User) session.getAttribute("user");
+		user.setNickname(request.getParameter("nick"));
+		user.setNombre(request.getParameter("nombre"));
+		user.setApellido(request.getParameter("apellidos"));
+		// user.setFoto(//request.getParameter("foto"));
+		user.setEmail(request.getParameter("email"));
+
+		userDAO.update(user);
+
+		return new ModelAndView("redirect:/user/perfil");
+	}
+
+	@RequestMapping(value = "/user/cambiarPassword**", method = RequestMethod.POST)
+	public ModelAndView updatePassword(HttpSession session, HttpServletRequest request) {
+		User user = (User) session.getAttribute("user");
+		if (Funciones.encrypt_md5(request.getParameter("password_old")).equals(user.getPassword())) {
+			if (request.getParameter("password").equals(request.getParameter("password2"))) {
+				user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
+				userDAO.update(user);
+			} else {
+				// TODO enviar un mensaje a una variable de sesion
+			}
+		} else {
+			// TODO enviar un mensaje a una variable de sesion
+		}
+
+		return new ModelAndView("redirect:/default");
+	}
+
+	@RequestMapping(value = "/user/borrarCuenta**", method = RequestMethod.GET)
+	public String deleteAccount(HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		userDAO.delete(Funciones.encrypt(user.getNickname()));
+		session.invalidate();
+
+		return "redirect:/default";
+	}
+
+	@RequestMapping(value = "/user/publicar**", method = RequestMethod.POST)
+	public ModelAndView publicar(HttpSession session, HttpServletRequest request) {
+
+		User user = (User) session.getAttribute("user");
+		System.out.println(user.getNickname());
+
+		Publicacion p = new Publicacion(user.getNickname(), request.getParameter("texto"),
+				request.getParameter("privacidad"));
+
+		publicacionDAO.insert(p);
+
+		return new ModelAndView("redirect:/user");
+	}
 
 }
