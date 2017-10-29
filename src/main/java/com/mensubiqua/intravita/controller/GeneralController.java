@@ -3,6 +3,8 @@ package com.mensubiqua.intravita.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.Principal;
 
 import javax.servlet.ServletContext;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
 
@@ -30,10 +33,14 @@ public class GeneralController {
 	@Autowired
 	ServletContext servletContext;
 	
-    @RequestMapping({"/default", "/"})
+	@Autowired
+	Variables var;
+	
+	
+    @RequestMapping({"/default**", "/"})
     public String defaultAfterLogin(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
-
+        
     	try {
     		
 	    	if(user.getRol() == null)
@@ -53,12 +60,12 @@ public class GeneralController {
         return "redirect:/login";
     }
     
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login**", method = RequestMethod.GET)
     public String login() {    	
         return "login";
     }
 
-    @RequestMapping(value = "registro", method = RequestMethod.POST)
+    @RequestMapping(value = "registro**", method = RequestMethod.POST)
     public ModelAndView registrar(HttpServletRequest request)  {
 
     	User user = null;
@@ -90,7 +97,7 @@ public class GeneralController {
 
 
 
-    @RequestMapping(value = "logear", method = RequestMethod.POST)
+    @RequestMapping(value = "logear**", method = RequestMethod.POST)
     public ModelAndView logear(HttpServletRequest request)  {
         ModelAndView model = new ModelAndView();
         User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));
@@ -117,7 +124,7 @@ public class GeneralController {
         
     }
     
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @RequestMapping(value = "logout**", method = RequestMethod.GET)
     public String logout(HttpSession sesion) {
     	sesion.invalidate();
         return "redirect:/default";

@@ -3,6 +3,7 @@
 <%@page session="true"%>
 <c:set var="user" value="${user}" scope="request" /> <!-- Esto envia variables a las vistas de los includes -->
 <c:set var="vista" value="usuario" scope="request" />
+<c:set var="var" value="${var}" scope="request" />
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
  <!-- main col right -->

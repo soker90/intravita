@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.Publicacion;
@@ -22,10 +23,15 @@ public class UserController {
     UserDAOImpl userDAO;
 	
 	@Autowired
+	Variables var;
+	
+	@Autowired
     PublicacionDAOImpl publicacionDAO;
 	
-    @RequestMapping(value = "/user/**")
-    public ModelAndView homePage(HttpSession sesion) {
+	
+	
+    @RequestMapping(value = "/user**", method = RequestMethod.GET)
+    public ModelAndView homePage(HttpSession sesion ) {
     	User user = (User) sesion.getAttribute("user");
     	
     	try {
@@ -49,7 +55,7 @@ public class UserController {
 
     }
 	
-    @RequestMapping(value = "/user/perfil")
+    @RequestMapping(value = "/user/perfil**")
     public ModelAndView perfil(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
     	
@@ -72,7 +78,7 @@ public class UserController {
 
     }
     
-    @RequestMapping(value = "/user/editarCuenta", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/editarCuenta**", method = RequestMethod.POST)
     public ModelAndView updateAccount(HttpSession session, HttpServletRequest request) {
         User user = (User) session.getAttribute("user");
         user.setNickname(request.getParameter("nick"));
@@ -86,7 +92,7 @@ public class UserController {
         return new ModelAndView("redirect:/user/perfil");
     }
     
-    @RequestMapping(value = "/user/cambiarPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/cambiarPassword**", method = RequestMethod.POST)
     public ModelAndView updatePassword(HttpSession session, HttpServletRequest request) {
         User user = (User) session.getAttribute("user");
         if(Funciones.encrypt_md5(request.getParameter("password_old")).equals(user.getPassword()))
@@ -106,7 +112,7 @@ public class UserController {
         return new ModelAndView("redirect:/default");
     }
     
-    @RequestMapping(value = "/user/borrarCuenta", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/borrarCuenta**", method = RequestMethod.GET)
     public String deleteAccount(HttpSession session) {
         User user = (User) session.getAttribute("user");
         userDAO.delete(Funciones.encrypt(user.getNickname()));
@@ -115,7 +121,7 @@ public class UserController {
         return "redirect:/default";
     }
     
-    @RequestMapping(value = "/user/publicar", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/publicar**", method = RequestMethod.POST)
     public ModelAndView publicar(HttpSession session, HttpServletRequest request)  {
 
     	User user = (User) session.getAttribute("user");

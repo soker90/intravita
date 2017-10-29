@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
 
@@ -21,7 +22,10 @@ public class AdminController {
 	@Autowired
     UserDAOImpl userDAO;
 	
-	@RequestMapping(value = "/admin/**")
+	@Autowired
+	Variables var;
+	
+	@RequestMapping(value = "/admin**")
     public ModelAndView adminPage(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
     	
@@ -66,7 +70,7 @@ public class AdminController {
 
     }
 	
-    @RequestMapping(value = "/admin/borrarUsuario", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/borrarUsuario**", method = RequestMethod.POST)
     public ModelAndView deleteUser(HttpServletRequest request) {
     	String username = request.getParameter("username");
     	if(!username.equals("super.admin"))
@@ -75,7 +79,7 @@ public class AdminController {
         return new ModelAndView("redirect:/default");
     }
     
-    @RequestMapping(value = "/admin/editarUsuario", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/editarUsuario**", method = RequestMethod.POST)
     public ModelAndView perfil(HttpSession sesion, HttpServletRequest request) {
     	User user = (User) sesion.getAttribute("user");
     	
@@ -100,7 +104,7 @@ public class AdminController {
 
     }
     
-    @RequestMapping(value = "/admin/editarCuenta", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/editarCuenta**", method = RequestMethod.POST)
     public ModelAndView editAccount(HttpSession session, HttpServletRequest request) {
         User user = new User();
         user.setNickname(request.getParameter("nick"));
@@ -115,7 +119,7 @@ public class AdminController {
         return new ModelAndView("redirect:/default");
     }
     
-    @RequestMapping(value = "/admin/cambiarPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/cambiarPassword**", method = RequestMethod.POST)
     public ModelAndView updatePassword(HttpSession session, HttpServletRequest request) {
     	if(!request.getParameter("nick").equals("super.admin"))
     	{
@@ -139,7 +143,7 @@ public class AdminController {
         
     }
     
-    @RequestMapping(value = "/admin/updateRol", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/updateRol**", method = RequestMethod.POST)
     public ModelAndView updateRol(HttpServletRequest request) {
     	String rol = request.getParameter("rol");
     	if(rol.equals("No")) rol="ROLE_ADMIN"; else rol="ROLE_USER"; 

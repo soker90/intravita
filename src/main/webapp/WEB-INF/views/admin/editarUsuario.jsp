@@ -3,6 +3,7 @@
 <%@page session="true"%>
 <c:set var="user" value="${user}" scope="request" /> <!-- Esto envia variables a las vistas de los includes -->
 <c:set var="vista" value="admin" scope="request" />
+<c:set var="var" value="${var}" scope="request" />
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
 								  
@@ -14,7 +15,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="/intravita/admin/editarCuenta" method="post">
+		<form action="/${var.url}/admin/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
 		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user_edit.nickname}">
@@ -50,7 +51,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form id="imagenes" name="imagenes" method="POST" action="/intravita/uploadFile" enctype="multipart/form-data">
+		<form id="imagenes" name="imagenes" method="POST" action="${var.url}uploadFile" enctype="multipart/form-data">
 			<div class="form-group">
 				<input type="file" name="file" accept="image/jpeg"> 
 			</div>

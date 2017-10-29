@@ -3,6 +3,7 @@
 <%@page session="true"%>
 <c:set var="user" value="${user}" scope="request" /> <!-- Esto envia variables a las vistas de los includes -->
 <c:set var="vista" value="usuario" scope="request" />
+<c:set var="var" value="${var}" scope="request" />
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
 								  
@@ -14,7 +15,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="/intravita/user/editarCuenta" method="post">
+		<form action="${var.url}user/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
 		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user.nickname}">
@@ -50,7 +51,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form id="imagenes" name="imagenes" method="POST" action="/intravita/uploadFile?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+		<form id="imagenes" name="imagenes" method="POST" action="${var.url}uploadFile" enctype="multipart/form-data">
 			<div class="form-group">
 				<input type="file" name="file" accept="image/jpeg"> 
 			</div>
@@ -70,7 +71,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="/intravita/user/cambiarPassword" method="post">   
+		<form action="${var.url}user/cambiarPassword" method="post">   
 		    <div class="form-group">
 		        <label for="password_id" class="control-label">Contraseña actual</label>
 		        <input type="password" class="form-control" id="password_old" name="password_old">
@@ -103,7 +104,7 @@
 		  <div class="panel-body">
 			<div class="clearfix"></div>
 			
-			<form action="/intravita/user/borrarCuenta">   
+			<form action="${var.url}user/borrarCuenta">   
 			    
 			    <div class="form-group">
 			        <label for="borrar_id" class="control-label">Esta operación no se puede deshacer</label>
