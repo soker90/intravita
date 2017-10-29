@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.auxiliar.MailSender;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
 
@@ -53,8 +54,8 @@ public class GeneralController {
     }
 
     @RequestMapping(value = "registro", method = RequestMethod.POST)
-    public ModelAndView registrar(HttpServletRequest request)  {
-
+    public ModelAndView registrar(HttpServletRequest request) throws Exception  {
+    	MailSender ms = new MailSender();
     	User user = null;
     	ModelAndView model = new ModelAndView();
         model.setViewName("login");
@@ -70,6 +71,7 @@ public class GeneralController {
             		Funciones.encrypt(request.getParameter("email")), Funciones.encrypt_md5(request.getParameter("password")),
             		"ROLE_USER", Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido")));
             userDAO.insert(user);
+            ms.sendMail(request.getParameter("email"), "Validación cuenta", "Pulse el siguelnte enlace para validar su cuenta");
             model.addObject("mensaje", "Usuario creado con exito");
         }
 
