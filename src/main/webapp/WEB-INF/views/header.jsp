@@ -84,7 +84,7 @@
 								 <div class="col-sm-3">
 								   
 									  <div class="panel panel-default">
-										<div class="panel-thumbnail"><img src="/intravita/resources/img/user.jpg" class="img-responsive"></div>
+										<div class="panel-thumbnail"><img src="/intravita/${user.foto}" class="img-responsive"></div>
 										<div class="panel-body">
 										  <p class="lead"><c:out value="${user.nombre}"/> <c:out value="${user.apellido}"/></p>
 										  <p>400 Amigos</p>

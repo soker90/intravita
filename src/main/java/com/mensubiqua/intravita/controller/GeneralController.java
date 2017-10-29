@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -34,6 +35,9 @@ public class GeneralController {
 
 	@Autowired
     UserDAOImpl userDAO;
+	
+	@Autowired
+	ServletContext servletContext;
 	
     @RequestMapping({"/default", "/"})
     public String defaultAfterLogin(HttpSession sesion) {
@@ -109,6 +113,13 @@ public class GeneralController {
 
         else {
             request.getSession().setAttribute("user", user);
+            
+            File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
+            if(f.exists() && !f.isDirectory()) { 
+                user.setFoto(user.getNickname());
+            } else {
+            	user.setNickname("user");
+            }
         }
 
         return model;
@@ -141,24 +152,27 @@ public class GeneralController {
     }
     
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	public String uploadFile(@RequestParam("file") MultipartFile file) {
+	public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("nick") String nick, HttpSession session) {
 
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
 				// Crear el directorio para almacenar el archivo
-				String rootPath = System.getProperty("catalina.home");
 
-				File dir = new File("classpath:/WEB-INF/resources" + File.separator + "tmpFiles");
+				File dir = new File(servletContext.getRealPath("/resources/img/"));
 				
 				if (!dir.exists())
 					dir.mkdirs();
 
 				// Crear documento en el servidor
-				File serverFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
+				File serverFile = new File(dir.getAbsolutePath() + File.separator + nick + ".jpg");
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
+				
+				User user = (User) session.getAttribute("user");
+				if(user.getNickname().equals(nick))
+					user.setFoto(nick);
 
 				System.out.println("Ubicación de documento = " + serverFile.getAbsolutePath());
 

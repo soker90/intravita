@@ -30,11 +30,6 @@
 		    </div>                    
 		                            
 		    <div class="form-group">
-		        <label for="foto_id" class="control-label">Foto</label>
-		        <input type="text" class="form-control" id="foto" name="foto" value="${user_edit.foto}" placeholder="Introduzca un enlace a una imagen">
-		    </div>                                    
-		                            
-		    <div class="form-group">
 		        <label for="email_id" class="control-label">Correo electrónico</label>
 		        <input type="email" class="form-control" id="email" name="email" value="${user_edit.email}">
 		    </div>     
@@ -44,6 +39,27 @@
 		    </div> 
 		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>   
 		    
+		</form>
+		
+		<hr>
+		
+	  </div>
+   </div>
+   
+   <div class="panel panel-default">
+   	  <div class="panel-heading"><h4>Fotografía</h4></div>
+	  <div class="panel-body">
+		<div class="clearfix"></div>
+		
+		<form id="imagenes" name="imagenes" method="POST" action="/intravita/uploadFile?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+			<div class="form-group">
+				<input type="file" name="file" accept="image/jpeg"> 
+			</div>
+			<div class="form-group">
+				<button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
+				<input type="text" id="nick" name="nick" hidden="" value="${user_edit.nickname}">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			</div>
 		</form>
 		
 		<hr>

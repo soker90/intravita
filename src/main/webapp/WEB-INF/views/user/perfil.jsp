@@ -30,11 +30,6 @@
 		    </div>                    
 		                            
 		    <div class="form-group">
-		        <label for="foto_id" class="control-label">Foto</label>
-		        <input type="file" name="foto">
-		    </div>                                    
-		                            
-		    <div class="form-group">
 		        <label for="email_id" class="control-label">Correo electrónico</label>
 		        <input type="email" class="form-control" id="email" name="email" value="${user.email}">
 		    </div>     
@@ -58,10 +53,11 @@
 		
 		<form id="imagenes" name="imagenes" method="POST" action="/intravita/uploadFile?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 			<div class="form-group">
-				<input type="file" name="file"> 
+				<input type="file" name="file" accept="image/jpeg"> 
 			</div>
 			<div class="form-group">
 				<button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
+				<input type="text" id="nick" name="nick" hidden="" value="${user.nickname}">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</div>
 		</form>
