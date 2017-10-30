@@ -115,12 +115,13 @@ public class GeneralController {
 
         else {
             request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("var", new Variables());
             
             File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
             if(f.exists() && !f.isDirectory()) { 
                 user.setFoto(user.getNickname());
             } else {
-            	user.setNickname("user");
+            	user.setFoto("user");
             }
         }
 

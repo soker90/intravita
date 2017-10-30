@@ -33,7 +33,7 @@
 					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						Nueva publicación
 				  </div>
-				  <form class="form center-block" action="${var.url}user/publicar" method="post">
+				  <form class="form center-block" action="${var.url}/user/publicar" method="post">
 					  <div class="modal-body">
 						  
 						<div class="form-group">
@@ -54,8 +54,8 @@
 				</div>
 		  </div>
 		</div>
-        <script type="text/javascript" src="${var.url}resources/js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="${var.url}resources/js/bootstrap.js"></script>
+        <script type="text/javascript" src="${var.url}/resources/js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="${var.url}/resources/js/bootstrap.js"></script>
         
         <script type="text/javascript">
         $(document).ready(function() {
@@ -70,8 +70,8 @@
         });
         </script>
         
-        <script type="text/javascript" src="${var.url}resources/js/jquery.dataTables.min.js"></script>
- 		<script type="text/javascript" src="${var.url}resources/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="${var.url}/resources/js/jquery.dataTables.min.js"></script>
+ 		<script type="text/javascript" src="${var.url}/resources/js/dataTables.bootstrap.min.js"></script>
   
 	 <script>
 	 	$(document).ready(function() {

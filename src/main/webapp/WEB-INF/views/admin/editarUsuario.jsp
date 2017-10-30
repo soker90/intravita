@@ -15,7 +15,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="/${var.url}/admin/editarCuenta" method="post">
+		<form action="${var.url}/admin/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
 		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user_edit.nickname}">
@@ -51,7 +51,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form id="imagenes" name="imagenes" method="POST" action="${var.url}uploadFile" enctype="multipart/form-data">
+		<form id="imagenes" name="imagenes" method="POST" action="${var.url}/uploadFile" enctype="multipart/form-data">
 			<div class="form-group">
 				<input type="file" name="file" accept="image/jpeg"> 
 			</div>

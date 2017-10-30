@@ -15,7 +15,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="${var.url}user/editarCuenta" method="post">
+		<form action="${var.url}/user/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
 		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user.nickname}">
@@ -51,7 +51,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form id="imagenes" name="imagenes" method="POST" action="${var.url}uploadFile" enctype="multipart/form-data">
+		<form id="imagenes" name="imagenes" method="POST" action="${var.url}/uploadFile" enctype="multipart/form-data">
 			<div class="form-group">
 				<input type="file" name="file" accept="image/jpeg"> 
 			</div>
@@ -71,7 +71,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="${var.url}user/cambiarPassword" method="post">   
+		<form action="${var.url}/user/cambiarPassword" method="post">   
 		    <div class="form-group">
 		        <label for="password_id" class="control-label">Contraseña actual</label>
 		        <input type="password" class="form-control" id="password_old" name="password_old">
@@ -104,7 +104,7 @@
 		  <div class="panel-body">
 			<div class="clearfix"></div>
 			
-			<form action="${var.url}user/borrarCuenta">   
+			<form action="${var.url}/user/borrarCuenta">   
 			    
 			    <div class="form-group">
 			        <label for="borrar_id" class="control-label">Esta operación no se puede deshacer</label>
