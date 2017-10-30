@@ -32,14 +32,14 @@
 			<div class="input-group">
 			  <div class="input-group-btn">
 			  <c:if test="${publicacion.nickname ne user.nickname}">
-			  <form action="#" method="post">
+			  <form style="display: inline-block" action="#" method="post">
  			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
- 			    <button type="submit" name="submit" value="submit" class="btn btn-default"">+1</button>
+ 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"">+1</button>
  		 	 </form>
  		 	 
- 		 	 <form action="#" method="post">
+ 		 	 <form style="display: inline-block" action="#" method="post">
  			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
- 			    <button type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-share"></i></button>
+ 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-share"></i></button>
  		 	 </form>
 	 			    
 			  </c:if>

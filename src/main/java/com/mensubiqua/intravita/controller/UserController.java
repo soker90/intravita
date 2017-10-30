@@ -45,7 +45,7 @@ public class UserController {
 					ModelAndView model = new ModelAndView();
 					ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
 					for (Publicacion p : publicacionDAO.selectAll()) {
-						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privado"))
+						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
 							continue;
 						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
 						
