@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 public class Publicacion {
 
-	private String _id;
+	private String id;
     private String nickname;
     private String texto;
     private String privacidad;
@@ -21,13 +21,13 @@ public class Publicacion {
 	
 	public Publicacion() {}
 	
-	public String get_id() {
-		return _id;
+	public String getId() {
+		return id;
 	}
 
 
-	public void set_id(String _id) {
-		this._id = _id;
+	public void setId(String _id) {
+		this.id = id;
 	}
 
 
