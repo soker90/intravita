@@ -20,12 +20,12 @@ public class PublicacionStep {
 
 	@When("^Cambio el _id a \"([^\"]*)\"$")
 	public void cambio_el__id_a(String arg1) throws Throwable {
-	    p.setId(arg1);
+	    p.set_id(arg1);
 	}
 
 	@Then("^El _id es \"([^\"]*)\"$")
 	public void el__id_es(String arg1) throws Throwable {
-	    Assert.assertEquals(arg1, p.getId());
+	    Assert.assertEquals(arg1, p.get_id());
 	}
 
 	@When("^Cambio el nickname a \"([^\"]*)\"$")
