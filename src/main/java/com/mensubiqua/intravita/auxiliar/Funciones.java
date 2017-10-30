@@ -11,7 +11,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.binary.Base64;
 
-public abstract class Funciones {
+public class Funciones {
 	private static String key = "IntravitaQQ12345";
 	private static String initVector = "RandomInitVector";
     public static String encrypt(String value) {
