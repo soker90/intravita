@@ -8,53 +8,62 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+
+
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.*;
+
 public class MailSender {
-	private static String userName = "designesi.uvly@gmail.com";
-	private static String password = "superpasswordsegura";
+    final String miCorreo = "intravita2017@gmail.com";
+    final String miContraseña = "ulises2017";
+    final String servidorSMTP = "smtp.gmail.com";
+    final String puertoEnvio = "465";
+    String mailReceptor = null;
+    String asunto = null;
+    String cuerpo = null;
 
-	private static Session getSession() throws SQLException {
-		Properties props = new Properties();
-		props.put("mail.smtp.user", userName);
-	    props.put("mail.smtp.host", "smtp.gmail.com");
-	    props.put("mail.smtp.port", 465);
-	    props.put("mail.smtp.starttls.enable","true");
-	    props.put("mail.smtp.debug", "true");
-	    props.put("mail.smtp.auth", "true");
-	    props.put("mail.smtp.socketFactory.port", 465);
-	    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-	    props.put("mail.smtp.socketFactory.fallback", "false");
+    public MailSender(String mailReceptor, String asunto,
+            String cuerpo) {
+        this.mailReceptor = mailReceptor;
+        this.asunto = asunto;
+        this.cuerpo = cuerpo;
 
+        Properties props = new Properties();
+        props.put("mail.smtp.user", miCorreo);
+        props.put("mail.smtp.host", servidorSMTP);
+        props.put("mail.smtp.port", puertoEnvio);
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.socketFactory.port", puertoEnvio);
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.fallback", "false");
 
-		Session session = Session.getDefaultInstance(props);
-		return session;
-	}
+        SecurityManager security = System.getSecurityManager();
 
-	public void sendMail(String email, String titulo, String contenido) throws Exception {
-		try {
-			Session sesion = getSession();
-			Message message = new MimeMessage(sesion);
-			message.setFrom(new InternetAddress(userName));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			message.setSubject(titulo);
-			message.setText(contenido);
-			
-			Transport t = sesion.getTransport("smtp");
-			t.connect(userName, password);
-			t.sendMessage(message, message.getAllRecipients());
-			t.close();
+        try {
+            Authenticator auth = new autentificadorSMTP();
+            Session session = Session.getInstance(props, auth);
+            // session.setDebug(true);
 
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
-	}
+            MimeMessage msg = new MimeMessage(session);
+            msg.setText(cuerpo);
+            msg.setSubject(asunto);
+            msg.setFrom(new InternetAddress(miCorreo));
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
+                    mailReceptor));
+            Transport.send(msg);
+        } catch (Exception mex) {
+            mex.printStackTrace();
+        }
 
-	public boolean esEmailValido(String email) {
-		try {
-			InternetAddress emailAddr = new InternetAddress(email);
-			emailAddr.validate();
-		} catch (AddressException ex) {
-			return false;
-		}
-		return true;
-	}
+    }
+
+    private class autentificadorSMTP extends javax.mail.Authenticator {
+        public PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(miCorreo, miContraseña);
+        }
+    }
+
 }

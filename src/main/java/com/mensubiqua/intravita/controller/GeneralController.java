@@ -55,7 +55,6 @@ public class GeneralController {
 
     @RequestMapping(value = "registro", method = RequestMethod.POST)
     public ModelAndView registrar(HttpServletRequest request) throws Exception  {
-    	MailSender ms = new MailSender();
     	User user = null;
     	ModelAndView model = new ModelAndView();
         model.setViewName("login");
@@ -71,7 +70,8 @@ public class GeneralController {
             		Funciones.encrypt(request.getParameter("email")), Funciones.encrypt_md5(request.getParameter("password")),
             		"ROLE_USER", Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido")));
             userDAO.insert(user);
-            ms.sendMail(request.getParameter("email"), "Validación cuenta", "Pulse el siguelnte enlace para validar su cuenta");
+            MailSender EnviadorMail = new MailSender(request.getParameter("email"),
+                    "Este es el correo de validacion", "Para validar su usario pulse en el siguiente enlace: AQUI PONER ENLACE");
             model.addObject("mensaje", "Usuario creado con exito");
         }
 
