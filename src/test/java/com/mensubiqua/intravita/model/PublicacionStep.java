@@ -58,10 +58,10 @@ public class PublicacionStep {
 	    Assert.assertEquals(arg1, p.getPrivacidad());
 	}
 
-	@When("^Cambio la fecha a \"([^\"]*)\"$")
+	/*@When("^Cambio la fecha a \"([^\"]*)\"$")
 	public void cambio_la_fecha_a(String arg1) throws Throwable {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-	    Date fecha = null;
+	    String fecha = null;
 	    try {
 	    	fecha = formato.parse(arg1);
 	    }catch(ParseException ex) {
@@ -80,5 +80,5 @@ public class PublicacionStep {
 	    	System.out.println(ex.getMessage());
 	    }
 	    Assert.assertEquals(fecha, p.getFecha());
-	}
+	}*/
 }

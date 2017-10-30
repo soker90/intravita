@@ -1,5 +1,7 @@
 package com.mensubiqua.intravita.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.Publicacion;
+import com.mensubiqua.intravita.model.PublicacionVista;
 import com.mensubiqua.intravita.model.User;
 
 @Controller
@@ -39,13 +42,20 @@ public class UserController {
 			if (user.getRol() != null) {
 				if (user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN")) {
 					ModelAndView model = new ModelAndView();
-					model.addObject("title", "Web para usuarios");
-					model.addObject("message", "Pagina para usuarios corrientes");
+					ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
+					for (Publicacion p : publicacionDAO.selectAll()) {
+						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privado"))
+							continue;
+						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
+						publicaciones.add(new PublicacionVista(p, u));
+					}
+					model.addObject("publicaciones", publicaciones);
 					model.setViewName("user/index");
 					return model;
 				}
 			}
 		} catch (Exception e) {
+			System.out.println("Error al cargar la vista de usuario");
 			return new ModelAndView("redirect:/default");
 		}
 
@@ -120,9 +130,11 @@ public class UserController {
 	public ModelAndView publicar(HttpSession session, HttpServletRequest request) {
 
 		User user = (User) session.getAttribute("user");
-
+		Date fecha = new Date();
+		SimpleDateFormat dt = new SimpleDateFormat("dd/mm hh:mm"); 
+		String sFecha = dt.format(fecha);
 		Publicacion p = new Publicacion(user.getNickname(), request.getParameter("texto"),
-				request.getParameter("privacidad"), new Date());
+				request.getParameter("privacidad"), sFecha);
 
 		publicacionDAO.insert(p);
 

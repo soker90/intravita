@@ -34,7 +34,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 
         if (document != null) { 
         	p = new Publicacion(document.getString("nickname"), document.getString("texto"),
-        		document.getString("privacidad"), document.getDate("fecha"));
+        		document.getString("privacidad"), document.getString("fecha"));
         	p.setId(document.getObjectId("_id").toString());
         }
         return p;
@@ -46,7 +46,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 		Publicacion p = null;
 		
 		for (Document document : collection.find()) { 
-			p = new Publicacion(document.getString("nickname"), document.getString("texto"), document.getString("privacidad"), document.getDate("fecha"));
+			p = new Publicacion(document.getString("nickname"), document.getString("texto"), document.getString("privacidad"), document.getString("fecha"));
 			p.setId(document.getObjectId("_id").toString());
 			ps.add(p);
 		}

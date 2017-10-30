@@ -8,26 +8,32 @@
 
  <!-- main col right -->
  <div class="col-sm-9">
-
-   <div class="panel panel-default">
-	  <div class="panel-body">
-		<div class="clearfix"></div>
-		<hr>
-		
-		<p>Texto de mi publicación.</p>
-		
-		<hr>
-		<form>
-		<div class="input-group">
-		  <div class="input-group-btn">
-		  <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
-		  <button class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button><button class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
+	<% int cont=0;%>
+	<c:forEach items="${publicaciones}" var="publicacion">
+	   <div class="panel panel-default">
+	   	<div class="panel-heading"><h7 class="pull-right">${publicacion.fecha}</h7> <h4>${publicacion.unombre}</h4></div>
+		  <div class="panel-body">
+			<div class="clearfix"></div>
+			
+			<p>${publicacion.texto}</p>
+			
+			<hr>
+			<form>
+			<div class="input-group">
+			  <div class="input-group-btn">
+			  <c:if test="${publicacion.nickname ne user.nickname}">
+			  	<button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+			  </c:if>
+			  <c:if test="${publicacion.nickname eq user.nickname}">
+			  	<button class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button><button class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
+			  </c:if>
+			  </div>
+			</div>
+			</form>
+			
 		  </div>
-		</div>
-		</form>
-		
-	  </div>
-   </div>
+	   </div>
+   </c:forEach>
 
 
  </div>

@@ -10,9 +10,9 @@ public class Publicacion {
     private String nickname;
     private String texto;
     private String privacidad;
-    private Date fecha;
+    private String fecha;
     
-	public Publicacion(String nickname, String texto, String privacidad, Date fecha) {
+	public Publicacion(String nickname, String texto, String privacidad, String fecha) {
 		this.nickname = nickname;
 		this.texto = texto;
 		this.privacidad = privacidad;
@@ -31,12 +31,12 @@ public class Publicacion {
 	}
 
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
@@ -59,5 +59,9 @@ public class Publicacion {
 	public void setPrivacidad(String privacidad) {
 		this.privacidad = privacidad;
 	}
+
+	
+	
+	
     
 }
