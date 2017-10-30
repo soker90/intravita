@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
-import com.mensubiqua.intravita.auxiliar.MailSender;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.User;
@@ -74,6 +73,7 @@ public class GeneralController {
 
     @RequestMapping(value = "registro**", method = RequestMethod.POST)
     public ModelAndView registrar(HttpServletRequest request)  {
+
     	User user = null;
     	ModelAndView model = new ModelAndView();
         model.setViewName("login");
@@ -94,8 +94,6 @@ public class GeneralController {
             user = new User(nombre, apellido, email, password,
             		"ROLE_USER", nick);
             userDAO.insert(user);
-            MailSender EnviadorMail = new MailSender(request.getParameter("email"),
-                    "Este es el correo de validacion", "Para validar su usario pulse en el siguiente enlace: AQUI PONER ENLACE");
             model.addObject("mensaje", "Usuario creado con exito");
         }
 
