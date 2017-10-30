@@ -33,7 +33,7 @@
 					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						Nueva publicación
 				  </div>
-				  <form class="form center-block" action="${var.url}/user/publicar" method="post">
+				  <form role="form" class="form center-block" action="${var.url}/user/publicar" method="post">
 					  <div class="modal-body">
 						  
 						<div class="form-group">
@@ -48,7 +48,7 @@
 				                <option value="privada">Privada</option>
 				            </select>
 				        </div>
-						<button type="submit" name="submit" value="submit" class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Aceptar</button>
+						<button type="submit" name="submit" value="submit" class="btn btn-primary btn-sm">Aceptar</button>
 					  </div>
 				  </form>	
 				</div>

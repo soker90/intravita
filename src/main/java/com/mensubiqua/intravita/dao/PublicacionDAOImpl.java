@@ -33,7 +33,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 
         if (document != null) 
         	p = new Publicacion(document.getString("nickname"), document.getString("texto"),
-        		document.getString("privacidad"));
+        		document.getString("privacidad"), document.getDate("fecha"));
 
         return p;
     }
@@ -43,7 +43,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 		ArrayList<Publicacion> ps = new ArrayList<Publicacion>();
 		   
 		for (Document document : collection.find()) 
-			ps.add(new Publicacion(document.getString("nickname"), document.getString("texto"), document.getString("privacidad")));
+			ps.add(new Publicacion(document.getString("nickname"), document.getString("texto"), document.getString("privacidad"), document.getDate("fecha")));
 		
 		return ps;
 	}

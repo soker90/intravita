@@ -31,8 +31,6 @@ public class GeneralController {
 	@Autowired
     UserDAOImpl userDAO;
 	
-	@Autowired
-	PublicacionDAOImpl publicacionDAO;
 	
 	@Autowired
 	ServletContext servletContext;

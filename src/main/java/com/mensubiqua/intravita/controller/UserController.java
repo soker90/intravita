@@ -1,5 +1,7 @@
 package com.mensubiqua.intravita.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -114,14 +116,13 @@ public class UserController {
 		return "redirect:/default";
 	}
 
-	@RequestMapping(value = "/user/publicar**", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/publicar", method = RequestMethod.POST)
 	public ModelAndView publicar(HttpSession session, HttpServletRequest request) {
 
 		User user = (User) session.getAttribute("user");
-		System.out.println(user.getNickname());
 
 		Publicacion p = new Publicacion(user.getNickname(), request.getParameter("texto"),
-				request.getParameter("privacidad"));
+				request.getParameter("privacidad"), new Date());
 
 		publicacionDAO.insert(p);
 

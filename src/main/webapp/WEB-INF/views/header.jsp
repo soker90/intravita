@@ -49,12 +49,12 @@
 							  <c:if test="${user.rol eq 'ROLE_ADMIN'}">
 							  	<c:if test="${vista eq 'usuario'}">
 								  	<li>
-										<a href="${var.url}/admin/index"><span class="badge">Usuario</span></a>
+										<a href="${var.url}/admin"><span class="badge">Usuario</span></a>
 								  	</li>
 							  	</c:if>
 							  	<c:if test="${vista eq 'admin'}">
 								  	<li>
-										<a href="${var.url}/user/index"><span class="badge">Administrador</span></a>
+										<a href="${var.url}/user"><span class="badge">Administrador</span></a>
 								  	</li>
 							  	</c:if>
 							  </c:if>
