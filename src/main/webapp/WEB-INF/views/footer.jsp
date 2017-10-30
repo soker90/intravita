@@ -46,7 +46,6 @@
 				            <select class="form-control" name="privacidad" id="texto">
 				                <option value="publica">Publica</option>
 				                <option value="privada">Privada</option>
-				                <option value="publica">Amigos</option>
 				            </select>
 				        </div>
 						<button type="submit" name="submit" value="submit" class="btn btn-primary btn-sm">Aceptar</button>

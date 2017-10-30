@@ -48,7 +48,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 		for (Document document : collection.find()) { 
 			p = new Publicacion(document.getString("nickname"), document.getString("texto"), document.getString("privacidad"), document.getString("fecha"));
 			p.setId(document.getObjectId("_id").toString());
-			ps.add(p);
+			ps.add(0,p);
 		}
 		return ps;
 	}

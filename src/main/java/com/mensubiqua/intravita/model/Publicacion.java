@@ -27,7 +27,7 @@ public class Publicacion {
 
 
 	public void setId(String _id) {
-		this.id = id;
+		this.id = _id;
 	}
 
 

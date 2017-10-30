@@ -12,15 +12,16 @@ public class PublicacionVista {
     private String privacidad;
     private String fecha;
     private String unombre;
-    private String uFoto;
+    private String ufoto;
     
 	public PublicacionVista(Publicacion p, User u) {
 		this.texto = p.getTexto();
 		this.privacidad = p.getPrivacidad();
 		this.fecha = p.getFecha();
 		this.nickname = p.getNickname();
+		this.id = p.getId();
 		this.unombre = u.getNombre() + " " + u.getApellido();
-		this.uFoto = u.getFoto();
+		this.ufoto = u.getFoto();
 	}
 
 	public String getId() {
@@ -71,13 +72,14 @@ public class PublicacionVista {
 		this.unombre = unombre;
 	}
 
-	public String getuFoto() {
-		return uFoto;
+	public String getUfoto() {
+		return ufoto;
 	}
 
-	public void setuFoto(String uFoto) {
-		this.uFoto = uFoto;
+	public void setUfoto(String ufoto) {
+		this.ufoto = ufoto;
 	}
+
 	
 	
 	
