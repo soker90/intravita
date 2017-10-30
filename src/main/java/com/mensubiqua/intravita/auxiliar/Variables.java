@@ -18,25 +18,18 @@ public class Variables {
     private String mensaje;
     
 	public Variables() {
-		this.url = ""; //heroku
-		//this.url = "/intravita"; //localhost
 		
-		try {
-			String ip = InetAddress.getLoopbackAddress().toString();
-			if(ip.equals("localhost/127.0.0.1"))
-				this.url = "/intravita";
-		} catch (Exception e1) {
-
-			this.url = "";
-		}
 	}
 
 	public String getUrl() {
 		return url;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUrl(boolean local) {
+		if(local)
+			this.url = "/intravita"; //localhost
+		else
+			this.url = ""; //heroku
 	}
 
 	public String getMensaje() {

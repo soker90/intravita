@@ -28,6 +28,8 @@ import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.User;
 
+import bsh.Variable;
+
 @Controller
 public class GeneralController {
 
@@ -40,9 +42,7 @@ public class GeneralController {
 	@Autowired
 	ServletContext servletContext;
 	
-	@Autowired
-	Variables var;
-	
+
 	
     @RequestMapping({"/default**", "/"})
     public String defaultAfterLogin(HttpSession sesion) {
@@ -68,7 +68,8 @@ public class GeneralController {
     }
     
     @RequestMapping(value = "/login**", method = RequestMethod.GET)
-    public String login() {    	
+    public String login(HttpServletRequest request) {  
+    	
         return "login";
     }
 
@@ -116,11 +117,15 @@ public class GeneralController {
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
         else if (!Funciones.encrypt_md5(request.getParameter("password")).equals(user.getPassword())) 
-        	model.addObject("mensaje2", "Contrase�a incorrecta");
+        	model.addObject("mensaje2", "Contraseña incorrecta");
         
         else {
             request.getSession().setAttribute("user", user);
-            request.getSession().setAttribute("var", new Variables());
+            boolean local = request.getRequestURL().toString().contains("localhost");
+            
+            Variables var = new Variables();
+            var.setUrl(local);
+            request.getSession().setAttribute("var", var);
             
             File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
             if(f.exists() && !f.isDirectory()) { 
@@ -128,7 +133,6 @@ public class GeneralController {
             } else {
             	user.setFoto("user");
             }
-            
             
             
             model.setViewName("redirect:/default");

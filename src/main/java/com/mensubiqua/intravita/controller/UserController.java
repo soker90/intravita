@@ -31,9 +31,6 @@ public class UserController {
 	UserDAOImpl userDAO;
 
 	@Autowired
-	Variables var;
-
-	@Autowired
 	PublicacionDAOImpl publicacionDAO;
 	
 	@Autowired
