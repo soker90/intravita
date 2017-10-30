@@ -2,6 +2,7 @@ package com.mensubiqua.intravita.auxiliar;
 
 
 import java.security.MessageDigest;
+import java.util.Random;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -10,7 +11,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.binary.Base64;
 
-public abstract class Funciones {
+public class Funciones {
 	private static String key = "IntravitaQQ12345";
 	private static String initVector = "RandomInitVector";
     public static String encrypt(String value) {
@@ -22,8 +23,6 @@ public abstract class Funciones {
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 
             byte[] encrypted = cipher.doFinal(value.getBytes());
-            System.out.println("encrypted string: "
-                    + Base64.encodeBase64String(encrypted));
 
             return Base64.encodeBase64String(encrypted);
         } catch (Exception ex) {
@@ -66,5 +65,18 @@ public abstract class Funciones {
 			return "error";
 		}
 		return pass_md5;
+    }
+    
+    public static String generarStringAleatorio() {
+    	String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 }

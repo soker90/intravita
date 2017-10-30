@@ -21,9 +21,9 @@
     <!-- CSS -->
     <!-- TODO chapuza para localhost, cambiar luego -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-    <link rel="stylesheet" href="/intravita/resources/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/intravita/resources/css/form-elements.css">
-    <link rel="stylesheet" href="/intravita/resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/font-awesome.min.css">
+    <link rel="stylesheet" href="resources/css/form-elements.css">
+    <link rel="stylesheet" href="resources/css/style.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,32 +33,31 @@
     <![endif]-->
 
     <!-- Javascript -->
-    <script src="/intravita/resources/js/jquery-1.11.1.min.js"></script>
-    <script src="/intravita/resources/js/jquery.backstretch.min.js"></script>
-    <script src="/intravita/resources/js/scripts.js"></script>
+    <script src="resources/js/jquery-1.11.1.min.js"></script>
+    <script src="resources/js/jquery.backstretch.min.js"></script>
+    <script src="resources/js/scripts.js"></script>
 
     <!--[if lt IE 10]>
     <script src="resources/js/placeholder.js"></script>
     <![endif]-->
     
-<title> Login | Intravita </title>
+<title> Recuperar contraseña | Intravita </title>
 
 </head>
 
 <body onload='document.loginForm.username.focus();'>
 
-<div class="top-content">
 
     <div class="inner-bg">
         <div class="container">
 
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-12">
 
                     <div class="form-box">
                         <div class="form-top">
                             <div class="form-top-left">
-                                <h3>Inicar sesión</h3>
+                                <h3>Recuperar contraseña</h3>
                                 <p style="color: red;">
                                     <c:if test="${not empty mensaje2}">
                                         <div class="msg">${mensaje2}</div>
@@ -70,12 +69,12 @@
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <form name='loginForm' role="form" action="logear" method="post" class="login-form">
+                            <form name='loginForm' role="form" action="recuperarpass" method="post" class="login-form">
                                 <div class="form-group">
                                     <label class="sr-only" for="form-username">Usuario</label>
                                     <input type="text" name="username" placeholder="Usuario" class="form-username form-control" id="form-username">
                                 </div>
-                                <button id="form-login" type="submit" name="submit" value="submit" class="btn">Enviar recuperación</button>
+                                <button id="form-recuperar" type="submit" name="submit" value="submit" class="btn">Recuperar</button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </div>
@@ -83,15 +82,11 @@
 
                 </div>
 
-                <div class="col-sm-1 middle-border"></div>
-                <div class="col-sm-1"></div>
-
             </div>
 
         </div>
     </div>
 
-</div>
 
 </body>
 

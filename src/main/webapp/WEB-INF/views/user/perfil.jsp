@@ -3,6 +3,7 @@
 <%@page session="true"%>
 <c:set var="user" value="${user}" scope="request" /> <!-- Esto envia variables a las vistas de los includes -->
 <c:set var="vista" value="usuario" scope="request" />
+<c:set var="var" value="${var}" scope="request" />
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
 								  
@@ -14,7 +15,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="/intravita/user/editarCuenta" method="post" enctype="multipart/form-data">
+		<form action="${var.url}/user/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
 		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user.nickname}">
@@ -30,11 +31,6 @@
 		    </div>                    
 		                            
 		    <div class="form-group">
-		        <label for="foto_id" class="control-label">Foto</label>
-		        <input type="file" name="foto">
-		    </div>                                    
-		                            
-		    <div class="form-group">
 		        <label for="email_id" class="control-label">Correo electrónico</label>
 		        <input type="email" class="form-control" id="email" name="email" value="${user.email}">
 		    </div>     
@@ -42,8 +38,27 @@
 		    <div class="form-group">
 		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 		    </div> 
-		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		    
+		</form>
+		
+		<hr>
+		
+	  </div>
+   </div>
+   
+   <div class="panel panel-default">
+   	  <div class="panel-heading"><h4>Fotografía</h4></div>
+	  <div class="panel-body">
+		<div class="clearfix"></div>
+		
+		<form id="imagenes" name="imagenes" method="POST" action="${var.url}/uploadFile" enctype="multipart/form-data">
+			<div class="form-group">
+				<input type="file" name="file" accept="image/jpeg"> 
+			</div>
+			<div class="form-group">
+				<button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
+				<input type="text" id="nick" name="nick" hidden="" value="${user.nickname}">
+			</div>
 		</form>
 		
 		<hr>
@@ -56,7 +71,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form action="/intravita/user/cambiarPassword" method="post">   
+		<form action="${var.url}/user/cambiarPassword" method="post">   
 		    <div class="form-group">
 		        <label for="password_id" class="control-label">Contraseña actual</label>
 		        <input type="password" class="form-control" id="password_old" name="password_old">
@@ -75,7 +90,6 @@
 		    <div class="form-group">
 		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 		    </div> 
-		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  
 		    
 		</form>
 		
@@ -90,7 +104,7 @@
 		  <div class="panel-body">
 			<div class="clearfix"></div>
 			
-			<form action="/intravita/user/borrarCuenta">   
+			<form action="${var.url}/user/borrarCuenta">   
 			    
 			    <div class="form-group">
 			        <label for="borrar_id" class="control-label">Esta operación no se puede deshacer</label>

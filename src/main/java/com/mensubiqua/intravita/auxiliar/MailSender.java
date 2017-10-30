@@ -16,7 +16,7 @@ import java.util.*;
 
 public class MailSender {
     final String miCorreo = "intravita2017@gmail.com";
-    final String miContraseña = "ulises2017";
+    final String miContrasena = "ulises2017";
     final String servidorSMTP = "smtp.gmail.com";
     final String puertoEnvio = "465";
     String mailReceptor = null;
@@ -62,7 +62,7 @@ public class MailSender {
 
     private class autentificadorSMTP extends javax.mail.Authenticator {
         public PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(miCorreo, miContraseña);
+            return new PasswordAuthentication(miCorreo, miContrasena);
         }
     }
 

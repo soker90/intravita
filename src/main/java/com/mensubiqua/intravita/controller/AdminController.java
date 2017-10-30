@@ -1,22 +1,25 @@
 package com.mensubiqua.intravita.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.io.File;
+import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.auxiliar.Variables;
+import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Publicacion;
+import com.mensubiqua.intravita.model.PublicacionVista;
 import com.mensubiqua.intravita.model.User;
-
-import java.awt.List;
-import java.security.Principal;
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AdminController {
@@ -24,7 +27,16 @@ public class AdminController {
 	@Autowired
     UserDAOImpl userDAO;
 	
-	@RequestMapping(value = "/admin/**")
+	@Autowired
+	Variables var;
+	
+	@Autowired
+	PublicacionDAOImpl publicacionDAO;
+	
+	@Autowired
+	ServletContext servletContext;
+	
+	@RequestMapping(value = "/admin**")
     public ModelAndView adminPage(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
     	
@@ -56,20 +68,36 @@ public class AdminController {
 			        }
 			        
 			        model.addObject("listName", listVar.iterator());
+			        
+			        ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
+					for (Publicacion p : publicacionDAO.selectAll()) {
+						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
+						
+						File f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+			            if(f.exists() && !f.isDirectory()) { 
+			                u.setFoto(u.getNickname());
+			            } else {
+			            	u.setFoto("user");
+			            }
+			            
+						publicaciones.add(new PublicacionVista(p, u));
+					}
+
+					model.addObject("publicaciones", publicaciones);
 			        model.setViewName("admin/index");
 			
 			        return model;
 		    	}
 	    	}
     	} catch (Exception e) {
-            return new ModelAndView("redirect:/default");
+            return new ModelAndView("redirect:/user");
     	}
     	
     	return new ModelAndView("redirect:/default");
 
     }
 	
-    @RequestMapping(value = "/admin/borrarUsuario", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/borrarUsuario**", method = RequestMethod.POST)
     public ModelAndView deleteUser(HttpServletRequest request) {
     	String username = request.getParameter("username");
     	if(!username.equals("super.admin"))
@@ -78,7 +106,7 @@ public class AdminController {
         return new ModelAndView("redirect:/default");
     }
     
-    @RequestMapping(value = "/admin/editarUsuario", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/editarUsuario**", method = RequestMethod.POST)
     public ModelAndView perfil(HttpSession sesion, HttpServletRequest request) {
     	User user = (User) sesion.getAttribute("user");
     	
@@ -103,7 +131,7 @@ public class AdminController {
 
     }
     
-    @RequestMapping(value = "/admin/editarCuenta", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/editarCuenta**", method = RequestMethod.POST)
     public ModelAndView editAccount(HttpSession session, HttpServletRequest request) {
         User user = new User();
         user.setNickname(request.getParameter("nick"));
@@ -111,29 +139,24 @@ public class AdminController {
         user.setApellido(request.getParameter("apellidos"));
         user.setFoto(request.getParameter("foto"));
         user.setEmail(request.getParameter("email"));
+        System.out.println(user.toString());
         
         userDAO.update(user);
         
         return new ModelAndView("redirect:/default");
     }
     
-    @RequestMapping(value = "/admin/cambiarPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/cambiarPassword**", method = RequestMethod.POST)
     public ModelAndView updatePassword(HttpSession session, HttpServletRequest request) {
     	if(!request.getParameter("nick").equals("super.admin"))
     	{
     		User user = userDAO.find(Funciones.encrypt(request.getParameter("nick")));
-            if(Funciones.encrypt_md5(request.getParameter("password_old")).equals(user.getPassword()))
-            {
-            	if(request.getParameter("password").equals(request.getParameter("password2")))
-            	{
-            		user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
-            		userDAO.update(user);
-            	} else {
-            		//TODO enviar un mensaje a una variable de sesion
-            	}
-            } else {
-            	//TODO enviar un mensaje a una variable de sesion
-            }
+    		if (request.getParameter("password").equals(request.getParameter("password2"))) {
+				user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
+				userDAO.updatePassword(user);
+			} else {
+				// TODO enviar un mensaje a una variable de sesion
+			}
             
     	}
     	
@@ -141,7 +164,7 @@ public class AdminController {
         
     }
     
-    @RequestMapping(value = "/admin/updateRol", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/updateRol**", method = RequestMethod.POST)
     public ModelAndView updateRol(HttpServletRequest request) {
     	String rol = request.getParameter("rol");
     	if(rol.equals("No")) rol="ROLE_ADMIN"; else rol="ROLE_USER"; 
@@ -150,5 +173,13 @@ public class AdminController {
         
         return new ModelAndView("redirect:/default");
     }
+    
+	@RequestMapping(value = "/admin/borrarPublicacion**", method = RequestMethod.POST)
+	public String removePublicacion(HttpServletRequest request) {
+		
+		publicacionDAO.delete(request.getParameter("id"));
+
+		return "redirect:/default";
+	}
 
 }

@@ -1,9 +1,19 @@
 package com.mensubiqua.intravita.model;
 
+import java.io.File;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 
 @Component
 public class User {
+	
+	@Autowired
+	ServletContext servletContext;
 
     private String nickname;
     private String nombre;
@@ -20,6 +30,7 @@ public class User {
         this.password = password;
         this.nickname = nickname;
         this.rol = rol;
+        
     }
 
     public User() {
@@ -39,5 +50,5 @@ public class User {
     public void setNombre(String nombre) {this.nombre = nombre;}
     public void setApellido(String apellido) {this.apellido = apellido;}
     public void setPassword(String password) {this.password = password;}
-    public void setFoto(String foto) {this.foto = foto;}
+    public void setFoto(String foto) {this.foto = "resources" + File.separator + "img" + File.separator + foto +".jpg";}
 }

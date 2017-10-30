@@ -3,6 +3,7 @@
 <%@page session="true"%>
 <c:set var="user" value="${user}" scope="request" /> <!-- Esto envia variables a las vistas de los includes -->
 <c:set var="vista" value="admin" scope="request" />
+<c:set var="var" value="${var}" scope="request" />
 <%@ include file="/WEB-INF/views/header.jsp" %>
 								  
  <!-- main col right -->
@@ -39,26 +40,23 @@
 	 			    <td><c:out value="${listVar[0]}"/></td>
 	 			    <td><c:out value="${listVar[1]}"/></td>
 	 			    <td><c:if test="${listVar[3] ne 'super.admin'}">
-	 			    <form action="/intravita/admin/updateRol" method="post">
+	 			    <form action="${var.url}/admin/updateRol" method="post">
 		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
 		 			    <input type="text" id="rol" name="rol" hidden="hidden" value="${listVar[2]}">
 		 			    <button type="submit" name="submit" value="submit" class="btn btn-primary">${listVar[2]}</button>
-		 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	 			    </form>
 	 			    </c:if></td>
 	 			    
 	 				<td><c:if test="${listVar[3] ne 'super.admin'}">
-	 				<form action="/intravita/admin/editarUsuario" method="post">
+	 				<form action="${var.url}/admin/editarUsuario" method="post">
 		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
 		 			    <button type="submit" name="submit" value="submit" class="btn btn-warning">Editar</button>
-		 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	 			    </form></c:if></td>
 	 			    
 	 				<td><c:if test="${listVar[3] ne 'super.admin'}">
-	 				<form action="/intravita/admin/borrarUsuario" method="post">
+	 				<form action="${var.url}/admin/borrarUsuario" method="post">
 		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
 		 			    <button type="submit" name="submit" value="submit" class="btn btn-danger">Eliminar</button>
-		 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	 			    </form></c:if></td>
 	 		  	</tr>
 	 		</c:forEach>
@@ -94,15 +92,26 @@
 	        </tfoot>
 	        <tbody>
 	
-	 		<c:forEach var="listVar" items="${listName}">
+	 		<c:forEach items="${publicaciones}" var="publicacion">
 	 			<tr>
-	 			    <td><c:out value="${listVar[0]}"/></td>
-	 			    <td><a href="<c:out value="${listVar[3]}"/>"><button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button></a></td>
-	 			    <td><a href="#"><button type="button" class="btn btn-warning">Editar</button></a></td>
-	 				<td><a href="#"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+	 			    <td><c:out value="${publicacion.unombre}"/></td>
+	 			    <td><c:out value="${publicacion.texto}"/></td>
+	 			    <td>
+	 				<form action="${var.url}/admin/editarPublicacion" method="post">
+		 			    <input type="text" id="id" name="id" hidden="hidden" value="<c:out value="${publicacion.id}"/>">
+		 			    <button type="submit" name="submit" value="submit" class="btn btn-warning">Editar</button>
+	 			    </form></td>
+	 			    
+	 				<td>
+	 				<form action="${var.url}/admin/borrarPublicacion" method="post">
+		 			    <input type="text" id="id" name="id" hidden="hidden" value="<c:out value="${publicacion.id}"/>">
+		 			    <button type="submit" name="submit" value="submit" class="btn btn-danger">Eliminar</button>
+	 			    </form></td>
 
 	 		  	</tr>
 	 		</c:forEach>
+	 			
+	 		
 	 		</tbody>
  		</table>
 		
@@ -114,7 +123,7 @@
 
  </div>
  
- <script src="/intravita/resources/js/jquery-1.11.1.min.js"></script>
+ <script src="${var.url}/resources/js/jquery-1.11.1.min.js"></script>
  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
   

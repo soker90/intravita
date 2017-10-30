@@ -12,5 +12,6 @@ public interface UserDAO {
     public ArrayList<User> selectAll();
     public void update(User user);
     public void updateRole(String nickname, String rol);
+    public void updatePassword(User user);
 
 }
