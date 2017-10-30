@@ -39,7 +39,7 @@
 							
 							<ul class="nav navbar-nav">
 							  <li>
-								<a href="/intravita"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+								<a href="${var.url}/"><i class="glyphicon glyphicon-home"></i> Inicio</a>
 							  </li>
 							  <c:if test="${vista eq 'usuario'}">
 								  	<li>
