@@ -18,8 +18,8 @@ public class Variables {
     private String mensaje;
     
 	public Variables() {
-		this.url = ""; //heroku
-		//this.url = "/intravita"; //localhost
+		//this.url = ""; //heroku
+		this.url = "/intravita"; //localhost
 		
 		/*try {
 			String ip = InetAddress.getLocalHost().toString();

@@ -10,6 +10,7 @@ import java.util.Collection;
 
 import org.bson.BsonDocument;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.codehaus.jackson.map.ObjectMapper;
 
 public class DBBroker<T> {
@@ -53,8 +54,20 @@ public class DBBroker<T> {
 
         this.db.getCollection(collection).deleteOne(query);
     }
+    
+    public void deleteOne(String field, ObjectId value, String collection){
+        BasicDBObject query = new BasicDBObject(field, value);
+
+        this.db.getCollection(collection).deleteOne(query);
+    }
 
     public Document find(String field, String value, String collection){
+        BasicDBObject query = new BasicDBObject(field, value);
+
+        return this.db.getCollection(collection).find(query).first();
+    }
+    
+    public Document find(String field, ObjectId value, String collection){
         BasicDBObject query = new BasicDBObject(field, value);
 
         return this.db.getCollection(collection).find(query).first();

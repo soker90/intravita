@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,42 +25,47 @@ public class PublicacionDAOImpl implements PublicacionDAO{
     }
 
     public void delete(String id) {
-        DBBroker.get().deleteOne(ID, id, COLLECTION);
+        DBBroker.get().deleteOne(ID, new ObjectId(id), COLLECTION);
     }
 
     public Publicacion find(String id) {
-        Document document = DBBroker.get().find(ID, id, COLLECTION);
+        Document document = DBBroker.get().find(ID, new ObjectId(id), COLLECTION);
         Publicacion p = null;
 
-        if (document != null) 
+        if (document != null) { 
         	p = new Publicacion(document.getString("nickname"), document.getString("texto"),
         		document.getString("privacidad"), document.getDate("fecha"));
-
+        	p.set_id(document.getObjectId("_id").toString());
+        }
         return p;
     }
 
 	public ArrayList<Publicacion> selectAll() {
 		MongoCollection<Document> collection = DBBroker.get().selectAll(COLLECTION);
 		ArrayList<Publicacion> ps = new ArrayList<Publicacion>();
-		   
-		for (Document document : collection.find()) 
-			ps.add(new Publicacion(document.getString("nickname"), document.getString("texto"), document.getString("privacidad"), document.getDate("fecha")));
+		Publicacion p = null;
 		
+		for (Document document : collection.find()) { 
+			p = new Publicacion(document.getString("nickname"), document.getString("texto"), document.getString("privacidad"), document.getDate("fecha"));
+			p.set_id(document.getObjectId("_id").toString());
+			ps.add(p);
+		}
 		return ps;
 	}
 	
 	public void update(Publicacion p) {			
 
-		/*BasicDBObject values = new BasicDBObject();
+		BasicDBObject values = new BasicDBObject();
 		values.append("nickname", p.getNickname());
-		values.append("text", p.getTexto());
+		values.append("texto", p.getTexto());
 		values.append("privacidad", p.getPrivacidad());
+		values.append("fecha", p.getFecha());
 		BasicDBObject set = new BasicDBObject();
 		set.append("$set", values);
 		//crear query de busqueda
-		BasicDBObject searchQuery = new BasicDBObject().append(ID, ID_PUBLICACION);
+		BasicDBObject searchQuery = new BasicDBObject().append(ID, new ObjectId(p.get_id()));
 		//llamada a dbbroker
-		DBBroker.get().update(set, searchQuery, COLLECTION);*/
+		DBBroker.get().update(set, searchQuery, COLLECTION);
 
 	}
 

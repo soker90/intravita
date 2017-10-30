@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 public class Publicacion {
 
+	private String _id;
     private String nickname;
     private String texto;
     private String privacidad;
@@ -18,6 +19,27 @@ public class Publicacion {
 		this.fecha = fecha;
 	}
 	
+	
+	public String get_id() {
+		return _id;
+	}
+
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+
 	public String getNickname() {
 		return nickname;
 	}

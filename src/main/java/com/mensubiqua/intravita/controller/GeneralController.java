@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.Principal;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.User;
 
 @Controller
@@ -31,6 +33,8 @@ public class GeneralController {
 	@Autowired
     UserDAOImpl userDAO;
 	
+	@Autowired
+	PublicacionDAOImpl publicacionDAO;
 	
 	@Autowired
 	ServletContext servletContext;
