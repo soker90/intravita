@@ -2,6 +2,7 @@ package com.mensubiqua.intravita.auxiliar;
 
 
 import java.security.MessageDigest;
+import java.util.Random;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -64,5 +65,18 @@ public abstract class Funciones {
 			return "error";
 		}
 		return pass_md5;
+    }
+    
+    public static String generarStringAleatorio() {
+    	String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 }
