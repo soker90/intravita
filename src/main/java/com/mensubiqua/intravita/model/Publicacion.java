@@ -19,6 +19,7 @@ public class Publicacion {
 		this.fecha = fecha;
 	}
 	
+	public Publicacion() {}
 	
 	public String get_id() {
 		return _id;
