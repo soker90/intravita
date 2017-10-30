@@ -35,7 +35,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
         if (document != null) { 
         	p = new Publicacion(document.getString("nickname"), document.getString("texto"),
         		document.getString("privacidad"), document.getDate("fecha"));
-        	p.set_id(document.getObjectId("_id").toString());
+        	p.setId(document.getObjectId("_id").toString());
         }
         return p;
     }
@@ -47,7 +47,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 		
 		for (Document document : collection.find()) { 
 			p = new Publicacion(document.getString("nickname"), document.getString("texto"), document.getString("privacidad"), document.getDate("fecha"));
-			p.set_id(document.getObjectId("_id").toString());
+			p.setId(document.getObjectId("_id").toString());
 			ps.add(p);
 		}
 		return ps;
@@ -63,7 +63,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 		BasicDBObject set = new BasicDBObject();
 		set.append("$set", values);
 		//crear query de busqueda
-		BasicDBObject searchQuery = new BasicDBObject().append(ID, new ObjectId(p.get_id()));
+		BasicDBObject searchQuery = new BasicDBObject().append(ID, new ObjectId(p.getId()));
 		//llamada a dbbroker
 		DBBroker.get().update(set, searchQuery, COLLECTION);
 
