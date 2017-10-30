@@ -111,13 +111,13 @@ public class GeneralController {
         ModelAndView model = new ModelAndView();
         User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));
         
-        model.setViewName("redirect:/default");
+        model.setViewName("login");
     	
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
         else if (!Funciones.encrypt_md5(request.getParameter("password")).equals(user.getPassword())) 
-        	model.addObject("mensaje2", "Las contraseÃ±as no coinciden");
-
+        	model.addObject("mensaje2", "Contraseña incorrecta");
+        
         else {
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("var", new Variables());
@@ -128,6 +128,7 @@ public class GeneralController {
             } else {
             	user.setFoto("user");
             }
+            model.setViewName("redirect:/default");
         }
 
         return model;
