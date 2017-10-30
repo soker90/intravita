@@ -3,10 +3,7 @@ package com.mensubiqua.intravita.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.security.Principal;
-import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +22,7 @@ import com.mensubiqua.intravita.auxiliar.MailSender;
 import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
-import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.User;
-
-import bsh.Variable;
 
 @Controller
 public class GeneralController {
