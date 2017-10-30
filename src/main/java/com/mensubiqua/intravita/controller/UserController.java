@@ -1,9 +1,12 @@
 package com.mensubiqua.intravita.controller;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -32,6 +35,9 @@ public class UserController {
 
 	@Autowired
 	PublicacionDAOImpl publicacionDAO;
+	
+	@Autowired
+	ServletContext servletContext;
 
 	@RequestMapping(value = "/user**")
 	public ModelAndView homePage(HttpSession sesion) {
@@ -47,8 +53,21 @@ public class UserController {
 						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privado"))
 							continue;
 						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
+						
+						File f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+			            if(f.exists() && !f.isDirectory()) { 
+			                u.setFoto(u.getNickname());
+			            } else {
+			            	u.setFoto("user");
+			            }
+			            
 						publicaciones.add(new PublicacionVista(p, u));
 					}
+					String vacio = "";
+					if(publicaciones.size() == 0)
+						vacio = "vacio";
+					
+					model.addObject("vacio", vacio);
 					model.addObject("publicaciones", publicaciones);
 					model.setViewName("user/index");
 					return model;
@@ -131,7 +150,7 @@ public class UserController {
 
 		User user = (User) session.getAttribute("user");
 		Date fecha = new Date();
-		SimpleDateFormat dt = new SimpleDateFormat("dd/mm hh:mm"); 
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM HH:mm"); 
 		String sFecha = dt.format(fecha);
 		Publicacion p = new Publicacion(user.getNickname(), request.getParameter("texto"),
 				request.getParameter("privacidad"), sFecha);
@@ -139,6 +158,20 @@ public class UserController {
 		publicacionDAO.insert(p);
 
 		return new ModelAndView("redirect:/user");
+	}
+	
+	@RequestMapping(value = "/user/removePublicacion**", method = RequestMethod.POST)
+	public String removePublicacion(HttpSession session, HttpServletRequest request) {
+		System.out.println(request.getParameter("id"));
+		Publicacion p = publicacionDAO.find(request.getParameter("id"));
+		User user = (User) session.getAttribute("user");
+		
+		if(p.getNickname().equals(user.getNickname()))
+		{
+			publicacionDAO.delete(p.getId());
+		}
+
+		return "redirect:/user";
 	}
 
 }

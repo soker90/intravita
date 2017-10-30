@@ -21,14 +21,14 @@ public class Variables {
 		this.url = ""; //heroku
 		//this.url = "/intravita"; //localhost
 		
-		/*try {
-			String ip = InetAddress.getLocalHost().toString();
-			if(ip.equals("127.0.0.1"))
+		try {
+			String ip = InetAddress.getLoopbackAddress().toString();
+			if(ip.equals("localhost/127.0.0.1"))
 				this.url = "/intravita";
-		} catch (UnknownHostException e1) {
+		} catch (Exception e1) {
 
 			this.url = "";
-		}*/
+		}
 	}
 
 	public String getUrl() {

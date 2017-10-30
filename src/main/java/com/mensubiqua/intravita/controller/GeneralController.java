@@ -116,7 +116,7 @@ public class GeneralController {
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
         else if (!Funciones.encrypt_md5(request.getParameter("password")).equals(user.getPassword())) 
-        	model.addObject("mensaje2", "Contraseña incorrecta");
+        	model.addObject("mensaje2", "Contraseï¿½a incorrecta");
         
         else {
             request.getSession().setAttribute("user", user);
@@ -128,6 +128,9 @@ public class GeneralController {
             } else {
             	user.setFoto("user");
             }
+            
+            
+            
             model.setViewName("redirect:/default");
         }
 

@@ -43,10 +43,10 @@ public class RecuperarPassController {
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
         else {
-        	model.addObject("mensaje2", "Se ha mandado un nueva contraseña a su correo");
+        	model.addObject("mensaje2", "Se ha mandado un nueva contraseÃ±a a su correo");
         	password = Funciones.generarStringAleatorio();
         	MailSender EnviadorMail = new MailSender(user.getEmail(),
-                    "Nueva contraseña", "Buenas " + user.getNombre() + " " + user.getApellido() + " su nueva contraseña es: " + password);
+                    "Nueva contraseÃ±a", "Buenas " + user.getNombre() + " " + user.getApellido() + " su nueva contraseÃ±a es: " + password);
         	password = Funciones.encrypt_md5(password);
         	user.setPassword(password);
             userDAO.updatePassword(user);
