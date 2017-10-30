@@ -92,13 +92,15 @@ public class UserController {
 		if (Funciones.encrypt_md5(request.getParameter("password_old")).equals(user.getPassword())) {
 			if (request.getParameter("password").equals(request.getParameter("password2"))) {
 				user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
-				userDAO.update(user);
+				userDAO.updatePassword(user);
+				request.getSession().setAttribute("user", user);
 			} else {
 				// TODO enviar un mensaje a una variable de sesion
 			}
 		} else {
 			// TODO enviar un mensaje a una variable de sesion
 		}
+		
 
 		return new ModelAndView("redirect:/default");
 	}

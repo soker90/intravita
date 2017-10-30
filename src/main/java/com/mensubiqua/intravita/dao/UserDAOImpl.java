@@ -100,7 +100,7 @@ public class UserDAOImpl implements UserDAO{
 
 	 
 	 public void updatePassword(User user) {
-		 String passwordDB = Funciones.encrypt(user.getPassword());
+		 String passwordDB = user.getPassword();
 		 String nicknameDB = Funciones.encrypt(user.getNickname());
 		 BasicDBObject set = new BasicDBObject();
 		 set.append("$set", new BasicDBObject().append("password", passwordDB));

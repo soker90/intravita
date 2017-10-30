@@ -71,7 +71,7 @@
 	  <div class="panel-body">
 		<div class="clearfix"></div>
 		
-		<form>   
+		<form action="${var.url}/admin/cambiarPassword" method="post">      
 			<input type="text" id="nick" name="nick" readonly value="${user_edit.nickname}" hidden="">
 		    
 		    <div class="form-group">
@@ -85,7 +85,7 @@
 		    </div>   
 		    
 		    <div class="form-group">
-		        <button type="submit" class="btn btn-primary">Aceptar</button>
+		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 		    </div>     
 		    
 		</form>

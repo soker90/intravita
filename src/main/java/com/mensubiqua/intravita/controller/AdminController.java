@@ -124,18 +124,12 @@ public class AdminController {
     	if(!request.getParameter("nick").equals("super.admin"))
     	{
     		User user = userDAO.find(Funciones.encrypt(request.getParameter("nick")));
-            if(Funciones.encrypt_md5(request.getParameter("password_old")).equals(user.getPassword()))
-            {
-            	if(request.getParameter("password").equals(request.getParameter("password2")))
-            	{
-            		user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
-            		userDAO.update(user);
-            	} else {
-            		//TODO enviar un mensaje a una variable de sesion
-            	}
-            } else {
-            	//TODO enviar un mensaje a una variable de sesion
-            }
+    		if (request.getParameter("password").equals(request.getParameter("password2"))) {
+				user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
+				userDAO.updatePassword(user);
+			} else {
+				// TODO enviar un mensaje a una variable de sesion
+			}
             
     	}
     	
