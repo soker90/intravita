@@ -92,15 +92,26 @@
 	        </tfoot>
 	        <tbody>
 	
-	 		<c:forEach var="listVar" items="${listName}">
+	 		<c:forEach items="${publicaciones}" var="publicacion">
 	 			<tr>
-	 			    <td><c:out value="${listVar[0]}"/></td>
-	 			    <td><a href="<c:out value="${listVar[3]}"/>"><button type="button" class="btn btn-primary"><c:out value="${listVar[2]}"/></button></a></td>
-	 			    <td><a href="#"><button type="button" class="btn btn-warning">Editar</button></a></td>
-	 				<td><a href="#"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+	 			    <td><c:out value="${publicacion.unombre}"/></td>
+	 			    <td><c:out value="${publicacion.texto}"/></td>
+	 			    <td>
+	 				<form action="${var.url}/admin/editarPublicacion" method="post">
+		 			    <input type="text" id="id" name="id" hidden="hidden" value="<c:out value="${publicacion.id}"/>">
+		 			    <button type="submit" name="submit" value="submit" class="btn btn-warning">Editar</button>
+	 			    </form></td>
+	 			    
+	 				<td>
+	 				<form action="${var.url}/admin/borrarPublicacion" method="post">
+		 			    <input type="text" id="id" name="id" hidden="hidden" value="<c:out value="${publicacion.id}"/>">
+		 			    <button type="submit" name="submit" value="submit" class="btn btn-danger">Eliminar</button>
+	 			    </form></td>
 
 	 		  	</tr>
 	 		</c:forEach>
+	 			
+	 		
 	 		</tbody>
  		</table>
 		

@@ -1,7 +1,9 @@
 package com.mensubiqua.intravita.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.Variables;
+import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Publicacion;
+import com.mensubiqua.intravita.model.PublicacionVista;
 import com.mensubiqua.intravita.model.User;
 
 @Controller
@@ -24,6 +29,12 @@ public class AdminController {
 	
 	@Autowired
 	Variables var;
+	
+	@Autowired
+	PublicacionDAOImpl publicacionDAO;
+	
+	@Autowired
+	ServletContext servletContext;
 	
 	@RequestMapping(value = "/admin**")
     public ModelAndView adminPage(HttpSession sesion) {
@@ -57,13 +68,29 @@ public class AdminController {
 			        }
 			        
 			        model.addObject("listName", listVar.iterator());
+			        
+			        ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
+					for (Publicacion p : publicacionDAO.selectAll()) {
+						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
+						
+						File f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+			            if(f.exists() && !f.isDirectory()) { 
+			                u.setFoto(u.getNickname());
+			            } else {
+			            	u.setFoto("user");
+			            }
+			            
+						publicaciones.add(new PublicacionVista(p, u));
+					}
+
+					model.addObject("publicaciones", publicaciones);
 			        model.setViewName("admin/index");
 			
 			        return model;
 		    	}
 	    	}
     	} catch (Exception e) {
-            return new ModelAndView("redirect:/default");
+            return new ModelAndView("redirect:/user");
     	}
     	
     	return new ModelAndView("redirect:/default");
@@ -146,5 +173,13 @@ public class AdminController {
         
         return new ModelAndView("redirect:/default");
     }
+    
+	@RequestMapping(value = "/admin/borrarPublicacion**", method = RequestMethod.POST)
+	public String removePublicacion(HttpServletRequest request) {
+		
+		publicacionDAO.delete(request.getParameter("id"));
+
+		return "redirect:/default";
+	}
 
 }
