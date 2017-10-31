@@ -22,18 +22,27 @@ public class User {
     private String foto;
     private String rol;
     private String email;
+    private boolean validado;
 
-    public User(String nombre, String apellido, String email, String password, String rol, String nickname) {
+    public User(String nombre, String apellido, String email, String password, String rol, String nickname, boolean validado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.rol = rol;
-        
+        this.validado=validado;
     }
 
-    public User() {
+    public boolean isValidado() {
+		return validado;
+	}
+
+	public void setValidado(boolean validado) {
+		this.validado = validado;
+	}
+
+	public User() {
 
     }
 

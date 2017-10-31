@@ -21,8 +21,10 @@ import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.MailSender;
 import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
+import com.mensubiqua.intravita.dao.UserCodeDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
+import com.mensubiqua.intravita.model.UserCode;
 
 @Controller
 public class GeneralController {
@@ -36,6 +38,8 @@ public class GeneralController {
 	@Autowired
 	ServletContext servletContext;
 	
+	@Autowired
+	UserCodeDAOImpl userCodeDAO;
 
 	
     @RequestMapping({"/default**", "/"})
@@ -70,6 +74,7 @@ public class GeneralController {
     @RequestMapping(value = "registro**", method = RequestMethod.POST)
     public ModelAndView registrar(HttpServletRequest request)  {
     	User user = null;
+    	UserCode uc = null;
     	ModelAndView model = new ModelAndView();
         model.setViewName("login");
     	
@@ -87,11 +92,14 @@ public class GeneralController {
         	String nick = Funciones.encrypt((request.getParameter("nombre").toLowerCase() + 
         			"." + request.getParameter("apellido").toLowerCase()));
             user = new User(nombre, apellido, email, password,
-            		"ROLE_USER", nick);
+            		"ROLE_USER", nick,false);
             userDAO.insert(user);
+            uc = new UserCode(user.getNickname(),Funciones.generarStringAleatorio());
+            userCodeDAO.insert(uc);
+            
             MailSender EnviadorMail = new MailSender(request.getParameter("email"),
-                    "Este es el correo de validacion", "Para validar su usario pulse en el siguiente enlace: AQUI PONER ENLACE");
-            model.addObject("mensaje", "Usuario creado con exito");
+                    "Este es el correo de validacion", "Hola: "+request.getParameter("nombre")+". Este es su codigo de validacion:"+uc.getCode()+". Para validar su usuario introduzca el codigo en el siguiente enlace: https://intravita.herokuapp.com/validacion");
+            model.addObject("mensaje", "Usuario creado con exito, consulte su correo para validar cuenta");
         }
 
         return model;
@@ -109,6 +117,9 @@ public class GeneralController {
     	
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
+        else if(!user.isValidado())
+        	model.addObject("mensaje2", "Consulte su correo y valide la cuenta");
+        
         else if (!Funciones.encrypt_md5(request.getParameter("password")).equalsIgnoreCase(user.getPassword())) 
         	model.addObject("mensaje2", "Contraseña incorrecta");
         
@@ -195,5 +206,34 @@ public class GeneralController {
 		
 		return "redirect:/user/perfil";
 	}
+    
+    @RequestMapping(value = "/validacion", method = RequestMethod.GET)
+    public String login() {    	
+        return "validacion";
+    }
+
+    @RequestMapping(value = "validacion", method = RequestMethod.POST)
+    public ModelAndView validar(HttpServletRequest request) {
+    	ModelAndView model = new ModelAndView();
+    	UserCode uc = userCodeDAO.find(Funciones.encrypt(request.getParameter("username")));
+    	User u = null;
+    	
+    	model.setViewName("validacion");
+    	
+    	if(uc == null)
+    		model.addObject("mensaje2","Este usuario no existe");
+    	else if(uc.getNickname().equals(request.getParameter("username")) && uc.getCode().equals(request.getParameter("code"))) {
+    		u = userDAO.find(Funciones.encrypt(uc.getNickname()));
+    		u.setValidado(true);
+    		userDAO.updateValidacion(u);
+    		model.addObject("mensaje2","Su cuenta ha sido validada");
+    	}else {
+    		model.addObject("mensaje2","Usuario o codigo incorrectos");
+    	}
+ 
+    	return model;
+    }
+    	
+    
 
 }
