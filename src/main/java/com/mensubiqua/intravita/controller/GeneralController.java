@@ -111,7 +111,8 @@ public class GeneralController {
 
         else if (!Funciones.encrypt_md5(request.getParameter("password")).equalsIgnoreCase(user.getPassword())) 
         	model.addObject("mensaje2", "Contraseña incorrecta");
-        
+        else if(!user.isValidado())
+        	model.addObject("mensaje2", "Consulte su correo y valide la cuenta");
         else {
             request.getSession().setAttribute("user", user);
             boolean local = request.getRequestURL().toString().contains("localhost");

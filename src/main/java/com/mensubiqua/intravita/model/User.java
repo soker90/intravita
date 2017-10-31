@@ -22,6 +22,7 @@ public class User {
     private String foto;
     private String rol;
     private String email;
+    private boolean validado;
 
     public User(String nombre, String apellido, String email, String password, String rol, String nickname) {
         this.nombre = nombre;
@@ -30,10 +31,18 @@ public class User {
         this.password = password;
         this.nickname = nickname;
         this.rol = rol;
-        
+        this.validado=false;
     }
 
-    public User() {
+    public boolean isValidado() {
+		return validado;
+	}
+
+	public void setValidado(boolean validado) {
+		this.validado = validado;
+	}
+
+	public User() {
 
     }
 
