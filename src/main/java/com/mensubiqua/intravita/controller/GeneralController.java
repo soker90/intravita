@@ -84,8 +84,8 @@ public class GeneralController {
         	String apellido = Funciones.encrypt(request.getParameter("apellido"));
         	String email = Funciones.encrypt(request.getParameter("email"));
         	String password = Funciones.encrypt_md5(request.getParameter("password"));
-        	String nick = Funciones.encrypt((request.getParameter("nombre") + 
-        			"." + request.getParameter("apellido")));
+        	String nick = Funciones.encrypt((request.getParameter("nombre").toLowerCase() + 
+        			"." + request.getParameter("apellido").toLowerCase()));
             user = new User(nombre, apellido, email, password,
             		"ROLE_USER", nick);
             userDAO.insert(user);
@@ -103,7 +103,7 @@ public class GeneralController {
     @RequestMapping(value = "logear**", method = RequestMethod.POST)
     public ModelAndView logear(HttpServletRequest request)  {
         ModelAndView model = new ModelAndView();
-        User user = userDAO.find(Funciones.encrypt(request.getParameter("username")));
+        User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));
         
         model.setViewName("login");
     	
