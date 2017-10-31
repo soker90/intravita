@@ -6,7 +6,7 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(monochrome = true, features = "src/test/java/com/mensubiqua/intravita/features")
+@CucumberOptions(monochrome = true, features = "src/test/java/com/mensubiqua/intravita/feature")
 public class RunCucumberTest {
 
 }
