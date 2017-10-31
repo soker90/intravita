@@ -30,11 +30,13 @@ public class UserDAOImpl implements UserDAO{
         Document document = DBBroker.get().find(ID, nickname, COLLECTION);
         User user = null;
 
-        if (document != null) 
+        if (document != null){
         	user = new User(Funciones.decrypt(document.getString("nombre")), Funciones.decrypt(document.getString("apellido")),
         		Funciones.decrypt(document.getString("email")), document.getString("password"), document.getString("rol"),
-        		Funciones.decrypt(document.getString("nickname")));
-
+        		Funciones.decrypt(document.getString("nickname")), document.getBoolean("validado"));
+        	
+        
+        }
         return user;
     }
 
@@ -50,7 +52,7 @@ public class UserDAOImpl implements UserDAO{
 			String nickname = Funciones.decrypt(document.getString("nickname"));
 			users.add(new User(nombre, apellido,
 	        		email, document.getString("password"), document.getString("rol"), 
-	        		nickname));
+	        		nickname,document.getBoolean("validado")));
 		}
 
 		
@@ -110,6 +112,13 @@ public class UserDAOImpl implements UserDAO{
 		 
 		 
 	 }
+	 public void updateValidacion (User user) {
+		 boolean validadoDB = user.isValidado();
+		 String nicknameDB = Funciones.encrypt(user.getNickname());
+		 BasicDBObject set = new BasicDBObject();
+		 set.append("$set", new BasicDBObject().append("validado", validadoDB));
+		 BasicDBObject searchQuery = new BasicDBObject().append(ID, nicknameDB);
+		 DBBroker.get().update(set, searchQuery, COLLECTION);
 	
-	  
+	 }
 }

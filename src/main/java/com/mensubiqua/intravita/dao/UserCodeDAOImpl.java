@@ -17,22 +17,22 @@ import com.mensubiqua.intravita.model.UserCode;
 public class UserCodeDAOImpl implements UserCodeDAO{
 	
 	private final String COLLECTION = "userCode";
-    private final String ID = "code";
+    private final String ID = "nickname";
 	
 	public void insert(UserCode uc) {
 		DBBroker.get().insertOne(uc, COLLECTION);
 	}
 	
-    public void delete(String code) {
-    	DBBroker.get().deleteOne(ID, code, COLLECTION);
+    public void delete(String nickname) {
+    	DBBroker.get().deleteOne(ID, nickname, COLLECTION);
     }
     
-    public UserCode find(String code) {
-    	Document document = DBBroker.get().find(ID, code, COLLECTION);
+    public UserCode find(String nickname) {
+    	Document document = DBBroker.get().find(ID, nickname, COLLECTION);
         UserCode uc = null;
 
         if (document != null) 
-        	uc = new UserCode(document.getString("nickname"), document.getString("code"));
+        	uc = new UserCode(Funciones.decrypt(document.getString("nickname")), document.getString("code"));
 
         return uc;
     }
