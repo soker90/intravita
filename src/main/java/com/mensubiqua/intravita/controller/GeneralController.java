@@ -21,6 +21,7 @@ import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.MailSender;
 import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
+import com.mensubiqua.intravita.dao.UserCodeDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
 import com.mensubiqua.intravita.model.UserCode;
@@ -37,6 +38,8 @@ public class GeneralController {
 	@Autowired
 	ServletContext servletContext;
 	
+	@Autowired
+	UserCodeDAOImpl userCodeDAO;
 
 	
     @RequestMapping({"/default**", "/"})
@@ -92,9 +95,11 @@ public class GeneralController {
             		"ROLE_USER", nick);
             userDAO.insert(user);
             uc = new UserCode(user.getNickname(),Funciones.generarStringAleatorio());
+            userCodeDAO.insert(uc);
+            
             MailSender EnviadorMail = new MailSender(request.getParameter("email"),
-                    "Este es el correo de validacion", "Para validar su usario pulse en el siguiente enlace: http//localhost:8080/intravita/validacion.jsp /nEste es su codigo de validacion:"+uc.getCode());
-            model.addObject("mensaje", "Usuario creado con exito");
+                    "Este es el correo de validacion", "Este es su codigo de validacion:"+uc.getCode()+". Para validar su usario introduzca el codigo en el siguiente enlace: http://localhost:8080/intravita/validacion.jsp");
+            model.addObject("mensaje", "Usuario creado con exito, consulte su correo para validar cuenta");
         }
 
         return model;
