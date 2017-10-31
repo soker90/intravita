@@ -80,7 +80,7 @@
                                     <input type="password" name="password" placeholder="Contraseña" class="form-password form-control" id="form-password">
                                 </div>
                                 <div class="form-group">
-                                <a href="recuperar_pass">Ha olvidado su contraseña?</a></td>
+                                <a href="recuperar_pass">¿Ha olvidado su contraseña?</a></td>
                                 </div>
                                 <button id="form-login" type="submit" name="submit" value="submit" class="btn">Entrar</button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
