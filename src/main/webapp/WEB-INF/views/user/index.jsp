@@ -8,6 +8,12 @@
 
  <!-- main col right -->
  <div class="col-sm-9">
+  <c:if test="${var.cont == 1 && not empty var.mensaje}">
+ 	<div class="panel panel-default">
+   	  <div class="panel-heading"><h4>${var.mensaje}</h4></div>
+   </div>
+                                        
+</c:if>
 	<c:if test="${vacio eq 'vacio'}">
 		<div class="panel panel-default">
 		  <div class="panel-body">
@@ -44,17 +50,16 @@
 	 			    
 			  </c:if>
 			  <c:if test="${publicacion.nickname eq user.nickname}">
-			  <div style="display: inline-block">
-				  <form style="display: inline-block" class="form-inline" action="${var.url}/user/editPublicacion" method="post">
-	 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
-	 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button>
+			  	<form></form>
+				  <form style="display: inline-block" class="form-inline" action="${var.url}/user/editarPublicacion" method="post">
+	 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}"/>
+	 			    <a href="${var.url}/user/editarPublicacion?id=${publicacion.id}"><button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button></a>
 	 		 	 </form>
 	 		 	 
 	 		 	 <form style="display: inline-block" class="form-inline" action="${var.url}/user/removePublicacion" method="post">
-	 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
+	 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}"/>
 	 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
 	 		 	 </form>
- 		 	 </div>
  		 	 
 			  </c:if>
 			  </div>

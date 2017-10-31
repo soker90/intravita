@@ -28,9 +28,6 @@ public class AdminController {
     UserDAOImpl userDAO;
 	
 	@Autowired
-	Variables var;
-	
-	@Autowired
 	PublicacionDAOImpl publicacionDAO;
 	
 	@Autowired
@@ -84,6 +81,11 @@ public class AdminController {
 					}
 
 					model.addObject("publicaciones", publicaciones);
+					
+					Variables v = (Variables) sesion.getAttribute("var");
+					v.setCont(1);
+					
+					
 			        model.setViewName("admin/index");
 			
 			        return model;
@@ -98,10 +100,14 @@ public class AdminController {
     }
 	
     @RequestMapping(value = "/admin/borrarUsuario**", method = RequestMethod.POST)
-    public ModelAndView deleteUser(HttpServletRequest request) {
+    public ModelAndView deleteUser(HttpSession sesion, HttpServletRequest request) {
     	String username = request.getParameter("username");
     	if(!username.equals("super.admin"))
     		userDAO.delete(Funciones.encrypt(username));
+    	
+    	Variables v = (Variables) sesion.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Usuario borrado correctamente");
 
         return new ModelAndView("redirect:/default");
     }
@@ -109,6 +115,8 @@ public class AdminController {
     @RequestMapping(value = "/admin/editarUsuario**", method = RequestMethod.POST)
     public ModelAndView perfil(HttpSession sesion, HttpServletRequest request) {
     	User user = (User) sesion.getAttribute("user");
+    	Variables v = (Variables) sesion.getAttribute("var");
+		v.setCont(1);
     	
     	try {
     	
@@ -139,24 +147,30 @@ public class AdminController {
         user.setApellido(request.getParameter("apellidos"));
         user.setFoto(request.getParameter("foto"));
         user.setEmail(request.getParameter("email"));
-        System.out.println(user.toString());
         
         userDAO.update(user);
+        
+        Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Usuario actualizado correctamente");
         
         return new ModelAndView("redirect:/default");
     }
     
     @RequestMapping(value = "/admin/cambiarPassword**", method = RequestMethod.POST)
     public ModelAndView updatePassword(HttpSession session, HttpServletRequest request) {
+    	Variables v = (Variables) session.getAttribute("var");
     	if(!request.getParameter("nick").equals("super.admin"))
     	{
     		User user = userDAO.find(Funciones.encrypt(request.getParameter("nick")));
     		if (request.getParameter("password").equals(request.getParameter("password2"))) {
 				user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
 				userDAO.updatePassword(user);
+				v.setMensaje("Contraseña cambiada correctamente.");
 			} else {
-				// TODO enviar un mensaje a una variable de sesion
+				v.setMensaje("Las contraseñas no coinciden.");
 			}
+    		v.setCont(0);
             
     	}
     	
@@ -165,21 +179,70 @@ public class AdminController {
     }
     
     @RequestMapping(value = "/admin/updateRol**", method = RequestMethod.POST)
-    public ModelAndView updateRol(HttpServletRequest request) {
+    public ModelAndView updateRol(HttpSession session, HttpServletRequest request) {
     	String rol = request.getParameter("rol");
     	if(rol.equals("No")) rol="ROLE_ADMIN"; else rol="ROLE_USER"; 
     	
     	userDAO.updateRole(request.getParameter("username"), rol);
+    	
+    	Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Rol actualizado correctamente");
         
         return new ModelAndView("redirect:/default");
     }
     
 	@RequestMapping(value = "/admin/borrarPublicacion**", method = RequestMethod.POST)
-	public String removePublicacion(HttpServletRequest request) {
+	public String removePublicacion(HttpSession session, HttpServletRequest request) {
 		
 		publicacionDAO.delete(request.getParameter("id"));
+		
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Pubicación borrada correctamente");
 
 		return "redirect:/default";
 	}
+	
+	@RequestMapping(value = "/admin/editarPublicacion**", method = RequestMethod.POST)
+    public ModelAndView editarPublicacion(HttpSession sesion, HttpServletRequest request) {
+    	User user = (User) sesion.getAttribute("user");
+    	Variables v = (Variables) sesion.getAttribute("var");
+		v.setCont(1);
+    	
+    	try {
+    	
+	    	if(user.getRol() != null)
+	    	{
+		    	if(user.getRol().equals("ROLE_ADMIN"))
+		    	{
+		    		ModelAndView model = new ModelAndView();
+		    		Publicacion p = publicacionDAO.find(request.getParameter("id"));
+		    		model.addObject("publicacion", p);
+		            model.setViewName("admin/editarPublicacion");
+		            return model;
+		    	}
+	    	}
+    	} catch (Exception e) {
+            return new ModelAndView("redirect:/default");
+    	}
+    	
+    	return new ModelAndView("redirect:/default");
+
+    }
+	
+	@RequestMapping(value = "/admin/updatePublicacion**", method = RequestMethod.POST)
+    public ModelAndView updatePublicacion(HttpSession session, HttpServletRequest request) {
+    	Publicacion p = publicacionDAO.find(request.getParameter("id"));
+    	p.setTexto(request.getParameter("texto"));
+    	
+    	publicacionDAO.update(p);
+    	
+    	Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Pubicación actualizada correctamente");
+        
+        return new ModelAndView("redirect:/default");
+    }
 
 }

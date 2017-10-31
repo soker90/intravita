@@ -162,6 +162,8 @@ public class GeneralController {
     
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("nick") String nick, HttpSession session) {
+    	Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
 
 		if (!file.isEmpty()) {
 			try {
@@ -183,14 +185,12 @@ public class GeneralController {
 				if(user.getNickname().equals(nick))
 					user.setFoto(nick);
 
-				System.out.println("Ubicación de documento = " + serverFile.getAbsolutePath());
-
-				//return "Documento subido correctamente = " + file.getOriginalFilename() + " Ubicacion del Archivo = " + serverFile.getAbsolutePath();
+				v.setMensaje("Fotografía actualizada correctamente");
 			} catch (Exception e) {
-				//return "Ocurrio un error al subir documento" + file.getOriginalFilename() + " => " + e.getMessage();
+				v.setMensaje("ERROR: Ocurrió un error al subir la fotografía. Tamaño máximo 10Mb.");
 			}
 		} else {
-			//return "Ocurrio un error al subir " + file.getOriginalFilename() + " documento vacio.";
+			v.setMensaje("ERROR: Ocurrió un error al subir la fotografía. Tamaño máximo 10Mb.");
 		}
 		
 		return "redirect:/user/perfil";

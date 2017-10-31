@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.Publicacion;
@@ -64,6 +65,10 @@ public class UserController {
 					
 					model.addObject("vacio", vacio);
 					model.addObject("publicaciones", publicaciones);
+					
+					Variables v = (Variables) sesion.getAttribute("var");
+					v.setCont(1);
+					
 					model.setViewName("user/index");
 					return model;
 				}
@@ -87,6 +92,8 @@ public class UserController {
 				if (user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN")) {
 					ModelAndView model = new ModelAndView();
 					model.setViewName("user/perfil");
+					Variables v = (Variables) sesion.getAttribute("var");
+					v.setCont(1);
 					return model;
 				}
 			}
@@ -108,6 +115,10 @@ public class UserController {
 		user.setEmail(request.getParameter("email"));
 
 		userDAO.update(user);
+		
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Perfil actualizado correctamente");
 
 		return new ModelAndView("redirect:/user/perfil");
 	}
@@ -115,16 +126,21 @@ public class UserController {
 	@RequestMapping(value = "/user/cambiarPassword**", method = RequestMethod.POST)
 	public ModelAndView updatePassword(HttpSession session, HttpServletRequest request) {
 		User user = (User) session.getAttribute("user");
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		
 		if (Funciones.encrypt_md5(request.getParameter("password_old")).equals(user.getPassword())) {
 			if (request.getParameter("password").equals(request.getParameter("password2"))) {
 				user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
 				userDAO.updatePassword(user);
 				request.getSession().setAttribute("user", user);
+				
+				v.setMensaje("Contraseña actualizada correctamente.");
 			} else {
-				// TODO enviar un mensaje a una variable de sesion
+				v.setMensaje("ERROR: Las contraseñas no coinciden.");
 			}
 		} else {
-			// TODO enviar un mensaje a una variable de sesion
+			v.setMensaje("ERROR: La contraseña antigua no coincide.");
 		}
 		
 
@@ -157,7 +173,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/removePublicacion**", method = RequestMethod.POST)
 	public String removePublicacion(HttpSession session, HttpServletRequest request) {
-		System.out.println(request.getParameter("id"));
 		Publicacion p = publicacionDAO.find(request.getParameter("id"));
 		User user = (User) session.getAttribute("user");
 		
@@ -165,8 +180,51 @@ public class UserController {
 		{
 			publicacionDAO.delete(p.getId());
 		}
+		
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Publicación borrada correctamente");
 
 		return "redirect:/user";
 	}
+	
+	@RequestMapping(value = "/user/editarPublicacion**", method = RequestMethod.POST)
+    public ModelAndView editarPublicacion(HttpSession sesion, HttpServletRequest request) {
+    	System.out.println("llega");
+    	Publicacion p = publicacionDAO.find(request.getParameter("id"));
+    	
+    	try {
+    		
+    		ModelAndView model = new ModelAndView();
+    		model.addObject("publicacion", p);
+    		Variables v = (Variables) sesion.getAttribute("var");
+			v.setCont(1);
+            model.setViewName("user/editarPublicacion");
+            return model;
+	    	
+    	} catch (Exception e) {
+            return new ModelAndView("redirect:/user");
+    	}
+
+    }
+	
+	@RequestMapping(value = "/user/updatePublicacion**", method = RequestMethod.POST)
+    public ModelAndView updatePublicacion(HttpSession session, HttpServletRequest request) {
+    	Publicacion p = publicacionDAO.find(request.getParameter("id"));
+    	User user = (User) session.getAttribute("user");
+    	p.setTexto(request.getParameter("texto"));
+    	
+    	if(user.getNickname().equals(p.getNickname()))
+    	{
+	    	
+    		publicacionDAO.update(p);
+    		Variables v = (Variables) session.getAttribute("var");
+			v.setCont(0);
+			v.setMensaje("Publicación actualizada correctamente");
+	    	
+    	}
+
+        return new ModelAndView("redirect:/user");
+    }
 
 }

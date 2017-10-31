@@ -8,6 +8,12 @@
 								  
  <!-- main col right -->
  <div class="col-sm-9">
+ <c:if test="${var.cont == 1 && not empty var.mensaje}">
+ 	<div class="panel panel-default">
+   	  <div class="panel-heading"><h4>${var.mensaje}</h4></div>
+   </div>
+                                        
+</c:if>
 
    <div class="panel panel-default">
    	  <div class="panel-heading"><h4>Usuarios</h4></div>

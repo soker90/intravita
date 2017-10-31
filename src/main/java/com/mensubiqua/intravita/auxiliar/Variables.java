@@ -16,9 +16,10 @@ public class Variables {
 	
     private String url;
     private String mensaje;
+    private int cont;
     
 	public Variables() {
-		
+		cont = 0;
 	}
 
 	public String getUrl() {
@@ -38,6 +39,17 @@ public class Variables {
 
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+
+	public int getCont() {
+		return cont;
+	}
+
+	public void setCont(int cont) {
+		if(cont == 0)
+			this.cont = 0;
+		else
+			this.cont++;
 	}
     
     
