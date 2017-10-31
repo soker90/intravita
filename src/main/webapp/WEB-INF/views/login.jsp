@@ -116,11 +116,11 @@
                                     <input type="text" name="nombre" placeholder="Nombre" class="form-first-name form-control" id="form-first-name"><br>
                                     <label class="sr-only" for="form-last-name">Apellidos</label>
                                     <input type="text" name="apellido" placeholder="Apellidos" class="form-last-name form-control" id="form-last-name"><br>
-                                    <label class="sr-only" for="form-email">Email</label><br>
-                                    <input type="text" name="email" placeholder="Correo electrónico" class="form-email form-control" id="form-email">
-                                    <label class="sr-only" for="form-passwordd">Contraseña</label><br>
-                                    <input type="password" name="password" placeholder="Contraseña" class="form-email form-control" id="form-passwordd">
-                                    <label class="sr-only" for="form-password2">Repita contraseña</label><br>
+                                    <label class="sr-only" for="form-email">Email</label>
+                                    <input type="text" name="email" placeholder="Correo electrónico" class="form-email form-control" id="form-email"><br>
+                                    <label class="sr-only" for="form-passwordd">Contraseña</label>
+                                    <input type="password" name="password" placeholder="Contraseña" class="form-email form-control" id="form-passwordd"><br>
+                                    <label class="sr-only" for="form-password2">Repita contraseña</label>
                                     <input type="password" name="password2" placeholder="Contraseña" class="form-email form-control" id="form-password2">
                                     </div>
                                 <button id="registrar" type="submit" class="btn">Registrarse</button>

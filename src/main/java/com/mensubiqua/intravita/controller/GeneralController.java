@@ -69,13 +69,12 @@ public class GeneralController {
 
     @RequestMapping(value = "registro**", method = RequestMethod.POST)
     public ModelAndView registrar(HttpServletRequest request)  {
-
     	User user = null;
     	ModelAndView model = new ModelAndView();
         model.setViewName("login");
     	
         if (!request.getParameter("password").equals(request.getParameter("password2"))) 
-        	model.addObject("mensaje", "Las contraseñas no coinciden");
+        	model.addObject("mensaje", "Las contrasenas no coinciden");
 
         else if (userDAO.find(Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido"))) != null) 
         	model.addObject("mensaje", "Este usuario ya existe");
@@ -86,7 +85,7 @@ public class GeneralController {
         	String email = Funciones.encrypt(request.getParameter("email"));
         	String password = Funciones.encrypt_md5(request.getParameter("password"));
         	String nick = Funciones.encrypt((request.getParameter("nombre") + 
-        			"." + request.getParameter("apellido").toLowerCase()));
+        			"." + request.getParameter("apellido")));
             user = new User(nombre, apellido, email, password,
             		"ROLE_USER", nick);
             userDAO.insert(user);
@@ -104,13 +103,13 @@ public class GeneralController {
     @RequestMapping(value = "logear**", method = RequestMethod.POST)
     public ModelAndView logear(HttpServletRequest request)  {
         ModelAndView model = new ModelAndView();
-        User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));
+        User user = userDAO.find(Funciones.encrypt(request.getParameter("username")));
         
         model.setViewName("login");
     	
         if (user == null) model.addObject("mensaje2", "Este usuario no existe");
 
-        else if (!Funciones.encrypt_md5(request.getParameter("password")).equals(user.getPassword())) 
+        else if (!Funciones.encrypt_md5(request.getParameter("password")).equalsIgnoreCase(user.getPassword())) 
         	model.addObject("mensaje2", "Contraseña incorrecta");
         
         else {
