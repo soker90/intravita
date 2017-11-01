@@ -147,7 +147,7 @@ public class GeneralController {
             }
             
             
-            model.setViewName("redirect:/default");
+            model.setViewName("redirect:/user");
         }
 
         return model;
