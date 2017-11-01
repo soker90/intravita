@@ -227,7 +227,7 @@ public class GeneralController {
 		if(u != null){
     			u.setValidado(true);
     			userDAO.updateValidacion(u);
-			userCodeDAO.delete(uc.getNickname());
+			userCodeDAO.delete(Funciones.encrypt(uc.getNickname()));
     			model.addObject("mensaje2","Su cuenta ha sido validada");
 		}else{
 			model.addObject("mensaje2","Error desconocido");
