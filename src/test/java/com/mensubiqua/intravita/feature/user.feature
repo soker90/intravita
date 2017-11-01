@@ -40,7 +40,29 @@ Feature: User
     When Cambio de contrasena a "balboa"
     Then La contrasena es "balboa"
     
-    Scenario: Cambio de email
-    	Given Tengo un usuario inicializado
-    	When Cambio de email a "email@gmail.com"
-    	Then El email es "email@gmail.com"
+  Scenario: Cambio de email
+	Given Tengo un usuario inicializado
+	When Cambio de email a "email@gmail.com"
+	Then El email es "email@gmail.com"
+
+  Scenario: Cambio de nick
+	Given Tengo un usuario inicializado
+	When Cambio de nick a "edu.parra"
+	Then El nick es "edu.parra"
+	
+  Scenario: Cambio de foto
+	Given Tengo un usuario inicializado
+	When Cambio de foto a "edu.parra"
+	Then La ruta de la foto es "resources/img/edu.parra.jpg"
+	
+  Scenario: Cambio de rol
+	Given Tengo un usuario inicializado
+	When Cambio de rol a "ROLE_USER"
+	Then El rol es "ROLE_USER"
+	
+  Scenario: Cambio de validado
+	Given Tengo un usuario inicializado
+	When Cambio de validado a "<True>"
+	Then Validado es "<True>"
+	
+	
