@@ -6,6 +6,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.client.MongoCollection;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,8 +23,15 @@ public class UserDAOImpl implements UserDAO{
         DBBroker.get().insertOne(user, COLLECTION);
     }
 
-    public void delete(String nickname) {
-        DBBroker.get().deleteOne(ID, nickname, COLLECTION);
+    public void delete(String nickname, File foto) {
+    	PublicacionDAOImpl p = new PublicacionDAOImpl();
+    	p.deleteUser(nickname);
+        DBBroker.get().deleteOne(ID, Funciones.encrypt(nickname), COLLECTION);
+        
+        if(foto.exists() && !foto.isDirectory()) { 
+            foto.delete();
+        } 
+        
     }
 
     public User find(String nickname) {
@@ -59,14 +67,22 @@ public class UserDAOImpl implements UserDAO{
 		return users;
 	}
 	
-	 public void update(User user) {			
+	 public void update(User user, String rutaFoto) {			
 
 			//encriptar las nuevas variables
 			String nicknameDB = Funciones.encrypt(user.getNickname());
 			String nombreDB = Funciones.encrypt(user.getNombre());
 			String apellidoDB = Funciones.encrypt(user.getApellido());
 			String emailDB = Funciones.encrypt(user.getEmail());
-			String nicknameNuevo = Funciones.encrypt(user.getNombre().toLowerCase() + "." + user.getApellido().toLowerCase());
+			String sNickNuevo =  user.getNombre().toLowerCase() + "." + user.getApellido().toLowerCase();
+			String nicknameNuevo = Funciones.encrypt(sNickNuevo);
+			
+			if(!user.getNickname().equals(sNickNuevo))
+			{
+				File fotoVieja = new File(rutaFoto + user.getNickname() + ".jpg");
+				File fotoNueva = new File(rutaFoto + sNickNuevo + ".jpg");
+				fotoVieja.renameTo(fotoNueva);
+			}
 			
 
 			//crear documento de los nuevos valores

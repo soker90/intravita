@@ -110,11 +110,16 @@ public class AdminController {
     public ModelAndView deleteUser(HttpSession sesion, HttpServletRequest request) {
     	String username = request.getParameter("username");
     	if(!username.equals("super.admin"))
-    		userDAO.delete(Funciones.encrypt(username));
+    	{
+    		File foto = new File(servletContext.getRealPath("/resources/img/"+username+".jpg"));
+    		userDAO.delete(username, foto);
+    		Variables v = (Variables) sesion.getAttribute("var");
+    		v.setCont(0);
+    		v.setMensaje("Usuario borrado correctamente");
+    	}
+    		
     	
-    	Variables v = (Variables) sesion.getAttribute("var");
-		v.setCont(0);
-		v.setMensaje("Usuario borrado correctamente");
+    	
 
         return new ModelAndView("redirect:/default");
     }
@@ -155,7 +160,9 @@ public class AdminController {
         user.setFoto(request.getParameter("foto"));
         user.setEmail(request.getParameter("email"));
         
-        userDAO.update(user);
+        String rutaFoto = servletContext.getRealPath("/resources/img/");
+        
+        userDAO.update(user, rutaFoto);
         
         Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);

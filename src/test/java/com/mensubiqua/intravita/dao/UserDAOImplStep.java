@@ -6,6 +6,7 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
+import java.io.File;
 
 public class UserDAOImplStep {
 	private UserDAOImpl ud = null;
@@ -30,7 +31,7 @@ public class UserDAOImplStep {
 	@When("^Borro un usuario$")
 	public void borro_un_usuario() throws Throwable {
 		user = new User("Miguel", "Ampu", "ampu@gmail.com", "1234", "ROLE_USER","miguel.ampu", false);
-	    ud.delete(user.getNickname());
+	    ud.delete(user.getNickname(), new File(""));
 	}
 
 	@Then("^El usuario es null$")

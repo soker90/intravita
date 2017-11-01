@@ -4,12 +4,15 @@ import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.BsonField;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.bson.BsonDocument;
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -59,6 +62,12 @@ public class DBBroker<T> {
         BasicDBObject query = new BasicDBObject(field, value);
 
         this.db.getCollection(collection).deleteOne(query);
+    }
+    
+    public void deleteMany(String field, String value, String collection){
+        Bson filter = new Document(field, value);
+
+        this.db.getCollection(collection).deleteMany(filter);
     }
 
     public Document find(String field, String value, String collection){

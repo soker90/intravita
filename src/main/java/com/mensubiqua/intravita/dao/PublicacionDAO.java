@@ -12,4 +12,5 @@ public interface PublicacionDAO {
     public Publicacion find(String id);
     public ArrayList<Publicacion> selectAll();
     public void update(Publicacion p);
+    public void deleteUser(String nick);
 }

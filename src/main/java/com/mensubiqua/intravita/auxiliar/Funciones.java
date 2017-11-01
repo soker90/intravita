@@ -3,6 +3,8 @@ package com.mensubiqua.intravita.auxiliar;
 
 import java.security.MessageDigest;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -11,7 +13,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.binary.Base64;
 
-public class Funciones {
+public abstract class Funciones {
 	private static String key = "IntravitaQQ12345";
 	private static String initVector = "RandomInitVector";
     public static String encrypt(String value) {
@@ -78,5 +80,14 @@ public class Funciones {
         String saltStr = salt.toString();
         return saltStr;
 
+    }
+    
+    public static boolean validarEmail(String email) {
+    	String patron = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern p = Pattern.compile(patron);
+        Matcher m = p.matcher(email);
+        return m.matches();
+ 
     }
 }

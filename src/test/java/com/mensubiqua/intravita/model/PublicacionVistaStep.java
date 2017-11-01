@@ -10,61 +10,64 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class PublicacionStep {
-	private Publicacion p = null;
-
-	@Given("^Tengo una publicacion inicializada$")
-	public void tengo_una_publicacion_inicializada() throws Throwable {
-	    p = new Publicacion();
+public class PublicacionVistaStep {
+	private PublicacionVista pv = null;
+	
+	@Given("^Tengo una publicacionVista inicializada$")
+	public void tengo_una_publicacionVista_inicializada() throws Throwable {
+		pv = new PublicacionVista(new Publicacion(), new User());
 	}
 
-	@When("^Cambio el _id a \"([^\"]*)\"$")
-	public void cambio_el__id_a(String arg1) throws Throwable {
-	    p.setId(arg1);
+	@When("^Cambio el id a \"([^\"]*)\"$")
+	public void cambio_el_id_a(String arg1) throws Throwable {
+		pv.setId(arg1);
 	}
 
-	@Then("^El _id es \"([^\"]*)\"$")
-	public void el__id_es(String arg1) throws Throwable {
-	    Assert.assertEquals(arg1, p.getId());
+	@Then("^El id es \"([^\"]*)\"$")
+	public void el_id_es(String arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		Assert.assertEquals(arg1, pv.getId());
 	}
-
-	@When("^Cambio el nickname a \"([^\"]*)\"$")
+	
+	/*@When("^Cambio el nickname a \"([^\"]*)\"$")
 	public void cambio_el_nickname_a(String arg1) throws Throwable {
-	    p.setNickname(arg1);
+	    pv.setNickname(arg1);
 	}
 
 	@Then("^El nickname es \"([^\"]*)\"$")
 	public void el_nickname_es(String arg1) throws Throwable {
-	    Assert.assertEquals(arg1, p.getNickname());
+	    Assert.assertEquals(arg1, pv.getNickname());
 	}
 
 	@When("^Cambio el texto a \"([^\"]*)\"$")
 	public void cambio_el_texto_a(String arg1) throws Throwable {
-	    p.setTexto(arg1);
+	    pv.setTexto(arg1);
 	}
 
 	@Then("^El text es \"([^\"]*)\"$")
 	public void el_text_es(String arg1) throws Throwable {
-	    Assert.assertEquals(arg1, p.getTexto());
+	    Assert.assertEquals(arg1, pv.getTexto());
 	}
 
 	@When("^Cambio la privacidad a \"([^\"]*)\"$")
 	public void cambio_la_privacidad_a(String arg1) throws Throwable {
-	    p.setPrivacidad(arg1);
+	    pv.setPrivacidad(arg1);
 	}
 
 	@Then("^La privacidad es \"([^\"]*)\"$")
 	public void la_privacidad_es(String arg1) throws Throwable {
-	    Assert.assertEquals(arg1, p.getPrivacidad());
+	    Assert.assertEquals(arg1, pv.getPrivacidad());
 	}
 
 	@When("^Cambio la fecha a \"([^\"]*)\"$")
 	public void cambio_la_fecha_a(String arg1) throws Throwable {
-		p.setFecha(arg1);
+		pv.setFecha(arg1);
 	}
 
 	@Then("^La fecha es \"([^\"]*)\"$")
 	public void la_fecha_es(String arg1) throws Throwable {
-	    Assert.assertEquals(arg1, p.getFecha());
-	}
+	    Assert.assertEquals(arg1, pv.getFecha());
+	}*/
+
+
 }

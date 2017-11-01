@@ -68,5 +68,9 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 		DBBroker.get().update(set, searchQuery, COLLECTION);
 
 	}
+	
+	 public void deleteUser(String nick) {
+	        DBBroker.get().deleteMany("nickname", nick, COLLECTION);
+	 }
 
 }

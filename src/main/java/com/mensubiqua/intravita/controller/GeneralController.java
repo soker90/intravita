@@ -77,30 +77,38 @@ public class GeneralController {
     	UserCode uc = null;
     	ModelAndView model = new ModelAndView();
         model.setViewName("login");
-    	
-        if (!request.getParameter("password").equals(request.getParameter("password2"))) 
-        	model.addObject("mensaje", "Las contrasenas no coinciden");
-
-        else if (userDAO.find(Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido"))) != null) 
-        	model.addObject("mensaje", "Este usuario ya existe");
-
-        else {
-        	String nombre = Funciones.encrypt(request.getParameter("nombre"));
-        	String apellido = Funciones.encrypt(request.getParameter("apellido"));
-        	String email = Funciones.encrypt(request.getParameter("email"));
-        	String password = Funciones.encrypt_md5(request.getParameter("password"));
-        	String nick = Funciones.encrypt((request.getParameter("nombre").toLowerCase() + 
-        			"." + request.getParameter("apellido").toLowerCase()));
-            user = new User(nombre, apellido, email, password,
-            		"ROLE_USER", nick,false);
-            userDAO.insert(user);
-            uc = new UserCode(Funciones.decrypt(user.getNickname()),Funciones.generarStringAleatorio());
-            userCodeDAO.insert(uc);
-            //http://localhost:8080/intravita/validacion
-            MailSender EnviadorMail = new MailSender(request.getParameter("email"),
-                    "Validar cuenta Intravita", "Hola: "+uc.getNickname()+". Este es su codigo de validacion: "+uc.getCode()+". Para validar su usuario introduzca el codigo en el siguiente enlace: https://intravita.herokuapp.com/validacion");
-            model.addObject("mensaje", "Usuario creado con exito, consulte su correo para validar cuenta");
-        }
+    	if(Funciones.validarEmail(request.getParameter("email")))
+    	{
+	        if (!request.getParameter("password").equals(request.getParameter("password2"))) 
+	        	model.addObject("mensaje", "Las contrasenas no coinciden");
+	
+	        else if (userDAO.find(Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido"))) != null) 
+	        	model.addObject("mensaje", "Este usuario ya existe");
+	
+	        else {
+	        	String nombre = Funciones.encrypt(request.getParameter("nombre"));
+	        	String apellido = Funciones.encrypt(request.getParameter("apellido"));
+	        	String email = Funciones.encrypt(request.getParameter("email"));
+	        	String password = Funciones.encrypt_md5(request.getParameter("password"));
+	        	String nick = Funciones.encrypt((request.getParameter("nombre").toLowerCase() + 
+	        			"." + request.getParameter("apellido").toLowerCase()));
+	            user = new User(nombre, apellido, email, password,
+	            		"ROLE_USER", nick,false);
+	            userDAO.insert(user);
+	            uc = new UserCode(Funciones.decrypt(user.getNickname()),Funciones.generarStringAleatorio());
+	            userCodeDAO.insert(uc);
+	            //http://localhost:8080/intravita/validacion
+	            String url = "https://intravita.herokuapp.com";
+	            if(request.getRequestURL().toString().contains("localhost"))
+	            	url = "https://localhost:8443/intravita";
+	            
+	            MailSender EnviadorMail = new MailSender(request.getParameter("email"),
+	                    "Validar cuenta Intravita", "Hola: "+uc.getNickname()+". Este es su codigo de validacion: "+uc.getCode()+". Para validar su usuario introduzca el codigo en el siguiente enlace: " + url + "/validacion");
+	            model.addObject("mensaje", "Usuario creado con exito, consulte su correo para validar cuenta");
+	        }
+    	} else {
+    		model.addObject("mensaje", "El correo electr&oacute;nico no es v&aacute;lido");
+    	}
 
         return model;
     }

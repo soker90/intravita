@@ -74,6 +74,7 @@ public class UserController {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error al cargar la vista de usuario");
 			return new ModelAndView("redirect:/default");
 		}
@@ -109,12 +110,23 @@ public class UserController {
 	public ModelAndView updateAccount(HttpSession session, HttpServletRequest request) {
 		User user = (User) session.getAttribute("user");
 		user.setNickname(request.getParameter("nick"));
-		user.setNombre(request.getParameter("nombre"));
-		user.setApellido(request.getParameter("apellidos"));
-		// user.setFoto(//request.getParameter("foto"));
-		user.setEmail(request.getParameter("email"));
-
-		userDAO.update(user);
+        user.setNombre(request.getParameter("nombre"));
+        user.setApellido(request.getParameter("apellidos"));
+        user.setFoto(request.getParameter("foto"));
+        user.setEmail(request.getParameter("email"));
+        
+        String rutaFoto = servletContext.getRealPath("/resources/img/");
+        
+        userDAO.update(user, rutaFoto);
+		
+		
+		File f = new File(servletContext.getRealPath("/resources/img/"+user.getNombre().toLowerCase() + "." + user.getApellido().toLowerCase()+".jpg"));
+		
+        if(f.exists() && !f.isDirectory()) { 
+            user.setFoto(user.getNombre().toLowerCase() + "." + user.getApellido().toLowerCase());
+        } else {
+        	user.setFoto("user");
+        }
 		
 		Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);
@@ -150,7 +162,9 @@ public class UserController {
 	@RequestMapping(value = "/user/borrarCuenta**", method = RequestMethod.GET)
 	public String deleteAccount(HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		userDAO.delete(Funciones.encrypt(user.getNickname()));
+		
+		File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
+		userDAO.delete(user.getNickname(), f);
 		session.invalidate();
 
 		return "redirect:/default";
