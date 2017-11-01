@@ -1,6 +1,7 @@
 package com.mensubiqua.intravita.dao;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.User;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
@@ -69,6 +70,7 @@ public class UserDAOImpl implements UserDAO{
 	
 	 public void update(User user, String rutaFoto) {			
 
+		 PublicacionDAOImpl publicacionDAO = new PublicacionDAOImpl();
 			//encriptar las nuevas variables
 			String nicknameDB = Funciones.encrypt(user.getNickname());
 			String nombreDB = Funciones.encrypt(user.getNombre());
@@ -82,6 +84,15 @@ public class UserDAOImpl implements UserDAO{
 				File fotoVieja = new File(rutaFoto + user.getNickname() + ".jpg");
 				File fotoNueva = new File(rutaFoto + sNickNuevo + ".jpg");
 				fotoVieja.renameTo(fotoNueva);
+				
+				ArrayList<Publicacion> publicaciones = publicacionDAO.selectAll();
+	        	for(Publicacion p : publicaciones) {
+	        		if(user.getNickname().equals(p.getNickname())) {
+	        			p.setNickname(sNickNuevo);
+	        			publicacionDAO.update(p);
+	        		}
+	        			
+	        	}
 			}
 			
 
