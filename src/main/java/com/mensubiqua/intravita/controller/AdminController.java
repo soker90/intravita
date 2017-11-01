@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.auxiliar.MailSender;
 import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
+import com.mensubiqua.intravita.dao.UserCodeDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.PublicacionVista;
@@ -29,6 +31,9 @@ public class AdminController {
 	
 	@Autowired
 	PublicacionDAOImpl publicacionDAO;
+	
+	@Autowired
+    UserCodeDAOImpl userCodeDAO;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -52,6 +57,7 @@ public class AdminController {
 			        
 			        for(User user1: users)
 			        {
+			        	String validar = "";
 			        	String boton = "superadmin";
 			        	if(user1.getRol().equals("ROLE_ADMIN"))
 			        		boton="Sí";
@@ -59,7 +65,8 @@ public class AdminController {
 							
 								boton = "No";
 						}
-			        	String[] u = {user1.getNombre(),user1.getApellido(), boton, user1.getNickname()};
+			        	if(!user1.isValidado()) validar ="validar";
+			        	String[] u = {user1.getNombre(),user1.getApellido(), boton, user1.getNickname(), validar};
 				        
 				        listVar.add(u);
 			        }
@@ -190,6 +197,27 @@ public class AdminController {
 		v.setMensaje("Rol actualizado correctamente");
         
         return new ModelAndView("redirect:/default");
+    }
+    
+    @RequestMapping(value = "/admin/validar**", method = RequestMethod.POST)
+    public ModelAndView validar(HttpSession session, HttpServletRequest request) {
+    	User user = userDAO.find(Funciones.encrypt(request.getParameter("username")));
+    	boolean validar = true;
+    	Variables v = (Variables) session.getAttribute("var");
+    	
+    	if(user != null) {
+    		user.setValidado(validar);
+    		userDAO.updateValidacion(user);
+    		userCodeDAO.delete(user.getNickname());
+    		MailSender ms = new MailSender(user.getEmail(), "Cuenta Validada", "Hola "+user.getNickname()+", su cuenta ha sido validada por un administrador");
+    		v.setMensaje("Cuenta validada correctamente");
+    	}else {
+    		v.setMensaje("Error al validar cuenta");
+    	}
+    	
+    	v.setCont(0);
+
+    	return new ModelAndView("redirect:/default");
     }
     
 	@RequestMapping(value = "/admin/borrarPublicacion**", method = RequestMethod.POST)

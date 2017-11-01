@@ -28,6 +28,7 @@
 	 				<th>Admin</th>
 	 				<th>Editar</th>
 	 				<th>Eliminar</th>
+	 				<th>Validar</th>
 	            </tr>
 	        </thead>
 	        <tfoot>
@@ -37,6 +38,7 @@
 	 				<th>Admin</th>
 	 				<th>Editar</th>
 	 				<th>Eliminar</th>
+	 				<th>Validar</th>
 	            </tr>
 	        </tfoot>
 	        <tbody>
@@ -63,6 +65,12 @@
 	 				<form action="${var.url}/admin/borrarUsuario" method="post">
 		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
 		 			    <button type="submit" name="submit" value="submit" class="btn btn-danger">Eliminar</button>
+	 			    </form></c:if></td>
+	 			    
+	 			    <td><c:if test="${(listVar[3] ne 'super.admin') and (listVar[4] eq 'validar')}">
+	 				<form action="${var.url}/admin/validar" method="post">
+		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
+		 			    <button type="submit" name="submit" value="submit" class="btn btn-success">Validar</button>
 	 			    </form></c:if></td>
 	 		  	</tr>
 	 		</c:forEach>
