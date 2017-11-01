@@ -96,9 +96,9 @@ public class GeneralController {
             userDAO.insert(user);
             uc = new UserCode(Funciones.decrypt(user.getNickname()),Funciones.generarStringAleatorio());
             userCodeDAO.insert(uc);
-            //https://intravita.herokuapp.com/validacion
+            //http://localhost:8080/intravita/validacion
             MailSender EnviadorMail = new MailSender(request.getParameter("email"),
-                    "Validar cuenta Intravita", "Hola: "+uc.getNickname()+". Este es su codigo de validacion: "+uc.getCode()+". Para validar su usuario introduzca el codigo en el siguiente enlace: http://localhost:8080/intravita/validacion");
+                    "Validar cuenta Intravita", "Hola: "+uc.getNickname()+". Este es su codigo de validacion: "+uc.getCode()+". Para validar su usuario introduzca el codigo en el siguiente enlace: https://intravita.herokuapp.com/validacion");
             model.addObject("mensaje", "Usuario creado con exito, consulte su correo para validar cuenta");
         }
 
