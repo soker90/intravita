@@ -98,7 +98,7 @@ public class GeneralController {
             userCodeDAO.insert(uc);
             
             MailSender EnviadorMail = new MailSender(request.getParameter("email"),
-                    "Este es el correo de validacion", "Hola: "+request.getParameter("nombre")+". Este es su codigo de validacion: '"+uc.getCode()+"'. Para validar su usuario introduzca el codigo en el siguiente enlace: https://intravita.herokuapp.com/validacion");
+                    "Este es el correo de validacion", "Hola: "+Funciones.decrypt(nick)+". Este es su codigo de validacion: "+uc.getCode()+". Para validar su usuario introduzca el codigo en el siguiente enlace: https://intravita.herokuapp.com/validacion");
             model.addObject("mensaje", "Usuario creado con exito, consulte su correo para validar cuenta");
         }
 
