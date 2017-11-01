@@ -32,7 +32,7 @@ public class UserCodeDAOImpl implements UserCodeDAO{
         UserCode uc = null;
 
         if (document != null) 
-        	uc = new UserCode(Funciones.decrypt(document.getString("nickname")), document.getString("code"));
+        	uc = new UserCode(document.getString("nickname"), document.getString("code"));
 
         return uc;
     }

@@ -94,11 +94,11 @@ public class GeneralController {
             user = new User(nombre, apellido, email, password,
             		"ROLE_USER", nick,false);
             userDAO.insert(user);
-            uc = new UserCode(user.getNickname(),Funciones.generarStringAleatorio());
+            uc = new UserCode(Funciones.decrypt(user.getNickname()),Funciones.generarStringAleatorio());
             userCodeDAO.insert(uc);
-            
+            //https://intravita.herokuapp.com/validacion
             MailSender EnviadorMail = new MailSender(request.getParameter("email"),
-                    "Este es el correo de validacion", "Hola: "+Funciones.decrypt(nick)+". Este es su codigo de validacion: "+uc.getCode()+". Para validar su usuario introduzca el codigo en el siguiente enlace: https://intravita.herokuapp.com/validacion");
+                    "Validar cuenta Intravita", "Hola: "+uc.getNickname()+". Este es su codigo de validacion: "+uc.getCode()+". Para validar su usuario introduzca el codigo en el siguiente enlace: http://localhost:8080/intravita/validacion");
             model.addObject("mensaje", "Usuario creado con exito, consulte su correo para validar cuenta");
         }
 
@@ -215,7 +215,7 @@ public class GeneralController {
     @RequestMapping(value = "validacion", method = RequestMethod.POST)
     public ModelAndView validar(HttpServletRequest request) {
     	ModelAndView model = new ModelAndView();
-    	UserCode uc = userCodeDAO.find(Funciones.encrypt(request.getParameter("username")));
+    	UserCode uc = userCodeDAO.find(request.getParameter("username"));
     	User u = null;
     	
     	model.setViewName("validacion");
@@ -224,14 +224,14 @@ public class GeneralController {
     		model.addObject("mensaje2","Este usuario no existe");
     	else if(uc.getNickname().equals(request.getParameter("username")) && uc.getCode().equals(request.getParameter("code"))) {
     		u = userDAO.find(Funciones.encrypt(uc.getNickname()));
-		if(u != null){
-    			u.setValidado(true);
-    			userDAO.updateValidacion(u);
-			userCodeDAO.delete(Funciones.encrypt(uc.getNickname()));
-    			model.addObject("mensaje2","Su cuenta ha sido validada");
-		}else{
-			model.addObject("mensaje2","Error desconocido");
-		}
+    		if(u != null){
+        			u.setValidado(true);
+        			userDAO.updateValidacion(u);
+        			userCodeDAO.delete(uc.getNickname());
+        			model.addObject("mensaje2","Su cuenta ha sido validada");
+    		}else{
+    			model.addObject("mensaje2","Error desconocido");
+    		}
     	}else {
     		model.addObject("mensaje2","Usuario o codigo incorrectos");
     	}
