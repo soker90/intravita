@@ -90,6 +90,7 @@
 		<table id="publicaciones" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 	            <tr>
+	            	<th>Fecha</th>
 	            	<th>Usuario</th>
 	 				<th>Texto</th>
 	 				<th>Editar</th>
@@ -98,6 +99,7 @@
 	        </thead>
 	        <tfoot>
 	            <tr>
+	            	<th>Fecha</th>
 	                <th>Usuario</th>
 	 				<th>Texto</th>
 	 				<th>Editar</th>
@@ -108,6 +110,7 @@
 	
 	 		<c:forEach items="${publicaciones}" var="publicacion">
 	 			<tr>
+	 				<td><c:out value="${publicacion.fecha}"/></td>
 	 			    <td><c:out value="${publicacion.unombre}"/></td>
 	 			    <td><c:out value="${publicacion.texto}"/></td>
 	 			    <td>

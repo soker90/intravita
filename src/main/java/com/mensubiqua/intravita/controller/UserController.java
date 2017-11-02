@@ -177,7 +177,7 @@ public class UserController {
 
 		User user = (User) session.getAttribute("user");
 		Date fecha = new Date();
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM HH:mm"); 
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
 		String sFecha = dt.format(fecha);
 		Publicacion p = new Publicacion(user.getNickname(), request.getParameter("texto"),
 				request.getParameter("privacidad"), sFecha);
