@@ -74,7 +74,6 @@ public class UserController {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			System.out.println("Error al cargar la vista de usuario");
 			return new ModelAndView("redirect:/default");
 		}

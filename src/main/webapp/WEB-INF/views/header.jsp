@@ -38,10 +38,11 @@
 							<nav class="collapse navbar-collapse" role="navigation">
 							
 							<ul class="nav navbar-nav">
-							  <li>
-								<a href="${var.url}/"><i class="glyphicon glyphicon-home"></i> Inicio</a>
-							  </li>
+							  
 							  <c:if test="${vista eq 'usuario'}">
+							  		<li>
+										<a href="${var.url}/"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+							  		</li>
 								  	<li>
 										<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Nueva publicación </a>
 								  	</li>
@@ -53,6 +54,12 @@
 								  	</li>
 							  	</c:if>
 							  	<c:if test="${vista eq 'admin'}">
+							  		<li>
+										<a href="${var.url}/admin/usuarios"><i class="glyphicon glyphicon-user"></i> Usuarios </a>
+							  		</li>
+								  	<li>
+										<a href="${var.url}/admin/publicaciones"><i class="glyphicon glyphicon-list-alt"></i> Publicaciones </a>
+								  	</li>
 								  	<li>
 										<a href="${var.url}/user"><span class="badge">Administrador</span></a>
 								  	</li>

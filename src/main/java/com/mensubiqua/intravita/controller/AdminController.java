@@ -40,6 +40,13 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin**")
     public ModelAndView adminPage(HttpSession sesion) {
+    	
+    	return new ModelAndView("redirect:/admin/usuarios");
+
+    }
+	
+	@RequestMapping(value = "/admin/usuarios**")
+    public ModelAndView adminUsuarios(HttpSession sesion) {
     	User user = (User) sesion.getAttribute("user");
     	
     	try {
@@ -49,8 +56,6 @@ public class AdminController {
 		    	if(user.getRol().equals("ROLE_ADMIN"))
 		    	{
 			        ModelAndView model = new ModelAndView();
-			        model.addObject("title", "Página para admins");
-			        model.addObject("message", "Página para administradores");
 			        ArrayList<String[]> listVar = new ArrayList<String[]>();
 			        
 			        ArrayList<User> users = userDAO.selectAll();
@@ -72,6 +77,36 @@ public class AdminController {
 			        }
 			        
 			        model.addObject("listName", listVar.iterator());
+					
+					Variables v = (Variables) sesion.getAttribute("var");
+					v.setCont(1);
+					
+					
+			        model.setViewName("admin/usuarios");
+			
+			        return model;
+		    	}
+	    	}
+    	} catch (Exception e) {
+            return new ModelAndView("redirect:/user");
+    	}
+    	
+    	return new ModelAndView("redirect:/default");
+
+    }
+	
+	@RequestMapping(value = "/admin/publicaciones**")
+    public ModelAndView adminPublicaciones(HttpSession sesion) {
+    	User user = (User) sesion.getAttribute("user");
+    	
+    	try {
+    	
+	    	if(user.getRol() != null)
+	    	{
+		    	if(user.getRol().equals("ROLE_ADMIN"))
+		    	{
+			        ModelAndView model = new ModelAndView();
+
 			        
 			        ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
 					for (Publicacion p : publicacionDAO.selectAll()) {
@@ -93,7 +128,7 @@ public class AdminController {
 					v.setCont(1);
 					
 					
-			        model.setViewName("admin/index");
+			        model.setViewName("admin/publicaciones");
 			
 			        return model;
 		    	}
@@ -236,7 +271,7 @@ public class AdminController {
 		v.setCont(0);
 		v.setMensaje("Pubicación borrada correctamente");
 
-		return "redirect:/default";
+		return "redirect:/admin/publicaciones";
 	}
 	
 	@RequestMapping(value = "/admin/editarPublicacion**", method = RequestMethod.POST)
@@ -259,10 +294,10 @@ public class AdminController {
 		    	}
 	    	}
     	} catch (Exception e) {
-            return new ModelAndView("redirect:/default");
+    		return new ModelAndView("redirect:/admin/publicaciones");
     	}
     	
-    	return new ModelAndView("redirect:/default");
+    	return new ModelAndView("redirect:/admin/publicaciones");
 
     }
 	
@@ -277,7 +312,7 @@ public class AdminController {
 		v.setCont(0);
 		v.setMensaje("Pubicación actualizada correctamente");
         
-        return new ModelAndView("redirect:/default");
+		return new ModelAndView("redirect:/admin/publicaciones");
     }
 
 }
