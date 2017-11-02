@@ -87,8 +87,21 @@
 								<!-- content -->                      
 								<div class="row">
 								  
-								 <!-- main col left --> 
-								 <div class="col-sm-3">
+								  <c:if test="${not empty perfil}">
+							  		<div class="col-sm-3">
+								   
+									  <div class="panel panel-default">
+										<div class="panel-thumbnail"><img src="${var.url}/${perfil.foto}" class="img-responsive"></div>
+										<div class="panel-body">
+										  <p class="lead"><c:out value="${perfil.nombre}"/> <c:out value="${perfil.apellido}"/></p>
+										  <p>400 Amigos</p>
+										</div>
+									  </div>
+									</div>
+							  	</c:if>
+							  	
+							  	 <c:if test="${empty perfil}">
+							  		<div class="col-sm-3">
 								   
 									  <div class="panel panel-default">
 										<div class="panel-thumbnail"><img src="${var.url}/${user.foto}" class="img-responsive"></div>
@@ -97,5 +110,8 @@
 										  <p>400 Amigos</p>
 										</div>
 									  </div>
-								</div>
+									</div>
+							  	</c:if>
+							  	
+								 
 									  

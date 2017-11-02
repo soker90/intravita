@@ -87,6 +87,13 @@ public class DBBroker<T> {
     	return this.db.getCollection(collection);
     }
     
+    public FindIterable<Document> findAll(String field, String value, String collection)
+    {
+    	BasicDBObject query = new BasicDBObject(field, value);
+
+        return this.db.getCollection(collection).find(query);
+    }
+    
     public void update(BasicDBObject newDocument, BasicDBObject searchQuery, String collection){       
     	 	
         this.db.getCollection(collection).updateOne(searchQuery, newDocument);

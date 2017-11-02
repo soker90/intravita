@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -102,6 +103,63 @@ public class UserController {
 		}
 
 		return new ModelAndView("redirect:/default");
+
+	}
+	
+	@RequestMapping(value = "/user/ver**")
+	public String ver_redirect() {
+		return "redirect:/user";
+	}
+	
+	@RequestMapping(value = "/user/ver/{usuario:.+}")
+	public ModelAndView ver(HttpSession sesion, @PathVariable(value="usuario") String nick) {
+		User user = userDAO.find(Funciones.encrypt(nick));
+		
+		if(user == null)
+			return new ModelAndView("redirect:/user");
+
+		try {
+				ModelAndView model = new ModelAndView();
+				model.setViewName("user/ver");
+				
+				File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
+	            if(f.exists() && !f.isDirectory()) { 
+	                user.setFoto(user.getNickname());
+	            } else {
+	            	user.setFoto("user");
+	            }
+				
+				model.addObject("perfil", user);
+				
+				ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
+				for (Publicacion p : publicacionDAO.findAll(user.getNickname())) {
+					if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
+						continue;
+					User u = userDAO.find(Funciones.encrypt(p.getNickname()));
+					
+					f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+		            if(f.exists() && !f.isDirectory()) { 
+		                u.setFoto(u.getNickname());
+		            } else {
+		            	u.setFoto("user");
+		            }
+		            
+					publicaciones.add(new PublicacionVista(p, u));
+				}
+				String vacio = "";
+				if(publicaciones.size() == 0)
+					vacio = "vacio";
+				
+				model.addObject("vacio", vacio);
+				model.addObject("publicaciones", publicaciones);
+				
+				return model;
+			
+		} catch (Exception e) {
+			
+			return new ModelAndView("redirect:/user");
+		}
+
 
 	}
 

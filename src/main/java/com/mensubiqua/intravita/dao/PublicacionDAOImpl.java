@@ -5,6 +5,7 @@ import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.User;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
 import java.util.ArrayList;
@@ -38,6 +39,19 @@ public class PublicacionDAOImpl implements PublicacionDAO{
         	p.setId(document.getObjectId("_id").toString());
         }
         return p;
+    }
+    
+    public ArrayList<Publicacion> findAll(String user) {
+    	FindIterable<Document> documents = DBBroker.get().findAll("nickname", user, COLLECTION);
+    	ArrayList<Publicacion> ps = new ArrayList<Publicacion>();
+		Publicacion p = null;
+		
+		for (Document document : documents) { 
+			p = new Publicacion(document.getString("nickname"), document.getString("texto"), document.getString("privacidad"), document.getString("fecha"));
+			p.setId(document.getObjectId("_id").toString());
+			ps.add(0,p);
+		}
+		return ps;
     }
 
 	public ArrayList<Publicacion> selectAll() {

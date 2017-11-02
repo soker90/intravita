@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
+<c:set var="perfil" value="${perfil}" scope="request" />
 <c:set var="user" value="${user}" scope="request" /> <!-- Esto envia variables a las vistas de los includes -->
 <c:set var="vista" value="usuario" scope="request" />
 <c:set var="var" value="${var}" scope="request" />
@@ -14,6 +15,7 @@
    </div>
                                         
 </c:if>
+
 	<c:if test="${vacio eq 'vacio'}">
 		<div class="panel panel-default">
 		  <div class="panel-body">
@@ -25,9 +27,10 @@
 		  </div>
 	   </div>
 	</c:if>
+	
 	<c:forEach items="${publicaciones}" var="publicacion">
 	   <div class="panel panel-default">
-	   	<div class="panel-heading"><h7 class="pull-right">${publicacion.fecha}</h7> <a href="${var.url}/user/ver/${publicacion.nickname}"><h4><img src="${var.url}/${publicacion.ufoto}" class="img-circle"> ${publicacion.unombre}</h4></a></div>
+	   	<div class="panel-heading"><h7 class="pull-right">${publicacion.fecha}</h7> <h4><img src="${var.url}/${publicacion.ufoto}" class="img-circle"> ${publicacion.unombre}</h4></div>
 		  <div class="panel-body">
 			<div class="clearfix"></div>
 			
