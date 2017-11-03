@@ -36,11 +36,10 @@
 				  <form role="form" class="form center-block" action="${var.url}/user/publicar" method="post">
 					  <div class="modal-body">
 						  
-						<div class="form-group">
+						
 						  <textarea  rows="10" cols="80" id="texto" name="texto"  autofocus="" placeholder="Escribe aqui tu publicación"></textarea>
 						</div>
 						  
-					  </div>
 					  <div class="modal-footer">
 				        <div class="col-xs-5 selectContainer">
 				            <select class="form-control" name="privacidad" id="texto">

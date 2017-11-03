@@ -287,3 +287,57 @@ small.text-muted {
     padding-left:3px;
   }
 }
+
+/* Mis modificaciones*/
+
+.caja-modal {
+	padding: 30px;
+	text-align: center;
+	margin-left: -5%;
+}
+
+.aviso-correcto {
+	background-color: #4caf50;
+	border-color: #449d48;
+	color: #fff;
+	padding: 15px;
+}
+
+.aviso-error {
+	background-color: #f44336;
+	border-color: #f32c1e;
+	color: #fff;
+	padding: 15px;
+}
+
+.aviso-advertencia {
+	background-color: #ff5722;
+	border-color: #ff4409;
+	color: #fff;
+	padding: 15px;
+}
+
+.aviso-info {
+	background-color: #03a9f4;
+	border-color: #0391d1;
+	color: #fff;
+	padding: 15px;
+}
+
+button.cerrar {
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+	-webkit-appearance: none;
+}
+
+.cerrar {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+}

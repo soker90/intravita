@@ -10,11 +10,14 @@
  <!-- main col right -->
  <div class="col-sm-9">
   <c:if test="${var.cont == 1 && not empty var.mensaje}">
- 	<div class="panel panel-default">
-   	  <div class="panel-heading"><h4>${var.mensaje}</h4></div>
+ 	<div class="aviso-${var.tipo} alert alert-success alert-dismissable fade in" role="alert">
+ 		<button type="button" class="cerrar" data-dismiss="alert" aria-label="Close">
+    		<span aria-hidden="true">&times;</span>
+	  	</button>
+   	  <h4>${var.mensaje}</h4>
    </div>
                                         
-</c:if>
+  </c:if>>
 
 	<c:if test="${vacio eq 'vacio'}">
 		<div class="panel panel-default">

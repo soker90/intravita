@@ -151,6 +151,7 @@ public class AdminController {
     		Variables v = (Variables) sesion.getAttribute("var");
     		v.setCont(0);
     		v.setMensaje("Usuario borrado correctamente");
+    		v.setTipo("correcto");
     	}
     		
     	
@@ -202,6 +203,7 @@ public class AdminController {
         Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);
 		v.setMensaje("Usuario actualizado correctamente");
+		v.setTipo("correcto");
         
         return new ModelAndView("redirect:/default");
     }
@@ -216,8 +218,10 @@ public class AdminController {
 				user.setPassword(Funciones.encrypt_md5(request.getParameter("password")));
 				userDAO.updatePassword(user);
 				v.setMensaje("Contraseña cambiada correctamente.");
+				v.setTipo("correcto");
 			} else {
 				v.setMensaje("Las contraseñas no coinciden.");
+				v.setTipo("error");
 			}
     		v.setCont(0);
             
@@ -237,6 +241,7 @@ public class AdminController {
     	Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);
 		v.setMensaje("Rol actualizado correctamente");
+		v.setTipo("correcto");
         
         return new ModelAndView("redirect:/default");
     }
@@ -253,8 +258,10 @@ public class AdminController {
     		userCodeDAO.delete(user.getNickname());
     		MailSender ms = new MailSender(user.getEmail(), "Cuenta Validada", "Hola "+user.getNickname()+", su cuenta ha sido validada por un administrador");
     		v.setMensaje("Cuenta validada correctamente");
+    		v.setTipo("correcto");
     	}else {
     		v.setMensaje("Error al validar cuenta");
+    		v.setTipo("error");
     	}
     	
     	v.setCont(0);
@@ -270,6 +277,7 @@ public class AdminController {
 		Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);
 		v.setMensaje("Pubicación borrada correctamente");
+		v.setTipo("correcto");
 
 		return "redirect:/admin/publicaciones";
 	}
@@ -311,6 +319,7 @@ public class AdminController {
     	Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);
 		v.setMensaje("Pubicación actualizada correctamente");
+		v.setTipo("correcto");
         
 		return new ModelAndView("redirect:/admin/publicaciones");
     }

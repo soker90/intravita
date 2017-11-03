@@ -9,11 +9,14 @@
  <!-- main col right -->
  <div class="col-sm-9">
   <c:if test="${var.cont == 1 && not empty var.mensaje}">
- 	<div class="panel panel-default">
-   	  <div class="panel-heading"><h4>${var.mensaje}</h4></div>
+ 	<div class="aviso-${var.tipo} alert alert-success alert-dismissable fade in" role="alert">
+ 		<button type="button" class="cerrar" data-dismiss="alert" aria-label="Close">
+    		<span aria-hidden="true">&times;</span>
+	  	</button>
+   	  <h4>${var.mensaje}</h4>
    </div>
                                         
-</c:if>
+  </c:if>
 	<c:if test="${vacio eq 'vacio'}">
 		<div class="panel panel-default">
 		  <div class="panel-body">
@@ -40,7 +43,7 @@
 			  <c:if test="${publicacion.nickname ne user.nickname}">
 			  <form style="display: inline-block" action="#" method="post">
  			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
- 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"">+1</button>
+ 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
  		 	 </form>
  		 	 
  		 	 <form style="display: inline-block" action="#" method="post">
@@ -58,7 +61,34 @@
 	 		 	 
 	 		 	 <form style="display: inline-block" class="form-inline" action="${var.url}/user/removePublicacion" method="post">
 	 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}"/>
-	 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
+	 			    <button style="display: inline-block" type="button" class="btn btn-default" data-toggle="modal" data-target="#id<c:out value="${publicacion.id}"/>">
+	 			    	<i class="glyphicon glyphicon-remove"></i>
+	 			    </button>
+	 			    
+	 			    <div class="modal fade" id="id<c:out value="${publicacion.id}"/>" role="dialog" >
+					    <div class="modal-dialog">
+					    
+					      <!-- Modal content-->
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title">Borrar publicaci&oacute;n</h4>
+					        </div>
+					        <div class="modal-body">
+					        <div class="form-group">
+					          <p class="caja-modal" >¿Est&aacute; seguro que desea borrar su publicaci&oacute;n?</p>
+					        </div>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="submit" name="submit" value="submit" class="btn btn-danger">Borrar publicaci&oacute;n</button>
+					          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					        </div>
+					      </div>
+					      
+					    </div>
+					</div>
+						
+						
 	 		 	 </form>
  		 	 
 			  </c:if>

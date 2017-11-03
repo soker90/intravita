@@ -83,7 +83,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/user/perfil**")
+	@RequestMapping(value = "/user/configuracion**")
 	public ModelAndView perfil(HttpSession sesion) {
 		User user = (User) sesion.getAttribute("user");
 
@@ -99,10 +99,10 @@ public class UserController {
 				}
 			}
 		} catch (Exception e) {
-			return new ModelAndView("redirect:/default");
+			return new ModelAndView("redirect:/user");
 		}
 
-		return new ModelAndView("redirect:/default");
+		return new ModelAndView("redirect:/user");
 
 	}
 	
@@ -190,8 +190,9 @@ public class UserController {
 		Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);
 		v.setMensaje("Perfil actualizado correctamente");
+		v.setTipo("correcto");
 
-		return new ModelAndView("redirect:/user/perfil");
+		return new ModelAndView("redirect:/user/configuracion");
 	}
 
 	@RequestMapping(value = "/user/cambiarPassword**", method = RequestMethod.POST)
@@ -207,15 +208,18 @@ public class UserController {
 				request.getSession().setAttribute("user", user);
 				
 				v.setMensaje("Contraseña actualizada correctamente.");
+				v.setTipo("correcto");
 			} else {
 				v.setMensaje("ERROR: Las contraseñas no coinciden.");
+				v.setTipo("error");
 			}
 		} else {
 			v.setMensaje("ERROR: La contraseña antigua no coincide.");
+			v.setTipo("error");
 		}
 		
 
-		return new ModelAndView("redirect:/default");
+		return new ModelAndView("redirect:/user/configuracion");
 	}
 
 	@RequestMapping(value = "/user/borrarCuenta**", method = RequestMethod.GET)
@@ -257,6 +261,7 @@ public class UserController {
 		Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);
 		v.setMensaje("Publicación borrada correctamente");
+		v.setTipo("correcto");
 
 		return "redirect:/user";
 	}
@@ -294,6 +299,7 @@ public class UserController {
     		Variables v = (Variables) session.getAttribute("var");
 			v.setCont(0);
 			v.setMensaje("Publicación actualizada correctamente");
+			v.setTipo("correcto");
 	    	
     	}
 

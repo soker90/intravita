@@ -10,12 +10,11 @@
  <div class="col-sm-9">
  <c:if test="${var.cont == 1 && not empty var.mensaje}">
  	<div class="panel panel-default">
-   	  <div class="panel-heading"><h4>${var.mensaje}</h4></div>
+   	  <div class="panel-heading alert alert-success"><h4>${var.mensaje}</h4></div>
    </div>
                                         
 </c:if>
 
- 
    <div class="panel panel-default">
    	  <div class="panel-heading"><h4>Publicaciones</h4></div>
 	  <div class="panel-body">
@@ -56,7 +55,31 @@
 	 				<td>
 	 				<form action="${var.url}/admin/borrarPublicacion" method="post">
 		 			    <input type="text" id="id" name="id" hidden="hidden" value="<c:out value="${publicacion.id}"/>">
-		 			    <button type="submit" name="submit" value="submit" class="btn btn-danger">Eliminar</button>
+		 			    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#id<c:out value="${publicacion.id}"/>">Eliminar</button>
+		 			    
+		 			    <div class="modal fade" id="id<c:out value="${publicacion.id}"/>" role="dialog" >
+					    <div class="modal-dialog">
+					    
+					      <!-- Modal content-->
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title">Borrar publicaci&oacute;n</h4>
+					        </div>
+					        <div class="modal-body">
+					        <div class="form-group">
+					          <p class="caja-modal" >¿Est&aacute; seguro que desea borrar su publicaci&oacute;n?</p>
+					        </div>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="submit" name="submit" value="submit" class="btn btn-danger">Borrar publicaci&oacute;n</button>
+					          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					        </div>
+					      </div>
+					      
+					    </div>
+						</div>
+						
 	 			    </form></td>
 
 	 		  	</tr>

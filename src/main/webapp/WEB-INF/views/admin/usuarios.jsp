@@ -14,7 +14,7 @@
    </div>
                                         
 </c:if>
-
+	<% int id_dialog = 0; %>
    <div class="panel panel-default">
    	  <div class="panel-heading"><h4>Usuarios</h4></div>
 	  <div class="panel-body">
@@ -42,8 +42,9 @@
 	            </tr>
 	        </tfoot>
 	        <tbody>
-	
+	        	
 	 		<c:forEach var="listVar" items="${listName}">
+	 			<% id_dialog++; %>
 	 			<tr>
 	 			    <td><c:out value="${listVar[0]}"/></td>
 	 			    <td><c:out value="${listVar[1]}"/></td>
@@ -64,7 +65,32 @@
 	 				<td><c:if test="${listVar[3] ne 'super.admin'}">
 	 				<form action="${var.url}/admin/borrarUsuario" method="post">
 		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
-		 			    <button type="submit" name="submit" value="submit" class="btn btn-danger">Eliminar</button>
+		 			    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#id${id_dialog}">Eliminar</button>
+	 			    
+		 			    <div class="modal fade" id="id${id_dialog}" role="dialog" >
+					    <div class="modal-dialog">
+					    
+					      <!-- Modal content-->
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title">Borrar usuario</h4>
+					        </div>
+					        <div class="modal-body">
+					        <div class="form-group">
+					          <p class="caja-modal" >¿Est&aacute; seguro que desea borrar su usuario?</p>
+					        </div>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="submit" name="submit" value="submit" class="btn btn-danger">Borrar cuenta</button>
+					          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					        </div>
+					      </div>
+					      
+					    </div>
+						</div>
+				
+	 			    
 	 			    </form></c:if></td>
 	 			    
 	 			    <td><c:if test="${(listVar[3] ne 'super.admin') and (listVar[4] eq 'validar')}">

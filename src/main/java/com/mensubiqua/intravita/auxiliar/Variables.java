@@ -16,6 +16,7 @@ public class Variables {
 	
     private String url;
     private String mensaje;
+    private String tipo;
     private int cont;
     
 	public Variables() {
@@ -49,8 +50,21 @@ public class Variables {
 		if(cont == 0)
 			this.cont = 0;
 		else
-			this.cont++;
+			if(this.cont < 3)
+				this.cont++;
+	}
+
+	public String getTipo() {
+		if(this.tipo.isEmpty())
+			return "info";
+		
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
     
+	
     
 }

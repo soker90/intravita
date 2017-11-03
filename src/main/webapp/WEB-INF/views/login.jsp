@@ -59,10 +59,10 @@
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h3>Inicar sesión</h3>
-                                <p style="color: red;">
+                                <p style="color: red;"><strong>
                                     <c:if test="${not empty mensaje2}">
                                         <div class="msg">${mensaje2}</div>
-                                    </c:if>
+                                    </c:if></strong>
                                 </p>
                             </div>
                             <div class="form-top-right">
@@ -83,7 +83,6 @@
                                 <a href="recuperar_pass">¿Ha olvidado su contraseña?</a></td>
                                 </div>
                                 <button id="form-login" type="submit" name="submit" value="submit" class="btn">Entrar</button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </div>
                     </div>
@@ -126,7 +125,6 @@
                                     <input type="password" name="password2" placeholder="Contraseña" class="form-email form-control" id="form-password2">
                                     </div>
                                 <button id="registrar" type="submit" class="btn">Registrarse</button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </div>
                     </div>

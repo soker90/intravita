@@ -42,7 +42,16 @@
 							  
 							  <c:if test="${vista eq 'usuario'}">
 							  		<li>
-										<a href="${var.url}/user"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+										<a href="${var.url}/user"><i class="glyphicon glyphicon-home"></i> Inicio </a>
+							  		</li>
+							  		<li>
+										<a href="${var.url}/user/ver/${user.nickname}"><i class="glyphicon glyphicon-eye-open"></i> Perfil </a>
+							  		</li>
+							  		<li>
+										<a href="${var.url}/#"><i class="glyphicon glyphicon-envelope"></i> Mensajes </a>
+							  		</li>
+							  		<li>
+										<a href="${var.url}/#"><i class="glyphicon glyphicon-user"></i> Amigos </a>
 							  		</li>
 								  	<li>
 										<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Nueva publicación </a>
@@ -81,7 +90,7 @@
 							  <li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
 								<ul class="dropdown-menu">
-								  <li><a href="${var.url}/user/perfil">Perfil</a></li>
+								  <li><a href="${var.url}/user/configuracion">Configuraci&oacute;n</a></li>
 								  <li><a href="${var.url}/logout">Salir</a></li>
 								</ul>
 							  </li>
@@ -113,7 +122,7 @@
 							  		<div class="col-sm-3">
 								   
 									  <div class="panel panel-default">
-										<a href="${var.url}/user/perfil"><div class="panel-thumbnail"><img src="${var.url}/${user.foto}" class="img-responsive"></div></a>
+										<a href="${var.url}/user/configuracion"><div class="panel-thumbnail"><img src="${var.url}/${user.foto}" class="img-responsive"></div></a>
 										<div class="panel-body">
 										  <p class="lead"><c:out value="${user.nombre}"/> <c:out value="${user.apellido}"/></p>
 										  <p>400 Amigos</p>
