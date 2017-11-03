@@ -225,6 +225,7 @@ public class GeneralController {
     	ModelAndView model = new ModelAndView();
     	UserCode uc = userCodeDAO.find(request.getParameter("username"));
     	User u = null;
+    	Variables var = null;
     	
     	model.setViewName("validacion");
     	
@@ -236,7 +237,19 @@ public class GeneralController {
         			u.setValidado(true);
         			userDAO.updateValidacion(u);
         			userCodeDAO.delete(uc.getNickname());
-        			model.addObject("mensaje2","Su cuenta ha sido validada");
+        			
+        			request.getSession().setAttribute("user", u);
+                    boolean local = request.getRequestURL().toString().contains("localhost");
+                    
+                    var = new Variables();
+                    var.setUrl(local);
+                    var.setCont(0);
+                    var.setMensaje("Su cuenta validada, Bienvenido.");
+                    request.getSession().setAttribute("var", var);
+                    
+                    foto(u);
+                    
+                    model.setViewName("redirect:/user");
     		}else{
     			model.addObject("mensaje2","Error desconocido");
     		}
@@ -247,6 +260,14 @@ public class GeneralController {
     	return model;
     }
     	
+    public void foto(User u) {
+    	File f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+        if(f.exists() && !f.isDirectory()) { 
+            u.setFoto(u.getNickname());
+        } else {
+        	u.setFoto("user");
+        }
+    }
     
 
 }
