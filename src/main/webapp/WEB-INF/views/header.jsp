@@ -42,7 +42,7 @@
 							  
 							  <c:if test="${vista eq 'usuario'}">
 							  		<li>
-										<a href="${var.url}/"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+										<a href="${var.url}/user"><i class="glyphicon glyphicon-home"></i> Inicio</a>
 							  		</li>
 								  	<li>
 										<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Nueva publicación </a>
@@ -105,7 +105,7 @@
 							  		<div class="col-sm-3">
 								   
 									  <div class="panel panel-default">
-										<div class="panel-thumbnail"><img src="${var.url}/${user.foto}" class="img-responsive"></div>
+										<a href="${var.url}/user/perfil"><div class="panel-thumbnail"><img src="${var.url}/${user.foto}" class="img-responsive"></div></a>
 										<div class="panel-body">
 										  <p class="lead"><c:out value="${user.nombre}"/> <c:out value="${user.apellido}"/></p>
 										  <p>400 Amigos</p>
