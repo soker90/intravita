@@ -65,9 +65,9 @@
 	 				<td><c:if test="${listVar[3] ne 'super.admin'}">
 	 				<form action="${var.url}/admin/borrarUsuario" method="post">
 		 			    <input type="text" id="username" name="username" hidden="hidden" value="${listVar[3]}">
-		 			    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#id${id_dialog}">Eliminar</button>
+		 			    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#id<%out.print(id_dialog);%>${id_dialog}">Eliminar</button>
 	 			    
-		 			    <div class="modal fade" id="id${id_dialog}" role="dialog" >
+		 			    <div class="modal fade" id="id<%out.print(id_dialog);%>" role="dialog" >
 					    <div class="modal-dialog">
 					    
 					      <!-- Modal content-->
