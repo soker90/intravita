@@ -8,12 +8,15 @@
 								  
  <!-- main col right -->
  <div class="col-sm-9">
- <c:if test="${var.cont == 1 && not empty var.mensaje}">
- 	<div class="panel panel-default">
-   	  <div class="panel-heading"><h4>${var.mensaje}</h4></div>
+  <c:if test="${var.cont == 1 && not empty var.mensaje}">
+ 	<div class="aviso-${var.tipo} alert alert-success alert-dismissable fade in" role="alert">
+ 		<button type="button" class="cerrar" data-dismiss="alert" aria-label="Close">
+    		<span aria-hidden="true">&times;</span>
+	  	</button>
+   	  <h4>${var.mensaje}</h4>
    </div>
                                         
-</c:if>
+  </c:if>
 	<% int id_dialog = 0; %>
    <div class="panel panel-default">
    	  <div class="panel-heading"><h4>Usuarios</h4></div>
