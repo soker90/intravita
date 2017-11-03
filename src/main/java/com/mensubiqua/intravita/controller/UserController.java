@@ -171,17 +171,17 @@ public class UserController {
         user.setApellido(request.getParameter("apellidos"));
         user.setFoto(request.getParameter("foto"));
         user.setEmail(request.getParameter("email"));
-        String nuevoNick = user.getNombre().toLowerCase() + "." + user.getApellido().toLowerCase();
+        String nuevoNick = user.getNickname();
         
         String rutaFoto = servletContext.getRealPath("/resources/img/");
         
-        userDAO.update(user, rutaFoto);
+        userDAO.update(user, rutaFoto,nuevoNick);
 		
 		
-		File f = new File(servletContext.getRealPath("/resources/img/"+user.getNombre().toLowerCase() + "." + user.getApellido().toLowerCase()+".jpg"));
+		File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname().toLowerCase()+".jpg"));
 		
         if(f.exists() && !f.isDirectory()) { 
-            user.setFoto(user.getNombre().toLowerCase() + "." + user.getApellido().toLowerCase());
+            user.setFoto(user.getNickname().toLowerCase());
         } else {
         	user.setFoto("user");
         }

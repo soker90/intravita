@@ -112,6 +112,8 @@
                         <div class="form-bottom">
                             <form role="form" action="registro" method="post" class="registration-form">
                                 <div class="form-group">
+                                	<label class="sr-only" for="form-first-name">Usuario</label>
+                                    <input type="text" name="nickname" placeholder="Usuario" class="form-first-name form-control" id="form-first-name"><br>
                                     <label class="sr-only" for="form-first-name">Nombre</label>
                                     <input type="text" name="nombre" placeholder="Nombre" class="form-first-name form-control" id="form-first-name"><br>
                                     <label class="sr-only" for="form-last-name">Apellidos</label>

@@ -197,7 +197,7 @@ public class AdminController {
         
         String rutaFoto = servletContext.getRealPath("/resources/img/");
         
-        userDAO.update(user, rutaFoto);
+        userDAO.update(user, rutaFoto,user.getNickname());
         
         Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);

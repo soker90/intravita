@@ -91,7 +91,7 @@ public class UserDAOImpl implements UserDAO{
 		return users;
 	}
 	
-	 public void update(User user, String rutaFoto) {			
+	 public void update(User user, String rutaFoto, String nickViejo) {			
 
 		 PublicacionDAOImpl publicacionDAO = new PublicacionDAOImpl();
 			//encriptar las nuevas variables
@@ -99,7 +99,7 @@ public class UserDAOImpl implements UserDAO{
 			String nombreDB = Funciones.encrypt(user.getNombre());
 			String apellidoDB = Funciones.encrypt(user.getApellido());
 			String emailDB = Funciones.encrypt(user.getEmail());
-			String sNickNuevo =  user.getNombre().toLowerCase() + "." + user.getApellido().toLowerCase();
+			String sNickNuevo =  user.getNickname().toLowerCase();
 			String nicknameNuevo = Funciones.encrypt(sNickNuevo);
 			
 			if(!user.getNickname().equals(sNickNuevo))

@@ -82,7 +82,7 @@ public class GeneralController {
 	        if (!request.getParameter("password").equals(request.getParameter("password2"))) 
 	        	model.addObject("mensaje", "Las contrasenas no coinciden");
 	
-	        else if (userDAO.find(Funciones.encrypt(request.getParameter("nombre") + "." + request.getParameter("apellido"))) != null) 
+	        else if (userDAO.find(Funciones.encrypt(request.getParameter("nickname"))) != null) 
 	        	model.addObject("mensaje", "Este usuario ya existe");
 	
 	        else {
@@ -90,8 +90,7 @@ public class GeneralController {
 	        	String apellido = Funciones.encrypt(request.getParameter("apellido"));
 	        	String email = Funciones.encrypt(request.getParameter("email"));
 	        	String password = Funciones.encrypt_md5(request.getParameter("password"));
-	        	String nick = Funciones.encrypt((request.getParameter("nombre").toLowerCase() + 
-	        			"." + request.getParameter("apellido").toLowerCase()));
+	        	String nick = Funciones.encrypt((request.getParameter("nickname").toLowerCase()));
 	            user = new User(nombre, apellido, email, password,
 	            		"ROLE_USER", nick,false);
 	            userDAO.insert(user);

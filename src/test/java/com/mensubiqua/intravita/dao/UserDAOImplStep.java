@@ -82,7 +82,7 @@ public class UserDAOImplStep {
 	public void actualizo_un_usuario() throws Throwable {
 		user2 = ud.find(user.getNickname());
 		user2.setEmail("miguelampuero@email.com");
-	    ud.update(user2, "");
+	    ud.update(user2, "", nickname);
 	    
 	    
 	}

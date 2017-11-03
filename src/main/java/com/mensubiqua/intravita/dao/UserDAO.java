@@ -11,7 +11,7 @@ public interface UserDAO {
     public void delete(String nickname, File foto);
     public User find(String nickname);
     public ArrayList<User> selectAll();
-    public void update(User user, String rutaFoto);
+    public void update(User user, String rutaFoto, String nickname);
     public void updateRole(String nickname, String rol);
     public void updatePassword(User user);
     public ArrayList<User> search(String cadena);
