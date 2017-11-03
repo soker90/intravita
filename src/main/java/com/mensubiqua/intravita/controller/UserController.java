@@ -299,5 +299,52 @@ public class UserController {
 
         return new ModelAndView("redirect:/user");
     }
+	
+	@RequestMapping(value = "/user/buscar**")
+	public ModelAndView buscar(HttpSession sesion, HttpServletRequest request) {
+		User user = (User) sesion.getAttribute("user");
+
+		try {
+
+			if (user.getRol() != null) {
+				if (user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN")) {
+					String cadena = request.getParameter("busqueda");
+					ArrayList<User> usuarios = userDAO.search(cadena);
+					
+					String vacio = "";
+					if(usuarios.size() == 0)
+						vacio = "vacio";
+					
+					for (User user2 : usuarios) {
+						setFoto(user2);
+					}
+					
+					ModelAndView model = new ModelAndView();
+					System.out.println(usuarios.size());
+					model.addObject("usuarios",usuarios);
+					model.setViewName("user/usuarios");
+					
+					Variables v = (Variables) sesion.getAttribute("var");
+					v.setCont(1);
+					return model;
+				}
+			}
+		} catch (Exception e) {
+			return new ModelAndView("redirect:/user");
+		}
+
+		return new ModelAndView("redirect:/user");
+
+	}
+	
+	private void setFoto(User usuario)
+	{
+		File f = new File(servletContext.getRealPath("/resources/img/"+usuario.getNickname()+".jpg"));
+        if(f.exists() && !f.isDirectory()) { 
+            usuario.setFoto(usuario.getNickname());
+        } else {
+        	usuario.setFoto("user");
+        }
+	}
 
 }

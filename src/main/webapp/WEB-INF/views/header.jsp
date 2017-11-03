@@ -53,6 +53,14 @@
 								  	<li>
 										<a href="${var.url}/admin"><span class="badge">Usuario</span></a>
 								  	</li>
+								  	<form action="${var.url}/user/buscar" class="navbar-form navbar-left" method="post">
+										<div class="input-group input-group-sm" style="max-width:360px;">
+									  		<input class="form-control" placeholder="Buscar usuario" name="busqueda" id="busqueda" type="text">
+									  		<div class="input-group-btn">
+												<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+									  		</div>
+										</div>
+									</form>
 							  	</c:if>
 							  	<c:if test="${vista eq 'admin'}">
 							  		<li>

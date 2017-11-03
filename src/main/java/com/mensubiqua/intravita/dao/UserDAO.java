@@ -14,5 +14,5 @@ public interface UserDAO {
     public void update(User user, String rutaFoto);
     public void updateRole(String nickname, String rol);
     public void updatePassword(User user);
-
+    public ArrayList<User> search(String cadena);
 }

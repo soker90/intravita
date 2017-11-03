@@ -102,6 +102,10 @@ hr {
    height:30px;
 }
 
+#main .img-circle-big {
+   height:80px;
+}
+
 #sidebar {
     padding:0px;
 	padding-top:15px;

@@ -68,6 +68,29 @@ public class UserDAOImpl implements UserDAO{
 		return users;
 	}
 	
+	public ArrayList<User> search(String cadena) {
+		MongoCollection<Document> collection = DBBroker.get().selectAll(COLLECTION);
+		ArrayList<User> users = new ArrayList<User>();
+		
+		   
+		for (Document document : collection.find()) {
+			String nombre = Funciones.decrypt(document.getString("nombre"));
+			String apellido = Funciones.decrypt(document.getString("apellido"));
+			String nombrecompleto = nombre + " " + apellido; 
+			if(!nombrecompleto.toLowerCase().contains(cadena))
+				continue;
+			
+			String email = Funciones.decrypt(document.getString("email"));
+			String nickname = Funciones.decrypt(document.getString("nickname"));
+			users.add(new User(nombre, apellido,
+	        		email, document.getString("password"), document.getString("rol"), 
+	        		nickname,document.getBoolean("validado")));
+		}
+
+		
+		return users;
+	}
+	
 	 public void update(User user, String rutaFoto) {			
 
 		 PublicacionDAOImpl publicacionDAO = new PublicacionDAOImpl();
