@@ -10,6 +10,7 @@
         <![endif]-->
         <link href="${var.url}/resources/css/facebook.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.ckeditor.com/4.7.3/basic/ckeditor.js"></script>
         
                 <title>Intravita</title>
         

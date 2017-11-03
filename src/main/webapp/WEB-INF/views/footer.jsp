@@ -37,7 +37,7 @@
 					  <div class="modal-body">
 						  
 						<div class="form-group">
-						  <textarea id="texto" name="texto" class="form-control input-lg" autofocus="" placeholder="Escribe aqui tu publicación"></textarea>
+						  <textarea  rows="10" cols="80" id="texto" name="texto"  autofocus="" placeholder="Escribe aqui tu publicación"></textarea>
 						</div>
 						  
 					  </div>
@@ -57,6 +57,7 @@
         <script type="text/javascript" src="${var.url}/resources/js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="${var.url}/resources/js/bootstrap.js"></script>
         
+        
         <script type="text/javascript">
         $(document).ready(function() {
 			$('[data-toggle=offcanvas]').click(function() {
@@ -68,10 +69,15 @@
 				$('#btnShow').toggle();
 			});
         });
+        
+        $(function () {
+            CKEDITOR.replace('texto');
+        });
         </script>
         
         <script type="text/javascript" src="${var.url}/resources/js/jquery.dataTables.min.js"></script>
  		<script type="text/javascript" src="${var.url}/resources/js/dataTables.bootstrap.min.js"></script>
+ 		
   
 	 <script>
 	 	$(document).ready(function() {

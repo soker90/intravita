@@ -46,7 +46,7 @@
 	 			<tr>
 	 				<td><c:out value="${publicacion.fecha}"/></td>
 	 			    <td><c:out value="${publicacion.unombre}"/></td>
-	 			    <td><c:out value="${publicacion.texto}"/></td>
+	 			    <td >${publicacion.texto}</td>
 	 			    <td>
 	 				<form action="${var.url}/admin/editarPublicacion" method="post">
 		 			    <input type="text" id="id" name="id" hidden="hidden" value="<c:out value="${publicacion.id}"/>">
