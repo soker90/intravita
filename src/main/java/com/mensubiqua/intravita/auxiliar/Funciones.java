@@ -82,12 +82,27 @@ public abstract class Funciones {
 
     }
     
-    public static boolean validarEmail(String email) {
-    	String patron = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        Pattern p = Pattern.compile(patron);
-        Matcher m = p.matcher(email);
+    public static boolean validarPatron(String patron, String cadena) {
+    	Pattern p = Pattern.compile(patron);
+        Matcher m = p.matcher(cadena);
         return m.matches();
  
     }
+    
+    public static boolean validarEmail(String email) {
+    	String patron = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    	
+        boolean valido = Funciones.validarPatron(patron, email);
+        return valido;
+ 
+    }
+    
+    public static boolean validarCompartir(String id) {
+    	String patron = "^cp#[a-z0-9]{24,24}$";
+        boolean valido = Funciones.validarPatron(patron, id);
+        return valido;
+ 
+    }
+    
 }

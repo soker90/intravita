@@ -75,6 +75,7 @@ public class UserController {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error al cargar la vista de usuario");
 			return new ModelAndView("redirect:/default");
 		}
@@ -341,6 +342,42 @@ public class UserController {
 		return new ModelAndView("redirect:/user");
 
 	}
+	
+	@RequestMapping(value = "/user/compartir**")
+	public ModelAndView compartir(HttpSession sesion, HttpServletRequest request) {
+		User user = (User) sesion.getAttribute("user");
+
+		try {
+
+			if (user.getRol() != null) {
+				if (user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN")) {
+					
+					Date fecha = new Date();
+					SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+					String sFecha = dt.format(fecha);
+					Publicacion p = new Publicacion(user.getNickname(), "cp#" + request.getParameter("id"),
+							"publico", sFecha); //TODO cambiar a amigos cuando esten las relaciones
+
+					publicacionDAO.insert(p);
+					
+					Variables v = (Variables) sesion.getAttribute("var");
+					v.setCont(1);
+								
+					return new ModelAndView("redirect:/user");
+				}
+			}
+		} catch (Exception e) {
+			Variables v = (Variables) sesion.getAttribute("var");
+			v.setCont(0);
+			v.setMensaje("No se ha podido guardar el 'Me gusta'");
+			v.setTipo("error");
+			return new ModelAndView("redirect:/user");
+		}
+
+		return new ModelAndView("redirect:/user");
+
+	}
+	
 	
 	private void setFoto(User usuario)
 	{

@@ -27,6 +27,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 
     public void delete(String id) {
         DBBroker.get().deleteOne(ID, new ObjectId(id), COLLECTION);
+        DBBroker.get().deleteMany("texto", "cp#"+id, COLLECTION);
     }
 
     public Publicacion find(String id) {
@@ -84,7 +85,9 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 	}
 	
 	 public void deleteUser(String nick) {
-	        DBBroker.get().deleteMany("nickname", nick, COLLECTION);
+		 DBBroker.get().deleteMany("nickname", nick, COLLECTION);
+		 //TODO eliminar todas las publicaciones que en el campo texto
+		 // tenga los ids que acabamos de borrar en el formato 'cp#id'
 	 }
 
 }

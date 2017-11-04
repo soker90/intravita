@@ -5,6 +5,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.BsonField;
+import com.mongodb.client.result.DeleteResult;
 
 import java.util.ArrayList;
 import java.util.Collection;

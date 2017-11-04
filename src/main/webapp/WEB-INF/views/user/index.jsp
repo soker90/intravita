@@ -34,8 +34,22 @@
 		  <div class="panel-body">
 			<div class="clearfix"></div>
 			
-			<p>${publicacion.texto}</p>
-			
+			<c:if test="${publicacion.fechaCompartida == null}"><p>${publicacion.texto}</p></c:if>
+			<c:if test="${publicacion.fechaCompartida != null}"><p>
+				<div class="panel panel-default">
+		   			<div class="panel-heading">
+		   				<h7 class="pull-right">${publicacion.fechaCompartida}</h7> 
+		   				<a href="${var.url}/user/ver/${publicacion.nickCompartido}"><h4>Publicado por ${publicacion.nombreCompartido}</h4></a>
+		   			</div>
+				    <div class="panel-body">
+						<div class="clearfix"></div>
+					
+						<p>${publicacion.textoCompartido}</p>
+											
+					</div>
+	   			</div>
+				
+			</p></c:if>
 			<hr>
 			<form>
 			<div class="input-group">
@@ -46,8 +60,13 @@
  			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
  		 	 </form>
  		 	 
- 		 	 <form style="display: inline-block" action="#" method="post">
- 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
+ 		 	 <form style="display: inline-block" action="${var.url}/user/compartir" method="post">
+ 		 	 	<c:if test="${publicacion.fechaCompartida == null}">
+ 		 	 		<input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
+ 		 	 	</c:if>
+ 		 	 	<c:if test="${publicacion.fechaCompartida != null}">
+ 		 	 		<input type="text" id="id" name="id" hidden="hidden" value="${publicacion.idCompartido}">
+ 		 	 	</c:if>
  			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-share"></i></button>
  		 	 </form>
 	 			    
@@ -93,6 +112,7 @@
  		 	 
 			  </c:if>
 			  </div>
+			  <h7 class="pull-right">Se ha compartido X veces</h7>
 			</div>
 			</form>
 			
