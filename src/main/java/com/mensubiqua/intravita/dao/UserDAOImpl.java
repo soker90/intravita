@@ -91,48 +91,46 @@ public class UserDAOImpl implements UserDAO{
 		return users;
 	}
 	
-	 public void update(User user, String rutaFoto, String nickViejo) {			
+	public void update(User user, String rutaFoto, String nickViejo) {			
+		PublicacionDAOImpl publicacionDAO = new PublicacionDAOImpl();
+		//encriptar las nuevas variables
+		String nickViejoDB = Funciones.encrypt(nickViejo);
+		String nicknameDB = Funciones.encrypt(user.getNickname());
+		String nombreDB = Funciones.encrypt(user.getNombre());
+		String apellidoDB = Funciones.encrypt(user.getApellido());
+		String emailDB = Funciones.encrypt(user.getEmail());	
 
-		 PublicacionDAOImpl publicacionDAO = new PublicacionDAOImpl();
-			//encriptar las nuevas variables
-			String nicknameDB = Funciones.encrypt(user.getNickname());
-			String nombreDB = Funciones.encrypt(user.getNombre());
-			String apellidoDB = Funciones.encrypt(user.getApellido());
-			String emailDB = Funciones.encrypt(user.getEmail());
-			String sNickNuevo =  user.getNickname().toLowerCase();
-			String nicknameNuevo = Funciones.encrypt(sNickNuevo);
-			
-			if(!user.getNickname().equals(sNickNuevo))
-			{
-				File fotoVieja = new File(rutaFoto + user.getNickname() + ".jpg");
-				File fotoNueva = new File(rutaFoto + sNickNuevo + ".jpg");
-				fotoVieja.renameTo(fotoNueva);
-				
-				ArrayList<Publicacion> publicaciones = publicacionDAO.selectAll();
-	        	for(Publicacion p : publicaciones) {
-	        		if(user.getNickname().equals(p.getNickname())) {
-	        			p.setNickname(sNickNuevo);
-	        			publicacionDAO.update(p);
-	        		}
-	        			
-	        	}
+		if(!user.getNickname().equals(nickViejo))
+		{
+			File fotoVieja = new File(rutaFoto + nickViejo + ".jpg");
+			File fotoNueva = new File(rutaFoto + user.getNickname() + ".jpg");
+			fotoVieja.renameTo(fotoNueva);
+
+			ArrayList<Publicacion> publicaciones = publicacionDAO.selectAll();
+
+			if(!publicaciones.isEmpty()) {
+				for(Publicacion p : publicaciones) {
+					if(p.getNickname().equals(nickViejo)) {
+						p.setNickname(user.getNickname());
+						publicacionDAO.update(p);
+					}
+				}
 			}
-			
-
-			//crear documento de los nuevos valores
-			BasicDBObject values = new BasicDBObject();
-			values.append("nickname", nicknameNuevo);
-			values.append("nombre", nombreDB);
-			values.append("apellido", apellidoDB);
-			values.append("email", emailDB);
-			BasicDBObject set = new BasicDBObject();
-			set.append("$set", values);
-			//crear query de busqueda
-			BasicDBObject searchQuery = new BasicDBObject().append(ID, nicknameDB);
-			//llamada a dbbroker
-			DBBroker.get().update(set, searchQuery, COLLECTION);	
-
 		}
+
+		//crear documento de los nuevos valores
+		BasicDBObject values = new BasicDBObject();
+		values.append("nickname", nicknameDB);
+		values.append("nombre", nombreDB);
+		values.append("apellido", apellidoDB);
+		values.append("email", emailDB);
+		BasicDBObject set = new BasicDBObject();
+		set.append("$set", values);
+		//crear query de busqueda
+		BasicDBObject searchQuery = new BasicDBObject().append(ID, nickViejoDB);
+		//llamada a dbbroker
+		DBBroker.get().update(set, searchQuery, COLLECTION);
+	}
 	
 	 public void updateRole(String nickname, String rol) {
 		   String nicknameDB = Funciones.encrypt(nickname);

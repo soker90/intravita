@@ -190,6 +190,7 @@ public class AdminController {
     @RequestMapping(value = "/admin/editarCuenta**", method = RequestMethod.POST)
     public ModelAndView editAccount(HttpSession session, HttpServletRequest request) {
         User user = new User();
+        String oldNick = request.getParameter("oldNick");
         user.setNickname(request.getParameter("nick"));
         user.setNombre(request.getParameter("nombre"));
         user.setApellido(request.getParameter("apellidos"));
@@ -198,7 +199,7 @@ public class AdminController {
         
         String rutaFoto = servletContext.getRealPath("/resources/img/");
         
-        userDAO.update(user, rutaFoto,user.getNickname());
+        userDAO.update(user, rutaFoto, oldNick);
         
         Variables v = (Variables) session.getAttribute("var");
 		v.setCont(0);

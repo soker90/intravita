@@ -27,8 +27,13 @@
 		<form action="${var.url}/user/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
-		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user.nickname}">
-		    </div>   
+		        <c:if test="${user.nickname ne 'super.admin'}">
+		        	<input type="text" class="form-control" id="nick" name="nick" value="${user.nickname}">
+		        </c:if>
+		        <c:if test="${user.nickname eq 'super.admin'}">
+		        	<input type="text" class="form-control" id="nick" name="nick" readonly value="${user.nickname}">
+		        </c:if>
+		    </div>  
 		    <div class="form-group"> <!-- Full Name -->
 		        <label for="nombre_id" class="control-label">Nombre</label>
 		        <input type="text" class="form-control" id="nombre" name="nombre" value="${user.nombre}" placeholder="Esriba aqui su nombre">

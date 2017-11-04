@@ -166,16 +166,15 @@ public class UserController {
 	@RequestMapping(value = "/user/editarCuenta**", method = RequestMethod.POST)
 	public ModelAndView updateAccount(HttpSession session, HttpServletRequest request) {
 		User user = (User) session.getAttribute("user");
-		user.setNickname(request.getParameter("nick"));
+		String oldNick = user.getNickname();
+		user.setNickname(request.getParameter("nick").toLowerCase());
         user.setNombre(request.getParameter("nombre"));
         user.setApellido(request.getParameter("apellidos"));
         user.setFoto(request.getParameter("foto"));
         user.setEmail(request.getParameter("email"));
-        String nuevoNick = user.getNickname();
         
         String rutaFoto = servletContext.getRealPath("/resources/img/");
-        
-        userDAO.update(user, rutaFoto,nuevoNick);
+        userDAO.update(user, rutaFoto, oldNick);
 		
 		
 		File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname().toLowerCase()+".jpg"));

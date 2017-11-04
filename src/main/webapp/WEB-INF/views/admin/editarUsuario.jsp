@@ -27,7 +27,8 @@
 		<form action="${var.url}/admin/editarCuenta" method="post">
 			<div class="form-group">
 		        <label for="nick_id" class="control-label">Nombre de usuario</label>
-		        <input type="text" class="form-control" id="nick" name="nick" readonly value="${user_edit.nickname}">
+		        <input type="text" id="oldNick" name="oldNick" hidden="hidden" value="${user_edit.nickname}">
+		        <input type="text" class="form-control" id="nick" name="nick" value="${user_edit.nickname}">
 		    </div>   
 		    <div class="form-group"> <!-- Full Name -->
 		        <label for="nombre_id" class="control-label">Nombre</label>
