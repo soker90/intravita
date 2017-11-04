@@ -259,7 +259,7 @@ public class GeneralController {
     @RequestMapping(value = "validacion", method = RequestMethod.POST)
     public ModelAndView validar(HttpServletRequest request) {
     	ModelAndView model = new ModelAndView();
-    	UserCode uc = userCodeDAO.find(request.getParameter("username"));
+    	UserCode uc = userCodeDAO.find(request.getParameter("username").toLowerCase());
     	User u = null;
     	Variables var = null;
     	
@@ -267,7 +267,7 @@ public class GeneralController {
     	
     	if(uc == null)
     		model.addObject("mensaje2","Este usuario no existe");
-    	else if(uc.getNickname().equals(request.getParameter("username")) && uc.getCode().equals(request.getParameter("code"))) {
+    	else if(uc.getNickname().equals(request.getParameter("username").toLowerCase()) && uc.getCode().equals(request.getParameter("code"))) {
     		u = userDAO.find(Funciones.encrypt(uc.getNickname()));
     		if(u != null){
         			u.setValidado(true);
