@@ -58,10 +58,10 @@
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h3>Validar Cuenta</h3>
-                                <p style="color: red;">
+                                <p><strong style="color: red !important;">
                                     <c:if test="${not empty mensaje2}">
                                         <div class="msg">${mensaje2}</div>
-                                    </c:if>
+                                    </c:if></strong>
                                 </p>
                             </div>
                             <div class="form-top-right">
@@ -77,7 +77,6 @@
                                     <input type="text" name="code" placeholder="Codigo" class="form-username form-control" id="form-code">
                                 </div>
                                 <button id="validar" type="submit" name="submit" value="submit" class="btn">Validar</button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </div>
                     </div>

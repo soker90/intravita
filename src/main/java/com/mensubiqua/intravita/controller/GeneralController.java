@@ -66,50 +66,89 @@ public class GeneralController {
     }
     
     @RequestMapping(value = "/login**", method = RequestMethod.GET)
-    public String login(HttpServletRequest request) {  
+    public ModelAndView login(HttpServletRequest request, HttpSession sesion) {  
     	
-        return "login";
+    	String mensaje = (String) sesion.getAttribute("mensaje");
+    	String mensaje2 = (String) sesion.getAttribute("mensaje2");
+    	request.getSession().setAttribute("mensaje2", "");
+        request.getSession().setAttribute("mensaje", "");
+        
+        String nombre = (String) sesion.getAttribute("rnombre");
+    	String apellido = (String) sesion.getAttribute("rapellido");
+    	String email = (String) sesion.getAttribute("remail");
+    	String nick = (String) sesion.getAttribute("rnick");
+    	
+    	request.getSession().setAttribute("mensaje2", "");
+        request.getSession().setAttribute("mensaje", "");
+        
+        request.getSession().setAttribute("rnombre", "");
+        request.getSession().setAttribute("rapellido", "");
+        request.getSession().setAttribute("remail", "");
+        request.getSession().setAttribute("rnick", "");
+        
+        ModelAndView model = new ModelAndView();
+        
+        model.addObject("mensaje", mensaje);
+        model.addObject("mensaje2", mensaje2);
+        model.addObject("rnombre", nombre);
+        model.addObject("rapellido", apellido);
+        model.addObject("remail", email);
+        model.addObject("rnick", nick);
+        
+        model.setViewName("login");
+        return model;
     }
 
     @RequestMapping(value = "registro**", method = RequestMethod.POST)
     public ModelAndView registrar(HttpServletRequest request)  {
     	User user = null;
     	UserCode uc = null;
-    	ModelAndView model = new ModelAndView();
-        model.setViewName("login");
+    	
+    	String sNombre = request.getParameter("nombre");
+    	String sApellido = request.getParameter("apellido");
+    	String sEmail = request.getParameter("email");
+    	String sNick = request.getParameter("nickname");
+    	
+    	request.getSession().setAttribute("rnombre", sNombre);
+    	request.getSession().setAttribute("rapellido", sApellido);
+    	request.getSession().setAttribute("remail", sEmail);
+    	request.getSession().setAttribute("rnick", sNick);
+    	
     	if(Funciones.validarEmail(request.getParameter("email")))
     	{
 	        if (!request.getParameter("password").equals(request.getParameter("password2"))) 
-	        	model.addObject("mensaje", "Las contrasenas no coinciden");
+	        	request.getSession().setAttribute("mensaje", "<strong style=\"color: red !important;\">Las contrasenas no coinciden</strong>");
 	
-	        else if (userDAO.find(Funciones.encrypt(request.getParameter("nickname"))) != null) 
-	        	model.addObject("mensaje", "Este usuario ya existe");
+	        else if (userDAO.find(Funciones.encrypt(request.getParameter("nickname"))) != null)
+	        	request.getSession().setAttribute("mensaje", "<strong style=\"color: red !important;\">Este usuario ya existe</strong>");
 	
 	        else {
-	        	String nombre = Funciones.encrypt(request.getParameter("nombre"));
-	        	String apellido = Funciones.encrypt(request.getParameter("apellido"));
-	        	String email = Funciones.encrypt(request.getParameter("email"));
+	        	
+	        	String nombre = Funciones.encrypt(sNombre);
+	        	String apellido = Funciones.encrypt(sApellido);
+	        	String email = Funciones.encrypt(sEmail);
 	        	String password = Funciones.encrypt_md5(request.getParameter("password"));
-	        	String nick = Funciones.encrypt((request.getParameter("nickname").toLowerCase()));
+	        	String nick = Funciones.encrypt((sNick.toLowerCase()));
+	        	
 	            user = new User(nombre, apellido, email, password,
 	            		"ROLE_USER", nick,false);
 	            userDAO.insert(user);
 	            uc = new UserCode(Funciones.decrypt(user.getNickname()),Funciones.generarStringAleatorio());
 	            userCodeDAO.insert(uc);
-	            //http://localhost:8080/intravita/validacion
+	            
 	            String url = "https://intravita.herokuapp.com";
 	            if(request.getRequestURL().toString().contains("localhost"))
 	            	url = "https://localhost:8443/intravita";
 	            
 	            MailSender EnviadorMail = new MailSender(request.getParameter("email"),
 	                    "Validar cuenta Intravita", "Hola: "+uc.getNickname()+". Este es su codigo de validacion: "+uc.getCode()+". Para validar su usuario introduzca el codigo en el siguiente enlace: " + url + "/validacion");
-	            model.addObject("mensaje", "Usuario creado con exito, consulte su correo para validar cuenta");
+	            request.getSession().setAttribute("mensaje", "<strong style=\"color: blue !important;\">Usuario creado con exito, consulte su correo para validar su cuenta</strong>");
 	        }
     	} else {
-    		model.addObject("mensaje", "El correo electr&oacute;nico no es v&aacute;lido");
+    		request.getSession().setAttribute("mensaje", "<strong style=\"color: red !important;\">El correo electr&oacute;nico no es v&aacute;lido</strong>");
     	}
 
-        return model;
+    	return new ModelAndView("redirect:/login");
     }
 
 
@@ -117,19 +156,16 @@ public class GeneralController {
 
     @RequestMapping(value = "logear**", method = RequestMethod.POST)
     public ModelAndView logear(HttpServletRequest request)  {
-        ModelAndView model = new ModelAndView();
-        User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));
         
-        model.setViewName("login");
-    	
-        if (user == null) model.addObject("mensaje2", "Este usuario no existe");
+        User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));
+        	
+        if (user == null) request.getSession().setAttribute("mensaje2", "Este usuario no existe");
 
         else if(!user.isValidado())
-        	model.addObject("mensaje2", "Consulte su correo y valide la cuenta");
+        	request.getSession().setAttribute("mensaje2", "Consulte su correo y valide la cuenta");
         
         else if (!Funciones.encrypt_md5(request.getParameter("password")).equalsIgnoreCase(user.getPassword())) 
-        	model.addObject("mensaje2", "Contraseña incorrecta");
-        
+        	request.getSession().setAttribute("mensaje2", "Contraseña incorrecta");
         else {
             request.getSession().setAttribute("user", user);
             boolean local = request.getRequestURL().toString().contains("localhost");
@@ -145,11 +181,12 @@ public class GeneralController {
             	user.setFoto("user");
             }
             
-            
-            model.setViewName("redirect:/user");
+            request.getSession().setAttribute("mensaje2", "");
+            request.getSession().setAttribute("mensaje", "");
+            return new ModelAndView("redirect:/user");
         }
 
-        return model;
+        return new ModelAndView("redirect:/login");
         
     }
     
@@ -243,7 +280,8 @@ public class GeneralController {
                     var = new Variables();
                     var.setUrl(local);
                     var.setCont(0);
-                    var.setMensaje("Su cuenta validada, Bienvenido.");
+                    var.setMensaje("Su cuenta ha sido validada. ¡Bienvenido a intravita!.");
+                    var.setTipo("info");
                     request.getSession().setAttribute("var", var);
                     
                     foto(u);
@@ -258,6 +296,43 @@ public class GeneralController {
  
     	return model;
     }
+    
+    @RequestMapping(value = "/recuperar", method = RequestMethod.GET)
+    public ModelAndView recuperar(HttpServletRequest request, HttpSession sesion) {    	
+    	String mensaje = (String) sesion.getAttribute("mensaje2");
+		request.getSession().setAttribute("mensaje2", "");
+		
+		ModelAndView model = new ModelAndView();
+        
+        model.addObject("mensaje2", mensaje);
+        
+        model.setViewName("recuperar_pass");
+		
+        return model;
+    }
+
+	@RequestMapping(value = "/recuperarpass", method = RequestMethod.POST)
+	public ModelAndView recuperacion(HttpServletRequest request, HttpSession sesion)  {
+	    
+		User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));	   
+		String password;
+		
+	    if (user == null) request.getSession().setAttribute("mensaje2", "Este usuario no existe");
+	
+	    else {
+	    	request.getSession().setAttribute("mensaje2", "Se ha mandado un nueva contraseña a su correo");
+	    	password = Funciones.generarStringAleatorio();
+	    	MailSender EnviadorMail = new MailSender(user.getEmail(),
+	                "Nueva contraseña", "Buenas " + user.getNombre() + " " + user.getApellido() + " su nueva contraseña es: " + password);
+	    	password = Funciones.encrypt_md5(password);
+	    	user.setPassword(password);
+	        userDAO.updatePassword(user);
+	        return new ModelAndView("redirect:/login");
+	    }
+	
+	    return new ModelAndView("redirect:/recuperar");
+	    
+	}
     	
     public void foto(User u) {
     	File f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));

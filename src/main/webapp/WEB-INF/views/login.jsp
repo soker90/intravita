@@ -59,7 +59,7 @@
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h3>Inicar sesión</h3>
-                                <p style="color: red;"><strong>
+                                <p><strong style="color: red !important;">
                                     <c:if test="${not empty mensaje2}">
                                         <div class="msg">${mensaje2}</div>
                                     </c:if></strong>
@@ -80,7 +80,7 @@
                                     <input type="password" name="password" placeholder="Contraseña" class="form-password form-control" id="form-password">
                                 </div>
                                 <div class="form-group">
-                                <a href="recuperar_pass">¿Ha olvidado su contraseña?</a></td>
+                                <a href="recuperar">¿Ha olvidado su contraseña?</a></td>
                                 </div>
                                 <button id="form-login" type="submit" name="submit" value="submit" class="btn">Entrar</button>
                             </form>
@@ -112,13 +112,13 @@
                             <form role="form" action="registro" method="post" class="registration-form">
                                 <div class="form-group">
                                 	<label class="sr-only" for="form-first-name">Usuario</label>
-                                    <input type="text" name="nickname" placeholder="Usuario" class="form-first-name form-control" id="form-first-name"><br>
+                                    <input type="text" name="nickname" value="${rnick}" placeholder="Usuario" class="form-first-name form-control" id="form-first-name"><br>
                                     <label class="sr-only" for="form-first-name">Nombre</label>
-                                    <input type="text" name="nombre" placeholder="Nombre" class="form-first-name form-control" id="form-first-name"><br>
+                                    <input type="text" name="nombre" value="${rnombre}" placeholder="Nombre" class="form-first-name form-control" id="form-first-name"><br>
                                     <label class="sr-only" for="form-last-name">Apellidos</label>
-                                    <input type="text" name="apellido" placeholder="Apellidos" class="form-last-name form-control" id="form-last-name"><br>
+                                    <input type="text" name="apellido" value="${rapellido}" placeholder="Apellidos" class="form-last-name form-control" id="form-last-name"><br>
                                     <label class="sr-only" for="form-email">Email</label>
-                                    <input type="text" name="email" placeholder="Correo electrónico" class="form-email form-control" id="form-email"><br>
+                                    <input type="text" name="email" value="${remail}" placeholder="Correo electrónico" class="form-email form-control" id="form-email"><br>
                                     <label class="sr-only" for="form-passwordd">Contraseña</label>
                                     <input type="password" name="password" placeholder="Contraseña" class="form-email form-control" id="form-passwordd"><br>
                                     <label class="sr-only" for="form-password2">Repita contraseña</label>
