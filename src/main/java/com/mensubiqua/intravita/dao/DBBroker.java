@@ -100,5 +100,12 @@ public class DBBroker<T> {
         this.db.getCollection(collection).updateOne(searchQuery, newDocument);
     }
     
+    public long count(String field, String value, String collection)
+    {
+    	BasicDBObject query = new BasicDBObject(field, value);
+
+        return this.db.getCollection(collection).count(query);
+    }
+    
     
 }

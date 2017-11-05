@@ -22,6 +22,7 @@ public class PublicacionVista {
     private String textoCompartido;
     private String nickCompartido;
     private String idCompartido;
+    private long contCompartidas;
     
 	public PublicacionVista(Publicacion p, User u) {
 		this.texto = p.getTexto();
@@ -32,11 +33,11 @@ public class PublicacionVista {
 		this.unombre = u.getNombre() + " " + u.getApellido();
 		this.ufoto = u.getFoto();
 		
+		PublicacionDAOImpl dao = new PublicacionDAOImpl();
 		//Publicaciones compartidas
 		
 		if(Funciones.validarCompartir(p.getTexto()))
 		{
-			PublicacionDAOImpl dao = new PublicacionDAOImpl();
 			UserDAOImpl daoUser = new UserDAOImpl();
 			this.idCompartido = texto.substring(3, texto.length());
 			Publicacion pc = dao.find(this.idCompartido);
@@ -45,6 +46,8 @@ public class PublicacionVista {
 			this.nombreCompartido = uc.getNombre() + " " + uc.getApellido();
 			this.fechaCompartida = pc.getFecha();
 			this.textoCompartido = pc.getTexto();
+		} else {
+			this.contCompartidas = dao.contCompartida(this.id);
 		}
 	}
 
@@ -143,6 +146,15 @@ public class PublicacionVista {
 	public void setIdCompartido(String idCompartido) {
 		this.idCompartido = idCompartido;
 	}
+
+	public long getContCompartidas() {
+		return contCompartidas;
+	}
+
+	public void setContCompartidas(long contCompartidas) {
+		this.contCompartidas = contCompartidas;
+	}
+	
 	
     
 }

@@ -89,5 +89,14 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 		 //TODO eliminar todas las publicaciones que en el campo texto
 		 // tenga los ids que acabamos de borrar en el formato 'cp#id'
 	 }
+	 
+	 public long contCompartida(String id)
+	 {
+		 long cont = 0;
+		 
+		 cont = DBBroker.get().count("texto", "cp#"+id, COLLECTION);
+		 
+		 return cont;
+	 }
 
 }
