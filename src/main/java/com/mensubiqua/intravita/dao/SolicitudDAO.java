@@ -9,5 +9,9 @@ import com.mensubiqua.intravita.model.User;
 public interface SolicitudDAO {
 
     public void insert(Solicitud p);
-    public void delete(String id);
+    public void delete(Solicitud p);
+    public ArrayList<User> findAmigos(String nickname);
+    public boolean isAmigo(String nick1, String nick2);
+    public boolean isPendiente(String nick1, String nick2);
+    public ArrayList<User> selectAll(String nick);
 }

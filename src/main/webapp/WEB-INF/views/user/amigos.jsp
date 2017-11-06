@@ -17,6 +17,48 @@
    </div>
                                         
   </c:if>
+  <c:if test="${haysolicitudes eq 'si'}">
+		<div class="panel panel-default">
+		<div class="panel-heading"><h4>Tienes nuevas solicitudes de amistad.</h4></div>
+	   </div>
+	</c:if>
+  
+  <c:forEach items="${solicitudes}" var="solicitud">
+	   <div class="panel panel-default">
+	   	<div class="panel-heading"><h7 class="pull-right" style="padding-bottom: 3px; padding-left:2px;"><a href="${var.url}/user/ver/${solicitud.nickname}">Ver perfil</a></h7><h4> </h4></div>
+		  <div class="panel-body">
+			<div class="clearfix"></div>
+			
+			<p><a href="${var.url}/user/ver/${solicitud.nickname}"><h1><img src="${var.url}/${solicitud.foto}" class="img-circle-big">${solicitud.nombre} ${solicitud.apellido}</h1></a></p>
+			
+			<hr>
+			<form>
+			<div class="input-group">
+			  <div class="input-group-btn">
+			  
+			  <form style="display: inline-block" action="${var.url}/user/eliminarSolicitud" method="post">
+ 			    <input type="text" id="id" name="id" hidden="hidden" value="${solicitud.nickname}">
+ 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-plus"></i> Aceptar amistad </button>
+ 		 	 </form>
+ 		 	 
+ 		 	 <form style="display: inline-block" action="${var.url}/user/eliminarSolicitud" method="post">
+ 			    <input type="text" id="id" name="id" hidden="hidden" value="${solicitud.nickname}">
+ 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-minus"></i> Rechazar amistad </button>
+ 		 	 </form>
+	 			    
+			  
+			  
+			  </div>
+			</div>
+			</form>
+			
+		  </div>
+	   </div>
+   </c:forEach>
+   
+  
+
+	
 	<c:if test="${vacio eq 'vacio'}">
 		<div class="panel panel-default">
 		  <div class="panel-body">
@@ -28,6 +70,14 @@
 		  </div>
 	   </div>
 	</c:if>
+	
+	<c:if test="${vacio eq 'no'}">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h4>Amigos</h4></div>
+	   </div>
+	   
+	</c:if>
+	
 	<c:forEach items="${usuarios}" var="resultado">
 	   <div class="panel panel-default">
 	   	<div class="panel-heading"><h7 class="pull-right" style="padding-bottom: 3px; padding-left:2px;"><a href="${var.url}/user/ver/${resultado.nickname}">Ver perfil</a></h7><h4> </h4></div>

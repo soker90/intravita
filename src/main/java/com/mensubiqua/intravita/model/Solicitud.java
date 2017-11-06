@@ -10,9 +10,9 @@ public class Solicitud {
 	private boolean aceptado;
 	
 	public Solicitud() {}
-	public Solicitud(String solicitante, String solicutado, boolean aceptado) {
+	public Solicitud(String solicitante, String solicitado, boolean aceptado) {
 		this.solicitante = solicitante;
-		this.solicitado = solicutado;
+		this.solicitado = solicitado;
 		this.aceptado = aceptado;
 	}
 	
