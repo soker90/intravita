@@ -351,5 +351,32 @@ public class UserController {
         	usuario.setFoto("user");
         }
 	}
+	
+	@RequestMapping(value = "/user/aceptarSolicitud**", method = RequestMethod.POST)
+    public ModelAndView aceptarSolicitud(HttpSession session, HttpServletRequest request) {
+    	String solicitante = request.getParameter("id");
+    	User user = (User) session.getAttribute("user");
+    	
+    	//daoRelaciones.aceptar(user.getNickname(), solicitante);
+	
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Solicitud aceptada");
+		v.setTipo("info");
+	    	
+    	
+
+        return new ModelAndView("redirect:/user/amigos");
+    }
+	
+	@RequestMapping(value = "/user/amigos**", method = RequestMethod.POST)
+    public ModelAndView amigos(HttpSession session, HttpServletRequest request) {
+    	  	
+    	
+
+        return new ModelAndView("redirect:/user");
+    }
+	
+	
 
 }

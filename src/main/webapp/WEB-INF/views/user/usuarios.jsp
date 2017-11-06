@@ -41,7 +41,7 @@
 			<div class="input-group">
 			  <div class="input-group-btn">
 			  <c:if test="${user.nickname ne resultado.nickname}">
-			  <form style="display: inline-block" action="#" method="post">
+			  <form style="display: inline-block" action="${var.url}/user/aceptarSolicitud" method="post">
  			    <input type="text" id="id" name="id" hidden="hidden" value="${resultado.nickname}">
  			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-plus"></i> Agregar amigo</button>
  		 	 </form>
