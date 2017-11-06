@@ -49,7 +49,7 @@
 					</div>
 	   			</div>
 				
-			</p></c:if>
+			</c:if>
 			<hr>
 			<form>
 			<div class="input-group">
