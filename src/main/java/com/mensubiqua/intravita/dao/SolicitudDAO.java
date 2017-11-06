@@ -14,4 +14,6 @@ public interface SolicitudDAO {
     public boolean isAmigo(String nick1, String nick2);
     public boolean isPendiente(String nick1, String nick2);
     public ArrayList<User> selectAll(String nick);
+	public int countAmigos(String nickname);
+	public int countPendientes(String nickname);
 }

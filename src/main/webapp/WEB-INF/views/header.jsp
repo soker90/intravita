@@ -112,7 +112,6 @@
 										<div class="panel-thumbnail"><img src="${var.url}/${perfil.foto}" class="img-responsive"></div>
 										<div class="panel-body">
 										  <p class="lead"><c:out value="${perfil.nombre}"/> <c:out value="${perfil.apellido}"/></p>
-										  <p>400 Amigos</p>
 										</div>
 									  </div>
 									</div>
@@ -125,7 +124,8 @@
 										<a href="${var.url}/user/configuracion"><div class="panel-thumbnail"><img src="${var.url}/${user.foto}" class="img-responsive"></div></a>
 										<div class="panel-body">
 										  <p class="lead"><c:out value="${user.nombre}"/> <c:out value="${user.apellido}"/></p>
-										  <p>400 Amigos</p>
+										  <c:if test="${not empty amigos}"><p>${amigos} Amigos</p></c:if>
+										  <c:if test="${pendientes > 0 && not empty pendientes}"><a href="${var.url}/user/amigos"><p style="color:green;">${pendientes} Solicitudes de amistad pendientes</p></a></c:if>
 										</div>
 									  </div>
 									</div>
