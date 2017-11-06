@@ -38,6 +38,7 @@ public class PublicacionVista {
 		
 		if(Funciones.validarCompartir(p.getTexto()))
 		{
+			try {
 			UserDAOImpl daoUser = new UserDAOImpl();
 			this.idCompartido = texto.substring(3, texto.length());
 			Publicacion pc = dao.find(this.idCompartido);
@@ -46,6 +47,9 @@ public class PublicacionVista {
 			this.nombreCompartido = uc.getNombre() + " " + uc.getApellido();
 			this.fechaCompartida = pc.getFecha();
 			this.textoCompartido = pc.getTexto();
+			} catch(Exception e) {
+				this.contCompartidas = dao.contCompartida(this.id);
+			}
 		} else {
 			this.contCompartidas = dao.contCompartida(this.id);
 		}

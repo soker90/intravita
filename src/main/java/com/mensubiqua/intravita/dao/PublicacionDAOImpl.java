@@ -86,8 +86,23 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 	
 	 public void deleteUser(String nick) {
 		 DBBroker.get().deleteMany("nickname", nick, COLLECTION);
-		 //TODO eliminar todas las publicaciones que en el campo texto
-		 // tenga los ids que acabamos de borrar en el formato 'cp#id'
+		 ArrayList<Publicacion> publicaciones = this.selectAll();
+		 for(Publicacion p: publicaciones)
+		 {
+			 if(Funciones.validarCompartir(p.getTexto()))
+			 {
+				 this.limpiarCompartidas(p);
+			 }
+		 }
+		 
+	 }
+	 
+	 public void limpiarCompartidas(Publicacion p)
+	 {
+		 String id_original = p.getTexto().substring(3, p.getTexto().length());
+		 Publicacion original = this.find(id_original);
+		 if(original == null)
+			 this.delete(p.getId());
 	 }
 	 
 	 public long contCompartida(String id)
