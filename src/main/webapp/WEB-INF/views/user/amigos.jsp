@@ -22,7 +22,7 @@
 		  <div class="panel-body">
 			<div class="clearfix"></div>
 			
-			<h4>No hay coincidencias.</h4>
+			<h4>No tienes amigos.</h4>
 			<hr>
 			
 		  </div>
@@ -40,10 +40,10 @@
 			<form>
 			<div class="input-group">
 			  <div class="input-group-btn">
-			  <c:if test="${user.nickname ne resultado.nickname}">
-			  <form style="display: inline-block" action="${var.url}/user/aceptarSolicitud" method="post">
+			  
+			  <form style="display: inline-block" action="${var.url}/user/eliminarSolicitud" method="post">
  			    <input type="text" id="id" name="id" hidden="hidden" value="${resultado.nickname}">
- 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-plus"></i> Agregar amigo</button>
+ 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-minus"></i> Eliminar amigo</button>
  		 	 </form>
  		 	 
  		 	 <form style="display: inline-block" action="#" method="post">
@@ -51,7 +51,7 @@
  			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-comment"></i> Enviar mensaje</button>
  		 	 </form>
 	 			    
-			  </c:if>
+			  
 			  
 			  </div>
 			</div>

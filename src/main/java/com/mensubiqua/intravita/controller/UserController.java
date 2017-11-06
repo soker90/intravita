@@ -412,14 +412,46 @@ public class UserController {
         return new ModelAndView("redirect:/user");
     }
 	
-	@RequestMapping(value = "/user/amigos**", method = RequestMethod.POST)
-    public ModelAndView amigos(HttpSession session, HttpServletRequest request) {
-    	  	
-		Variables v = (Variables) session.getAttribute("var");
-		v.setCont(1);
+	@RequestMapping(value = "/user/amigos**")
+    public ModelAndView amigos(HttpSession sesion) {
+		User user = (User) sesion.getAttribute("user");
 
+		try {
 
-        return new ModelAndView("redirect:/user");
+			if (user.getRol() != null) {
+				if (user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN")) {
+					
+					ModelAndView model = new ModelAndView();
+					model.setViewName("user/amigos");
+					
+					ArrayList<User> usuarios = solicitudDAO.findAmigos(user.getNickname());
+					
+					for (User user2 : usuarios) {
+						this.setFoto(user2);
+					}
+					
+					model.addObject("usuarios",usuarios);
+			        
+					
+					String vacio = "";
+					if(usuarios.size() == 0)
+						vacio = "vacio";
+					
+					model.addObject("vacio", vacio);
+										
+					Variables v = (Variables) sesion.getAttribute("var");
+					v.setCont(1);
+					
+					return model;
+				}
+			}
+		} catch (Exception e) {
+			return new ModelAndView("redirect:/user");
+		}
+		
+		return  new ModelAndView("redirect:/user");
+
+		
     }
 	
 	
