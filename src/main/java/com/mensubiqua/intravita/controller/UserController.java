@@ -272,7 +272,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/editarPublicacion**", method = RequestMethod.POST)
     public ModelAndView editarPublicacion(HttpSession sesion, HttpServletRequest request) {
-    	System.out.println("llega");
     	Publicacion p = publicacionDAO.find(request.getParameter("id"));
     	
     	try {
