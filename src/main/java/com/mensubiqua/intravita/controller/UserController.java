@@ -421,7 +421,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/crearSolicitud**", method = RequestMethod.POST)
-    public ModelAndView aceptarSolicitud(HttpSession session, HttpServletRequest request) {
+    public ModelAndView crearSolicitud(HttpSession session, HttpServletRequest request) {
     	String solicitante = request.getParameter("id");
     	User user = (User) session.getAttribute("user");
     	
@@ -500,6 +500,53 @@ public class UserController {
 		
     }
 	
+	@RequestMapping(value = "/user/aceptarSolicitud**", method = RequestMethod.POST)
+    public ModelAndView aceptarSolicitud(HttpSession session, HttpServletRequest request) {
+    	String solicitante = request.getParameter("id");
+    	User user = (User) session.getAttribute("user");
+    	
+    	solicitudDAO.update(solicitante, user.getNickname(), true);
+
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Solicitud aceptada");
+		v.setTipo("info");
+	    	
+
+        return new ModelAndView("redirect:/user/amigos");
+    }
+	
+	@RequestMapping(value = "/user/denegarSolicitud**", method = RequestMethod.POST)
+    public ModelAndView denegarSolicitud(HttpSession session, HttpServletRequest request) {
+    	String solicitante = request.getParameter("id");
+    	User user = (User) session.getAttribute("user");
+    	
+    	solicitudDAO.delete(solicitante, user.getNickname());
+
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Solicitud rechazada");
+		v.setTipo("info");
+	    	
+
+        return new ModelAndView("redirect:/user/amigos");
+    }
+	
+	@RequestMapping(value = "/user/revocarAmistad**", method = RequestMethod.POST)
+    public ModelAndView revocarAmistad(HttpSession session, HttpServletRequest request) {
+    	String solicitante = request.getParameter("id");
+    	User user = (User) session.getAttribute("user");
+    	
+    	solicitudDAO.delete(solicitante, user.getNickname());
+
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Amistad revocada");
+		v.setTipo("info");
+	    	
+
+        return new ModelAndView("redirect:/user/amigos");
+    }
 	
 
 }

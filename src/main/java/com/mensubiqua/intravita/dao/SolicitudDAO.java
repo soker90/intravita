@@ -9,7 +9,7 @@ import com.mensubiqua.intravita.model.User;
 public interface SolicitudDAO {
 
     public void insert(Solicitud p);
-    public void delete(Solicitud p);
+    public void delete(String solicitante, String solicitado);
     public ArrayList<User> findAmigos(String nickname);
     public boolean isAmigo(String nick1, String nick2);
     public boolean isPendiente(String nick1, String nick2);

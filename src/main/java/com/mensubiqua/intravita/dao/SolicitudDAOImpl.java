@@ -25,8 +25,13 @@ public class SolicitudDAOImpl implements SolicitudDAO{
     public void insert(Solicitud s) {
         DBBroker.get().insertOne(s, COLLECTION);
     }
+    
+    public void update(String solicitante, String solicitado, boolean aceptado)
+    {
+    	
+    }
 
-    public void delete(Solicitud p) {
+    public void delete(String solicitante, String solicitado) {
     	// Se envia una solicitud y hay que eliminar
     	// la solicitud en las que esten los dos usuarios
     	// puede en la posicion que se manda y en la inversa
