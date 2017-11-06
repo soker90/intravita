@@ -4,6 +4,10 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
+import com.mensubiqua.intravita.dao.UserDAOImpl;
+
 public class PublicacionVista {
 
 	private String id;
@@ -13,6 +17,12 @@ public class PublicacionVista {
     private String fecha;
     private String unombre;
     private String ufoto;
+    private String nombreCompartido;
+    private String fechaCompartida;
+    private String textoCompartido;
+    private String nickCompartido;
+    private String idCompartido;
+    private long contCompartidas;
     
 	public PublicacionVista(Publicacion p, User u) {
 		this.texto = p.getTexto();
@@ -22,6 +32,27 @@ public class PublicacionVista {
 		this.id = p.getId();
 		this.unombre = u.getNombre() + " " + u.getApellido();
 		this.ufoto = u.getFoto();
+		
+		PublicacionDAOImpl dao = new PublicacionDAOImpl();
+		//Publicaciones compartidas
+		
+		if(Funciones.validarCompartir(p.getTexto()))
+		{
+			try {
+			UserDAOImpl daoUser = new UserDAOImpl();
+			this.idCompartido = texto.substring(3, texto.length());
+			Publicacion pc = dao.find(this.idCompartido);
+			this.nickCompartido = pc.getNickname();
+			User uc = daoUser.find(Funciones.encrypt(this.nickCompartido));
+			this.nombreCompartido = uc.getNombre() + " " + uc.getApellido();
+			this.fechaCompartida = pc.getFecha();
+			this.textoCompartido = pc.getTexto();
+			} catch(Exception e) {
+				this.contCompartidas = dao.contCompartida(this.id);
+			}
+		} else {
+			this.contCompartidas = dao.contCompartida(this.id);
+		}
 	}
 
 	public String getId() {
@@ -80,7 +111,53 @@ public class PublicacionVista {
 		this.ufoto = ufoto;
 	}
 
-	
+	public String getNombreCompartido() {
+		return nombreCompartido;
+	}
+
+	public void setNombreCompartido(String nombreCompartido) {
+		this.nombreCompartido = nombreCompartido;
+	}
+
+	public String getFechaCompartida() {
+		return fechaCompartida;
+	}
+
+	public void setFechaCompartida(String fechaCompartida) {
+		this.fechaCompartida = fechaCompartida;
+	}
+
+	public String getTextoCompartido() {
+		return textoCompartido;
+	}
+
+	public void setTextoCompartido(String textoCompartido) {
+		this.textoCompartido = textoCompartido;
+	}
+
+	public String getNickCompartido() {
+		return nickCompartido;
+	}
+
+	public void setNickCompartido(String nickCompartido) {
+		this.nickCompartido = nickCompartido;
+	}
+
+	public String getIdCompartido() {
+		return idCompartido;
+	}
+
+	public void setIdCompartido(String idCompartido) {
+		this.idCompartido = idCompartido;
+	}
+
+	public long getContCompartidas() {
+		return contCompartidas;
+	}
+
+	public void setContCompartidas(long contCompartidas) {
+		this.contCompartidas = contCompartidas;
+	}
 	
 	
     

@@ -5,6 +5,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.BsonField;
+import com.mongodb.client.result.DeleteResult;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -97,6 +98,13 @@ public class DBBroker<T> {
     public void update(BasicDBObject newDocument, BasicDBObject searchQuery, String collection){       
     	 	
         this.db.getCollection(collection).updateOne(searchQuery, newDocument);
+    }
+    
+    public long count(String field, String value, String collection)
+    {
+    	BasicDBObject query = new BasicDBObject(field, value);
+
+        return this.db.getCollection(collection).count(query);
     }
     
     

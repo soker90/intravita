@@ -27,6 +27,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 
     public void delete(String id) {
         DBBroker.get().deleteOne(ID, new ObjectId(id), COLLECTION);
+        DBBroker.get().deleteMany("texto", "cp#"+id, COLLECTION);
     }
 
     public Publicacion find(String id) {
@@ -84,7 +85,33 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 	}
 	
 	 public void deleteUser(String nick) {
-	        DBBroker.get().deleteMany("nickname", nick, COLLECTION);
+		 DBBroker.get().deleteMany("nickname", nick, COLLECTION);
+		 ArrayList<Publicacion> publicaciones = this.selectAll();
+		 for(Publicacion p: publicaciones)
+		 {
+			 if(Funciones.validarCompartir(p.getTexto()))
+			 {
+				 this.limpiarCompartidas(p);
+			 }
+		 }
+		 
+	 }
+	 
+	 public void limpiarCompartidas(Publicacion p)
+	 {
+		 String id_original = p.getTexto().substring(3, p.getTexto().length());
+		 Publicacion original = this.find(id_original);
+		 if(original == null)
+			 this.delete(p.getId());
+	 }
+	 
+	 public long contCompartida(String id)
+	 {
+		 long cont = 0;
+		 
+		 cont = DBBroker.get().count("texto", "cp#"+id, COLLECTION);
+		 
+		 return cont;
 	 }
 
 }
