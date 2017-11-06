@@ -13,4 +13,5 @@ public interface PublicacionDAO {
     public ArrayList<Publicacion> selectAll();
     public void update(Publicacion p);
     public void deleteUser(String nick);
+    public long contCompartida(String id);
 }

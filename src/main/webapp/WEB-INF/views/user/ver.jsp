@@ -17,7 +17,7 @@
    	  <h4>${var.mensaje}</h4>
    </div>
                                         
-  </c:if>>
+  </c:if>
 
 	<c:if test="${vacio eq 'vacio'}">
 		<div class="panel panel-default">
@@ -33,12 +33,25 @@
 	
 	<c:forEach items="${publicaciones}" var="publicacion">
 	   <div class="panel panel-default">
-	   	<div class="panel-heading"><h7 class="pull-right">${publicacion.fecha}</h7> <h4><img src="${var.url}/${publicacion.ufoto}" class="img-circle"> ${publicacion.unombre}</h4></div>
+	   	<div class="panel-heading"><h7 class="pull-right">${publicacion.fecha}</h7> <a href="${var.url}/user/ver/${publicacion.nickname}"><h4><img src="${var.url}/${publicacion.ufoto}" class="img-circle"> ${publicacion.unombre}</h4></a></div>
 		  <div class="panel-body">
 			<div class="clearfix"></div>
 			
-			<p>${publicacion.texto}</p>
-			
+			<c:if test="${publicacion.fechaCompartida == null}"><p>${publicacion.texto}</p></c:if>
+			<c:if test="${publicacion.fechaCompartida != null}"><p>
+				<div class="panel panel-default">
+		   			<div class="panel-heading">
+		   				<h7 class="pull-right">${publicacion.fechaCompartida}</h7> 
+		   				<a href="${var.url}/user/ver/${publicacion.nickCompartido}"><h4>Publicado por ${publicacion.nombreCompartido}</h4></a>
+		   			</div>
+				    <div class="panel-body">
+						<div class="clearfix"></div>
+					
+						<p>${publicacion.textoCompartido}</p>
+											
+					</div>
+	   			</div>
+			</c:if>
 			<hr>
 			<form>
 			<div class="input-group">
@@ -46,11 +59,16 @@
 			  <c:if test="${publicacion.nickname ne user.nickname}">
 			  <form style="display: inline-block" action="#" method="post">
  			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
- 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"">+1</button>
+ 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
  		 	 </form>
  		 	 
- 		 	 <form style="display: inline-block" action="#" method="post">
- 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
+ 		 	 <form style="display: inline-block" action="${var.url}/user/compartir" method="post">
+ 		 	 	<c:if test="${publicacion.fechaCompartida == null}">
+ 		 	 		<input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
+ 		 	 	</c:if>
+ 		 	 	<c:if test="${publicacion.fechaCompartida != null}">
+ 		 	 		<input type="text" id="id" name="id" hidden="hidden" value="${publicacion.idCompartido}">
+ 		 	 	</c:if>
  			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-share"></i></button>
  		 	 </form>
 	 			    
@@ -64,11 +82,42 @@
 	 		 	 
 	 		 	 <form style="display: inline-block" class="form-inline" action="${var.url}/user/removePublicacion" method="post">
 	 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}"/>
-	 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
+	 			    <button style="display: inline-block" type="button" class="btn btn-default" data-toggle="modal" data-target="#id<c:out value="${publicacion.id}"/>">
+	 			    	<i class="glyphicon glyphicon-remove"></i>
+	 			    </button>
+	 			    
+	 			    <div class="modal fade" id="id<c:out value="${publicacion.id}"/>" role="dialog" >
+					    <div class="modal-dialog">
+					    
+					      <!-- Modal content-->
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title">Borrar publicaci&oacute;n</h4>
+					        </div>
+					        <div class="modal-body">
+					        <div class="form-group">
+					          <p class="caja-modal" >¿Est&aacute; seguro que desea borrar su publicaci&oacute;n?</p>
+					        </div>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="submit" name="submit" value="submit" class="btn btn-danger">Borrar publicaci&oacute;n</button>
+					          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					        </div>
+					      </div>
+					      
+					    </div>
+					</div>
+						
+						
 	 		 	 </form>
  		 	 
 			  </c:if>
 			  </div>
+			  <c:if test="${publicacion.fechaCompartida == null && publicacion.nickname eq user.nickname}">
+			  	<h7 class="pull-right">Se ha compartido ${publicacion.contCompartidas} veces</h7>
+			  </c:if>
+			  
 			</div>
 			</form>
 			
