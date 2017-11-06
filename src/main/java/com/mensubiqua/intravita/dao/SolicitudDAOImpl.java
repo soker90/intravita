@@ -26,18 +26,42 @@ public class SolicitudDAOImpl implements SolicitudDAO{
         DBBroker.get().insertOne(s, COLLECTION);
     }
 
-    public void delete(String id) {
-
+    public void delete(Solicitud p) {
+    	// Se envia una solicitud y hay que eliminar
+    	// la solicitud en las que esten los dos usuarios
+    	// puede en la posicion que se manda y en la inversa
     }
 
 	public ArrayList<User> findAmigos(String nickname) {
 		ArrayList<User> amigos = new ArrayList<User>();
 		
-		/***** Datos de prueba ******/
-		//User user = new User("Prueba", "Probando","ddd@ll.es","","ROLE_ADMIN","pruab.l",true);
-		//amigos.add(user);
+		//Busca los usuarios que tienen una solicitud
+		// aprobada con el usuario 
+		
 		
 		return amigos;
+	}
+	
+	public boolean isAmigo(String nick1, String nick2)
+	{
+		//Comprueba si son amigos
+		return false;
+	}
+	
+	public boolean isPendiente(String nick1, String nick2)
+	{
+		//Comprueba si la solicitud esta pendiente de aceptar
+		return false;
+	}
+	
+	public ArrayList<User> selectAll(String nick)
+	{
+		ArrayList<User> solicitudes = new ArrayList<User>();
+		//Devuelve todos los usuarios que le han solicitado amistad
+		// y todavia no han respondido, o sea, en los que esta en
+		// el segundo campo
+		
+		return solicitudes;
 	}
 
 

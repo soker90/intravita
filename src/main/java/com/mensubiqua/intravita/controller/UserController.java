@@ -431,9 +431,22 @@ public class UserController {
 					}
 					
 					model.addObject("usuarios",usuarios);
-			        
 					
-					String vacio = "";
+					ArrayList<User> solicitudes = solicitudDAO.selectAll(user.getNickname());
+					
+					for (User user2 : solicitudes) {
+						this.setFoto(user2);
+					}
+			        
+					model.addObject("solicitudes",solicitudes);
+					
+					String haysolicitudes = "";
+					if(usuarios.size() == 0)
+						haysolicitudes = "si";
+					
+					model.addObject("haysolicitudes", haysolicitudes);
+					
+					String vacio = "no";
 					if(usuarios.size() == 0)
 						vacio = "vacio";
 					

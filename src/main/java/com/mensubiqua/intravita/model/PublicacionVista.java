@@ -35,22 +35,24 @@ public class PublicacionVista {
 		
 		PublicacionDAOImpl dao = new PublicacionDAOImpl();
 		//Publicaciones compartidas
+		try {
 		
-		if(Funciones.validarCompartir(p.getTexto()))
-		{
-			try {
-			UserDAOImpl daoUser = new UserDAOImpl();
-			this.idCompartido = texto.substring(3, texto.length());
-			Publicacion pc = dao.find(this.idCompartido);
-			this.nickCompartido = pc.getNickname();
-			User uc = daoUser.find(Funciones.encrypt(this.nickCompartido));
-			this.nombreCompartido = uc.getNombre() + " " + uc.getApellido();
-			this.fechaCompartida = pc.getFecha();
-			this.textoCompartido = pc.getTexto();
-			} catch(Exception e) {
+			if(Funciones.validarCompartir(p.getTexto()))
+			{
+				
+				UserDAOImpl daoUser = new UserDAOImpl();
+				this.idCompartido = texto.substring(3, texto.length());
+				Publicacion pc = dao.find(this.idCompartido);
+				this.nickCompartido = pc.getNickname();
+				User uc = daoUser.find(Funciones.encrypt(this.nickCompartido));
+				this.nombreCompartido = uc.getNombre() + " " + uc.getApellido();
+				this.fechaCompartida = pc.getFecha();
+				this.textoCompartido = pc.getTexto();
+				
+			} else {
 				this.contCompartidas = dao.contCompartida(this.id);
 			}
-		} else {
+		} catch(Exception e) {
 			this.contCompartidas = dao.contCompartida(this.id);
 		}
 	}
