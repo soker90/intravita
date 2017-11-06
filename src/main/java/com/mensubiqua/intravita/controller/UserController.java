@@ -19,9 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
+import com.mensubiqua.intravita.dao.SolicitudDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.PublicacionVista;
+import com.mensubiqua.intravita.model.Solicitud;
 import com.mensubiqua.intravita.model.User;
 
 @Controller
@@ -32,6 +34,9 @@ public class UserController {
 
 	@Autowired
 	PublicacionDAOImpl publicacionDAO;
+	
+	@Autowired
+	SolicitudDAOImpl solicitudDAO;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -387,5 +392,36 @@ public class UserController {
         	usuario.setFoto("user");
         }
 	}
+	
+	@RequestMapping(value = "/user/crearSolicitud**", method = RequestMethod.POST)
+    public ModelAndView aceptarSolicitud(HttpSession session, HttpServletRequest request) {
+    	String solicitante = request.getParameter("id");
+    	User user = (User) session.getAttribute("user");
+    	
+    	Solicitud solicitud = new Solicitud(solicitante, user.getNickname(), false);
+    	solicitudDAO.insert(solicitud);
+    	
+    	
+    		
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(0);
+		v.setMensaje("Solicitud enviada");
+		v.setTipo("info");
+	    	
+
+        return new ModelAndView("redirect:/user");
+    }
+	
+	@RequestMapping(value = "/user/amigos**", method = RequestMethod.POST)
+    public ModelAndView amigos(HttpSession session, HttpServletRequest request) {
+    	  	
+		Variables v = (Variables) session.getAttribute("var");
+		v.setCont(1);
+
+
+        return new ModelAndView("redirect:/user");
+    }
+	
+	
 
 }
