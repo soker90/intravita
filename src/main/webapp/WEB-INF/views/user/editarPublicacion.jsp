@@ -32,6 +32,7 @@
 		    </div>        
 		    <div class="form-group">
 		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
+		        <a href="javascript:history.back(-1);"><input type="button" name="Cancelar" value="Cancelar" class="btn btn-danger"/></a>
 		    </div> 
 		    
 		</form>

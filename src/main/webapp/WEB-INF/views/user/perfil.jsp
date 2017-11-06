@@ -51,6 +51,7 @@
 		    
 		    <div class="form-group">
 		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
+		        <a href="${var.url}/user/configuracion"><input type="button" name="Cancelar" value="Cancelar" class="btn btn-danger"/></a>
 		    </div> 
 		    
 		</form>
@@ -72,6 +73,7 @@
 			<div class="form-group">
 				<button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
 				<input type="text" id="nick" name="nick" hidden="" value="${user.nickname}">
+				<a href="${var.url}/user/configuracion"><input type="button" name="Cancelar" value="Cancelar" class="btn btn-danger"/></a>
 			</div>
 		</form>
 		
@@ -103,6 +105,7 @@
 		    
 		    <div class="form-group">
 		        <button type="submit" name="submit" value="submit" class="btn btn-primary">Aceptar</button>
+		        <a href="${var.url}/user/configuracion"><input type="button" name="Cancelar" value="Cancelar" class="btn btn-danger"/></a>
 		    </div> 
 		    
 		</form>
