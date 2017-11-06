@@ -64,5 +64,15 @@ public class SolicitudDAOImpl implements SolicitudDAO{
 		return solicitudes;
 	}
 
+	public int countAmigos(String nickname) {
+		// TODO Apéndice de método generado automáticamente
+		return 0;
+	}
+
+	public int countPendientes(String nickname) {
+		// TODO Apéndice de método generado automáticamente
+		return 0;
+	}
+
 
 }

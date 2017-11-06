@@ -72,6 +72,12 @@ public class UserController {
 					model.addObject("vacio", vacio);
 					model.addObject("publicaciones", publicaciones);
 					
+					int amigos = solicitudDAO.countAmigos(user.getNickname());
+					int pendientes = solicitudDAO.countPendientes(user.getNickname());
+					
+					model.addObject("amigos", amigos);
+					model.addObject("pendientes", pendientes);
+					
 					Variables v = (Variables) sesion.getAttribute("var");
 					v.setCont(1);
 					
@@ -100,6 +106,13 @@ public class UserController {
 					model.setViewName("user/perfil");
 					Variables v = (Variables) sesion.getAttribute("var");
 					v.setCont(1);
+					
+					int amigos = solicitudDAO.countAmigos(user.getNickname());
+					int pendientes = solicitudDAO.countPendientes(user.getNickname());
+					
+					model.addObject("amigos", amigos);
+					model.addObject("pendientes", pendientes);
+					
 					return model;
 				}
 			}
@@ -273,6 +286,7 @@ public class UserController {
 	@RequestMapping(value = "/user/editarPublicacion**", method = RequestMethod.POST)
     public ModelAndView editarPublicacion(HttpSession sesion, HttpServletRequest request) {
     	Publicacion p = publicacionDAO.find(request.getParameter("id"));
+    	User user = (User) sesion.getAttribute("user");
     	
     	try {
     		
@@ -280,6 +294,13 @@ public class UserController {
     		model.addObject("publicacion", p);
     		Variables v = (Variables) sesion.getAttribute("var");
 			v.setCont(1);
+			
+			int amigos = solicitudDAO.countAmigos(user.getNickname());
+			int pendientes = solicitudDAO.countPendientes(user.getNickname());
+			
+			model.addObject("amigos", amigos);
+			model.addObject("pendientes", pendientes);
+			
             model.setViewName("user/editarPublicacion");
             return model;
 	    	
@@ -332,6 +353,13 @@ public class UserController {
 					System.out.println(usuarios.size());
 					model.addObject("usuarios",usuarios);
 					model.setViewName("user/usuarios");
+					
+					int amigos = solicitudDAO.countAmigos(user.getNickname());
+					int pendientes = solicitudDAO.countPendientes(user.getNickname());
+					
+					model.addObject("amigos", amigos);
+					model.addObject("pendientes", pendientes);
+					
 					
 					Variables v = (Variables) sesion.getAttribute("var");
 					v.setCont(1);
@@ -453,6 +481,12 @@ public class UserController {
 										
 					Variables v = (Variables) sesion.getAttribute("var");
 					v.setCont(1);
+					
+					int amigos = solicitudDAO.countAmigos(user.getNickname());
+					int pendientes = solicitudDAO.countPendientes(user.getNickname());
+					
+					model.addObject("amigos", amigos);
+					model.addObject("pendientes", pendientes);
 					
 					return model;
 				}
