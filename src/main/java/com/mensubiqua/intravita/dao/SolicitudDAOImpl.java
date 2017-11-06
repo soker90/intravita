@@ -30,5 +30,15 @@ public class SolicitudDAOImpl implements SolicitudDAO{
 
     }
 
+	public ArrayList<User> findAmigos(String nickname) {
+		ArrayList<User> amigos = new ArrayList<User>();
+		
+		/***** Datos de prueba ******/
+		//User user = new User("Prueba", "Probando","ddd@ll.es","","ROLE_ADMIN","pruab.l",true);
+		//amigos.add(user);
+		
+		return amigos;
+	}
+
 
 }

@@ -51,7 +51,7 @@
 										<a href="${var.url}/#"><i class="glyphicon glyphicon-envelope"></i> Mensajes </a>
 							  		</li>
 							  		<li>
-										<a href="${var.url}/#"><i class="glyphicon glyphicon-user"></i> Amigos </a>
+										<a href="${var.url}/user/amigos"><i class="glyphicon glyphicon-user"></i> Amigos </a>
 							  		</li>
 								  	<li>
 										<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Nueva publicación </a>
