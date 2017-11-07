@@ -73,10 +73,12 @@
 			  </c:if>
 			  <c:if test="${publicacion.nickname eq user.nickname}">
 			  	<form></form>
-				  <form style="display: inline-block" class="form-inline" action="${var.url}/user/editarPublicacion" method="post">
-	 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}"/>
-	 			    <a href="${var.url}/user/editarPublicacion?id=${publicacion.id}"><button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button></a>
-	 		 	 </form>
+			  	<c:if test="${publicacion.fechaCompartida == null}">
+					  <form style="display: inline-block" class="form-inline" action="${var.url}/user/editarPublicacion" method="post">
+		 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}"/>
+		 			    <a href="${var.url}/user/editarPublicacion?id=${publicacion.id}"><button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button></a>
+		 		 	 </form>
+	 		 	 </c:if>
 	 		 	 
 	 		 	 <form style="display: inline-block" class="form-inline" action="${var.url}/user/removePublicacion" method="post">
 	 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}"/>
