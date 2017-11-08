@@ -46,8 +46,14 @@ public class GeneralController {
 
 	
     @RequestMapping({"/default**", "/"})
-    public String defaultAfterLogin(HttpSession sesion) {
+    public String defaultAfterLogin(HttpSession sesion, HttpServletRequest request) {
     	User user = (User) sesion.getAttribute("user");
+    	
+    	boolean local = request.getRequestURL().toString().contains("localhost");
+    	Variables var = new Variables();
+        var.setUrl(local);
+        request.getSession().setAttribute("var", var);
+        request.getSession().setAttribute("url", var.getUrl());
         
     	try {
     		
@@ -202,7 +208,7 @@ public class GeneralController {
     }
     
     @RequestMapping(value = "logout**", method = RequestMethod.GET)
-    public String logout(HttpSession sesion) {
+    public String logout(HttpSession sesion, HttpServletRequest request) {
     	sesion.invalidate();
         return "redirect:/default";
     }
