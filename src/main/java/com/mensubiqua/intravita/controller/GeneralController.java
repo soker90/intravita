@@ -163,6 +163,11 @@ public class GeneralController {
 
     @RequestMapping(value = "logear**", method = RequestMethod.POST)
     public ModelAndView logear(HttpServletRequest request)  {
+    	boolean local = request.getRequestURL().toString().contains("localhost");
+        
+        Variables var = new Variables();
+        var.setUrl(local);
+        request.getSession().setAttribute("var", var);
         
         User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));
         	
@@ -175,11 +180,7 @@ public class GeneralController {
         	request.getSession().setAttribute("mensaje2", "Contraseña incorrecta");
         else {
             request.getSession().setAttribute("user", user);
-            boolean local = request.getRequestURL().toString().contains("localhost");
             
-            Variables var = new Variables();
-            var.setUrl(local);
-            request.getSession().setAttribute("var", var);
             
             File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
             if(f.exists() && !f.isDirectory()) { 
