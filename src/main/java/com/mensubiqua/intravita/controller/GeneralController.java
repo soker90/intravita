@@ -210,7 +210,7 @@ public class GeneralController {
     @RequestMapping(value = "logout**", method = RequestMethod.GET)
     public String logout(HttpSession sesion, HttpServletRequest request) {
     	sesion.invalidate();
-        return "redirect:/default";
+        return "redirect:/login";
     }
 
 
