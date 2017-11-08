@@ -51,9 +51,6 @@
 										<a href="${var.url}/user/ver/${user.nickname}"><i class="glyphicon glyphicon-eye-open"></i> Perfil </a>
 							  		</li>
 							  		<li>
-										<a href="${var.url}/#"><i class="glyphicon glyphicon-envelope"></i> Mensajes </a>
-							  		</li>
-							  		<li>
 										<a href="${var.url}/user/amigos"><i class="glyphicon glyphicon-user"></i> Amigos </a>
 							  		</li>
 								  	<li>
