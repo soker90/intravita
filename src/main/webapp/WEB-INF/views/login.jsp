@@ -58,7 +58,7 @@
                     <div class="form-box">
                         <div class="form-top">
                             <div class="form-top-left">
-                                <h3>Inicar sesión</h3>
+                                <h3>Iniciar sesión</h3>
                                 <p><strong style="color: red !important;">
                                     <c:if test="${not empty mensaje2}">
                                         <div class="msg">${mensaje2}</div>
