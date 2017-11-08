@@ -69,8 +69,9 @@ public class GeneralController {
     
     @RequestMapping(value = "/login**", method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request, HttpSession sesion) {  
-    	if(!request.isSecure() && !request.getRequestURL().toString().contains("localhost"))
+    	if(!request.getRequestURL().toString().contains("localhost") && !request.getRequestURL().toString().contains("https"))
     		return new ModelAndView("redirect:"+url_heroku+"/login");
+    	System.out.println(request.isSecure());
     	
     	String mensaje = (String) sesion.getAttribute("mensaje");
     	String mensaje2 = (String) sesion.getAttribute("mensaje2");
@@ -204,7 +205,7 @@ public class GeneralController {
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public ModelAndView error403(Principal user, HttpServletRequest request){
-    	if(!request.isSecure() && !request.getRequestURL().toString().contains("localhost"))
+    	if(!request.getRequestURL().toString().contains("localhost") && !request.getRequestURL().toString().contains("https"))
     		return new ModelAndView("redirect:"+url_heroku+"/error");
 
         ModelAndView model = new ModelAndView();
@@ -259,14 +260,14 @@ public class GeneralController {
     
     @RequestMapping(value = "/validacion", method = RequestMethod.GET)
     public String login(HttpServletRequest request) { 
-    	if(!request.isSecure() && !request.getRequestURL().toString().contains("localhost"))
+    	if(!request.getRequestURL().toString().contains("localhost") && !request.getRequestURL().toString().contains("https"))
     		return "redirect:"+url_heroku+"/validacion";
         return "validacion";
     }
 
     @RequestMapping(value = "validacion", method = RequestMethod.POST)
     public ModelAndView validar(HttpServletRequest request) {
-    	if(!request.isSecure() && !request.getRequestURL().toString().contains("localhost"))
+    	if(!request.getRequestURL().toString().contains("localhost") && !request.getRequestURL().toString().contains("https"))
     		return new ModelAndView("redirect:"+url_heroku+"/validacion");
     	
     	ModelAndView model = new ModelAndView();
@@ -310,7 +311,7 @@ public class GeneralController {
     
     @RequestMapping(value = "/recuperar", method = RequestMethod.GET)
     public ModelAndView recuperar(HttpServletRequest request, HttpSession sesion) {    	
-    	if(!request.isSecure() && !request.getRequestURL().toString().contains("localhost"))
+    	if(!request.getRequestURL().toString().contains("localhost") && !request.getRequestURL().toString().contains("https"))
     		return new ModelAndView("redirect:"+url_heroku+"/recuperar");
     	
     	String mensaje = (String) sesion.getAttribute("mensaje2");
