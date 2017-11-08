@@ -75,6 +75,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 		values.append("texto", p.getTexto());
 		values.append("privacidad", p.getPrivacidad());
 		values.append("fecha", p.getFecha());
+		values.append("likes", p.getLikes());
 		BasicDBObject set = new BasicDBObject();
 		set.append("$set", values);
 		//crear query de busqueda

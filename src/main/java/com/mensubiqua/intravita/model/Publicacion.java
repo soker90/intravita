@@ -11,12 +11,23 @@ public class Publicacion {
     private String texto;
     private String privacidad;
     private String fecha;
+    private int likes;
     
+	
+
 	public Publicacion(String nickname, String texto, String privacidad, String fecha) {
 		this.nickname = nickname;
 		this.texto = texto;
 		this.privacidad = privacidad;
 		this.fecha = fecha;
+	}
+	
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 	
 	public Publicacion() {}
