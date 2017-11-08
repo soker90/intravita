@@ -25,6 +25,7 @@ import com.mensubiqua.intravita.dao.UserCodeDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
 import com.mensubiqua.intravita.model.UserCode;
+import com.mongodb.diagnostics.logging.Logger;
 
 @Controller
 public class GeneralController {
@@ -70,9 +71,10 @@ public class GeneralController {
     @RequestMapping(value = "/login**", method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request, HttpSession sesion) {  
     	if(!request.getRequestURL().toString().contains("localhost"))
-    		if(!request.getRequestURL().toString().contains("https"))
+    		if(!request.isSecure())
     			return new ModelAndView("redirect:"+url_heroku+"/login");
-    	System.out.println(request.isSecure());
+    	
+    	
     	
     	String mensaje = (String) sesion.getAttribute("mensaje");
     	String mensaje2 = (String) sesion.getAttribute("mensaje2");
