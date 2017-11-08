@@ -23,6 +23,7 @@ public class PublicacionVista {
     private String nickCompartido;
     private String idCompartido;
     private long contCompartidas;
+    private int contLikes;
     
 	public PublicacionVista(Publicacion p, User u) {
 		this.texto = p.getTexto();
@@ -51,10 +52,21 @@ public class PublicacionVista {
 				
 			} else {
 				this.contCompartidas = dao.contCompartida(this.id);
+				this.contLikes = dao.find(this.id).getLikes();
+				System.out.println(this.contLikes);
 			}
 		} catch(Exception e) {
 			this.contCompartidas = dao.contCompartida(this.id);
+			this.contLikes = dao.find(this.id).getLikes();
 		}
+	}
+
+	public int getContLikes() {
+		return contLikes;
+	}
+
+	public void setContLikes(int contLikes) {
+		this.contLikes = contLikes;
 	}
 
 	public String getId() {

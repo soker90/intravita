@@ -114,8 +114,9 @@
  		 	 
 			  </c:if>
 			  </div>
-			  <c:if test="${publicacion.fechaCompartida == null && publicacion.nickname eq user.nickname}">
-			  	<h7 class="pull-right">Se ha compartido ${publicacion.contCompartidas} veces</h7>
+			  <c:if test="${publicacion.fechaCompartida == null}">
+			  	<h7 class="pull-right">Veces compartidas: ${publicacion.contCompartidas}</h7><br>
+			  	<h7 class="pull-right">Me gustas: ${publicacion.contLikes}</h7>
 			  </c:if>
 			  
 			</div>

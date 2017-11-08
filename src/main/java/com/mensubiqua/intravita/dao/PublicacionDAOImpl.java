@@ -38,6 +38,7 @@ public class PublicacionDAOImpl implements PublicacionDAO{
         	p = new Publicacion(document.getString("nickname"), document.getString("texto"),
         		document.getString("privacidad"), document.getString("fecha"));
         	p.setId(document.getObjectId("_id").toString());
+        	p.setLikes(document.getInteger("likes"));
         }
         return p;
     }

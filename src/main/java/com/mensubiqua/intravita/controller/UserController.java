@@ -311,21 +311,19 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/user/meGusta**", method = RequestMethod.POST)
-    public ModelAndView meGusta(HttpSession sesion, HttpServletRequest request) {
+    public ModelAndView meGusta(HttpServletRequest request) {
     	Publicacion p = publicacionDAO.find(request.getParameter("id"));
-    	System.out.println("hoal");
     	
     	try {
     		
     		ModelAndView model = new ModelAndView();
-    		Variables v = (Variables) sesion.getAttribute("var");
+    		Variables v = (Variables) request.getSession().getAttribute("var");
 			v.setCont(1);
 			p.setLikes(p.getLikes() + 1);
 			publicacionDAO.update(p);
     		model.addObject("publicacion", p);
 			
             model.setViewName("redirect:/user");
-            System.out.println(p.getLikes());
             return model;
 	    	
     	} catch (Exception e) {
