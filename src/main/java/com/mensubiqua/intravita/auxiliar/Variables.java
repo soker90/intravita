@@ -31,7 +31,7 @@ public class Variables {
 		if(local)
 			this.url = "/intravita"; //localhost
 		else
-			this.url = "https://intravita.herokuapp.com"; //heroku
+			this.url = ""; //heroku
 	}
 
 	public String getMensaje() {
