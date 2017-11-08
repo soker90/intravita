@@ -110,15 +110,15 @@
                         <div class="form-bottom">
                             <form role="form" action="${url}/registro" method="post" class="registration-form">
                                 <div class="form-group">
-                                	<label class="sr-only" for="form-first-name">Usuario</label>
+                                	<label class="sr-only" for="form-nickname">Usuario</label>
                                     <input type="text" name="nickname" value="${rnick}" placeholder="Usuario" class="form-first-name form-control" id="form-first-name"><br>
-                                    <label class="sr-only" for="form-first-name">Nombre</label>
+                                    <label class="sr-only" for="form-nombew">Nombre</label>
                                     <input type="text" name="nombre" value="${rnombre}" placeholder="Nombre" class="form-first-name form-control" id="form-first-name"><br>
-                                    <label class="sr-only" for="form-last-name">Apellidos</label>
+                                    <label class="sr-only" for="form-apellido">Apellidos</label>
                                     <input type="text" name="apellido" value="${rapellido}" placeholder="Apellidos" class="form-last-name form-control" id="form-last-name"><br>
                                     <label class="sr-only" for="form-email">Email</label>
                                     <input type="text" name="email" value="${remail}" placeholder="Correo electrónico" class="form-email form-control" id="form-email"><br>
-                                    <label class="sr-only" for="form-passwordd">Contraseña</label>
+                                    <label class="sr-only" for="form-password">Contraseña</label>
                                     <input type="password" name="password" placeholder="Contraseña" class="form-email form-control" id="form-passwordd"><br>
                                     <label class="sr-only" for="form-password2">Repita contraseña</label>
                                     <input type="password" name="password2" placeholder="Contraseña" class="form-email form-control" id="form-password2">
