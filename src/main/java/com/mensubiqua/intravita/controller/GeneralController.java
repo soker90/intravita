@@ -69,8 +69,9 @@ public class GeneralController {
     
     @RequestMapping(value = "/login**", method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request, HttpSession sesion) {  
-    	if(!request.getRequestURL().toString().contains("localhost") && !request.getRequestURL().toString().contains("https"))
-    		return new ModelAndView("redirect:"+url_heroku+"/login");
+    	if(!request.getRequestURL().toString().contains("localhost"))
+    		if(!request.getRequestURL().toString().contains("https"))
+    			return new ModelAndView("redirect:"+url_heroku+"/login");
     	System.out.println(request.isSecure());
     	
     	String mensaje = (String) sesion.getAttribute("mensaje");
