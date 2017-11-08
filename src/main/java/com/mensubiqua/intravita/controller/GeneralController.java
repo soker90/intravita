@@ -46,7 +46,7 @@ public class GeneralController {
 
 	
     @RequestMapping({"/default**", "/"})
-    public String defaultAfterLogin(HttpSession sesion, HttpServletRequest request) {
+    public ModelAndView defaultAfterLogin(HttpSession sesion, HttpServletRequest request) {
     	User user = (User) sesion.getAttribute("user");
     	
     	boolean local = request.getRequestURL().toString().contains("localhost");
@@ -58,20 +58,20 @@ public class GeneralController {
     	try {
     		
 	    	if(user.getRol() == null)
-	    		return "redirect:/login";
+	    		return new ModelAndView("redirect:/login");
 	    	
 	        if (user.getRol().equalsIgnoreCase("ROLE_ADMIN")) {
-	            return "redirect:/admin";
+	        	return new ModelAndView("redirect:/admin");
 	        }
 	
 	        if (user.getRol().equalsIgnoreCase("ROLE_USER")) {
-	            return "redirect:/user";
+	        	return new ModelAndView("redirect:/user");
 	        }
     	} catch (Exception e) {
-            return "redirect:/login";
+    		return new ModelAndView("redirect:/login");
     	}
     	
-        return "redirect:/login";
+    	return new ModelAndView("redirect:/login");
     }
     
     @RequestMapping(value = "/login**", method = RequestMethod.GET)
