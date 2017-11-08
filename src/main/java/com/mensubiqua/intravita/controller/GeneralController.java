@@ -25,6 +25,7 @@ import com.mensubiqua.intravita.dao.UserCodeDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
 import com.mensubiqua.intravita.model.UserCode;
+import com.mongodb.diagnostics.logging.Logger;
 
 @Controller
 public class GeneralController {
@@ -40,34 +41,41 @@ public class GeneralController {
 	
 	@Autowired
 	UserCodeDAOImpl userCodeDAO;
+	
+	private String url_heroku = "https://intravita.herokuapp.com";
 
 	
     @RequestMapping({"/default**", "/"})
-    public String defaultAfterLogin(HttpSession sesion) {
+    public ModelAndView defaultAfterLogin(HttpSession sesion, HttpServletRequest request) {
     	User user = (User) sesion.getAttribute("user");
+    	
+    	boolean local = request.getRequestURL().toString().contains("localhost");
+    	Variables var = new Variables();
+        var.setUrl(local);
+        request.getSession().setAttribute("var", var);
+        request.getSession().setAttribute("url", var.getUrl());
         
     	try {
     		
 	    	if(user.getRol() == null)
-	    		return "redirect:/login";
+	    		return new ModelAndView("redirect:/login");
 	    	
 	        if (user.getRol().equalsIgnoreCase("ROLE_ADMIN")) {
-	            return "redirect:/admin";
+	        	return new ModelAndView("redirect:/admin");
 	        }
 	
 	        if (user.getRol().equalsIgnoreCase("ROLE_USER")) {
-	            return "redirect:/user";
+	        	return new ModelAndView("redirect:/user");
 	        }
     	} catch (Exception e) {
-            return "redirect:/login";
+    		return new ModelAndView("redirect:/login");
     	}
     	
-        return "redirect:/login";
+    	return new ModelAndView("redirect:/login");
     }
     
     @RequestMapping(value = "/login**", method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request, HttpSession sesion) {  
-    	
     	String mensaje = (String) sesion.getAttribute("mensaje");
     	String mensaje2 = (String) sesion.getAttribute("mensaje2");
     	request.getSession().setAttribute("mensaje2", "");
@@ -94,6 +102,11 @@ public class GeneralController {
         model.addObject("rapellido", apellido);
         model.addObject("remail", email);
         model.addObject("rnick", nick);
+        
+        Variables url = new Variables();
+    	boolean local = request.getRequestURL().toString().contains("localhost");
+        url.setUrl(local);
+        model.addObject("url", url.getUrl());
         
         model.setViewName("login");
         return model;
@@ -156,6 +169,11 @@ public class GeneralController {
 
     @RequestMapping(value = "logear**", method = RequestMethod.POST)
     public ModelAndView logear(HttpServletRequest request)  {
+    	boolean local = request.getRequestURL().toString().contains("localhost");
+        
+        Variables var = new Variables();
+        var.setUrl(local);
+        request.getSession().setAttribute("var", var);
         
         User user = userDAO.find(Funciones.encrypt(request.getParameter("username").toLowerCase()));
         	
@@ -168,11 +186,7 @@ public class GeneralController {
         	request.getSession().setAttribute("mensaje2", "Contraseña incorrecta");
         else {
             request.getSession().setAttribute("user", user);
-            boolean local = request.getRequestURL().toString().contains("localhost");
             
-            Variables var = new Variables();
-            var.setUrl(local);
-            request.getSession().setAttribute("var", var);
             
             File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
             if(f.exists() && !f.isDirectory()) { 
@@ -183,7 +197,10 @@ public class GeneralController {
             
             request.getSession().setAttribute("mensaje2", "");
             request.getSession().setAttribute("mensaje", "");
-            return new ModelAndView("redirect:/user");
+            if(local)
+            	return new ModelAndView("redirect:/user");
+            
+            return new ModelAndView("redirect:"+ var.getUrl() +"/user");
         }
 
         return new ModelAndView("redirect:/login");
@@ -191,17 +208,16 @@ public class GeneralController {
     }
     
     @RequestMapping(value = "logout**", method = RequestMethod.GET)
-    public String logout(HttpSession sesion) {
+    public String logout(HttpSession sesion, HttpServletRequest request) {
     	sesion.invalidate();
-        return "redirect:/default";
+        return "redirect:/login";
     }
 
 
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public ModelAndView error403(Principal user){
-
-        ModelAndView model = new ModelAndView();
+    public ModelAndView error403(Principal user, HttpServletRequest request){
+    	ModelAndView model = new ModelAndView();
         model.addObject("head", "Error 403");
         model.addObject("title", "Error 403 - Acceso denegado");
         if (user != null){
@@ -211,6 +227,12 @@ public class GeneralController {
         }
 
         model.setViewName("error");
+        
+        Variables url = new Variables();
+    	boolean local = request.getRequestURL().toString().contains("localhost");
+        url.setUrl(local);
+        model.addObject("url", url.getUrl());
+        
         return model;
 
     }
@@ -252,8 +274,8 @@ public class GeneralController {
 	}
     
     @RequestMapping(value = "/validacion", method = RequestMethod.GET)
-    public String login() {    	
-        return "validacion";
+    public String login(HttpServletRequest request) { 
+    	return "validacion";
     }
 
     @RequestMapping(value = "validacion", method = RequestMethod.POST)
@@ -265,6 +287,11 @@ public class GeneralController {
     	
     	model.setViewName("validacion");
     	
+    	Variables url = new Variables();
+    	boolean local = request.getRequestURL().toString().contains("localhost");
+        url.setUrl(local);
+        model.addObject("url", url.getUrl());
+    	
     	if(uc == null)
     		model.addObject("mensaje2","Este usuario no existe");
     	else if(uc.getNickname().equals(request.getParameter("username").toLowerCase()) && uc.getCode().equals(request.getParameter("code"))) {
@@ -275,8 +302,7 @@ public class GeneralController {
         			userCodeDAO.delete(uc.getNickname());
         			
         			request.getSession().setAttribute("user", u);
-                    boolean local = request.getRequestURL().toString().contains("localhost");
-                    
+                                        
                     var = new Variables();
                     var.setUrl(local);
                     var.setCont(0);
@@ -307,6 +333,11 @@ public class GeneralController {
         model.addObject("mensaje2", mensaje);
         
         model.setViewName("recuperar_pass");
+        
+        Variables url = new Variables();
+    	boolean local = request.getRequestURL().toString().contains("localhost");
+        url.setUrl(local);
+        model.addObject("url", url.getUrl());
 		
         return model;
     }
