@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -54,7 +57,7 @@
 										<a href="${var.url}/user/amigos"><i class="glyphicon glyphicon-user"></i> Amigos </a>
 							  		</li>
 								  	<li>
-										<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Nueva publicación </a>
+										<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Nueva publicaciÃ³n </a>
 								  	</li>
 							  	</c:if>
 							  	
