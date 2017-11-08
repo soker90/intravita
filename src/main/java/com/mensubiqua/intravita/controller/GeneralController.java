@@ -191,7 +191,10 @@ public class GeneralController {
             
             request.getSession().setAttribute("mensaje2", "");
             request.getSession().setAttribute("mensaje", "");
-            return new ModelAndView("redirect:/user");
+            if(local)
+            	return new ModelAndView("redirect:/user");
+            
+            return new ModelAndView("redirect:"+ var.getUrl() +"/user");
         }
 
         return new ModelAndView("redirect:/login");
