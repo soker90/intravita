@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PublicacionDAOImpl implements PublicacionDAO{
 
-    private final String COLLECTION = "publicaciones";
-    private final String ID = "_id"; //TODO
+//    private final String COLLECTION = "publicaciones";
+//    private final String ID = "_id"; //TODO
 
     public void insert(Publicacion p) {
         DBBroker.get().insertOne(p, COLLECTION);
