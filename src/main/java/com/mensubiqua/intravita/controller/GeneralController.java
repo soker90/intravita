@@ -45,7 +45,7 @@ public class GeneralController {
 	private String url_heroku = "https://intravita.herokuapp.com";
 
 	
-    @RequestMapping({"/default**", "/"})
+    @RequestMapping("/default**")
     public ModelAndView defaultAfterLogin(HttpSession sesion, HttpServletRequest request) {
     	User user = (User) sesion.getAttribute("user");
     	
