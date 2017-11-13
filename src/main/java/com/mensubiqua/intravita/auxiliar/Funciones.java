@@ -28,7 +28,7 @@ public abstract class Funciones {
 
             return Base64.encodeBase64String(encrypted);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println("Fallo al encriptar un dato");
         }
 
         return null;
@@ -59,7 +59,7 @@ public abstract class Funciones {
 		try {
 			byte[] bytesOfMessage = password.getBytes("UTF-8");
 
-			MessageDigest md = MessageDigest.getInstance("MD5");
+			MessageDigest md = MessageDigest.getInstance("SHA-384");
 			thedigest = md.digest(bytesOfMessage);
 			pass_md5 = DatatypeConverter.printHexBinary(thedigest).toLowerCase();
 		}catch(Exception e)
