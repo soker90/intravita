@@ -13,6 +13,14 @@ import org.bson.Document;
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.model.UserCode;
 
+/**
+ * UserCodeDAOImpl - Clase que implementa los métodos de la interfaz UserCodeDAO
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.8
+ * @version 2.0
+ */
 @Component
 public class UserCodeDAOImpl implements UserCodeDAO{
 	

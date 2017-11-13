@@ -26,6 +26,16 @@ import com.mensubiqua.intravita.model.PublicacionVista;
 import com.mensubiqua.intravita.model.Solicitud;
 import com.mensubiqua.intravita.model.User;
 
+/**
+ * UserController - Controlador de usuarios con rol de usuario.
+ * Controla todas las funciones disponibles para un usuario normal.
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.1
+ * @version 2.0
+ */
+
 @Controller
 public class UserController {
 

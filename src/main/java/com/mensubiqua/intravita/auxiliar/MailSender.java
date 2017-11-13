@@ -14,6 +14,14 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.*;
 
+/**
+ * MailSender - Clase encargada de enviar correos a usuarios registrados a nombre de la empresa.
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.7
+ * @version 1.7
+ */
 public class MailSender {
     final String miCorreo = "intravita2017@gmail.com";
     final String miContrasena = "ulises2017";
@@ -55,7 +63,7 @@ public class MailSender {
                     mailReceptor));
             Transport.send(msg);
         } catch (Exception mex) {
-            mex.printStackTrace();
+        	System.out.println(mex.toString());
         }
 
     }

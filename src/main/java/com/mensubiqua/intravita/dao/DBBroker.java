@@ -16,7 +16,15 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.codehaus.jackson.map.ObjectMapper;
-
+/**
+ * DBBroker - Clase engargada de conectar con la base de datos y realizar
+ * las operaciones atómicas con ella
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.2
+ * @version 2.0
+ */
 public class DBBroker<T> {
     private MongoClient client;
     private MongoDatabase db;
@@ -28,6 +36,15 @@ public class DBBroker<T> {
     }
 
     //La clase interna SingletonHolder me permite implementar un singleton que no falle con concurrencia./
+    
+    /**
+     * SingletonHolder - Clase que contiene el único objeto DBBroker que usa la aplicación
+     * 
+     *
+     * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+     * @since 1.2
+     * @version 1.2
+     */
 
     public static class SingletonHolder{
         static DBBroker singleton = new DBBroker();
