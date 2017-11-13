@@ -55,7 +55,7 @@ public class MailSender {
                     mailReceptor));
             Transport.send(msg);
         } catch (Exception mex) {
-            mex.printStackTrace();
+          System.out.println("Ha fallado el envio del email");
         }
 
     }
