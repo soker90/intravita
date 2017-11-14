@@ -88,6 +88,30 @@
       <version>${cucumber.version}</version>
       <scope>test</scope>
     </dependency>
+    
+
+<dependency>
+    <groupId>info.cukes</groupId>
+    <artifactId>gherkin</artifactId>
+    <version>2.12.2</version>
+    <scope>provided</scope>
+</dependency>
+
+
+<dependency>
+    <groupId>info.cukes</groupId>
+    <artifactId>cucumber-jvm-deps</artifactId>
+    <version>1.0.5</version>
+    <scope>provided</scope>
+</dependency>
+
+
+<dependency>
+    <groupId>info.cukes</groupId>
+    <artifactId>cucumber-core</artifactId>
+    <version>1.2.5</version>
+</dependency>
+
 
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
