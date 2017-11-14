@@ -61,12 +61,14 @@ public class UserController {
 				if (user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN")) {
 					ModelAndView model = new ModelAndView();
 					ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
+					File f = null;
+					
 					for (Publicacion p : publicacionDAO.selectAll()) {
 						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
 							continue;
 						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
 						
-						File f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+						f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
 			            if(f.exists() && !f.isDirectory()) { 
 			                u.setFoto(u.getNickname());
 			            } else {

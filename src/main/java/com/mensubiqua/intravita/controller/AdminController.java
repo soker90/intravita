@@ -117,11 +117,12 @@ public class AdminController {
 			        ModelAndView model = new ModelAndView();
 
 			        
-			        ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
+			        ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>();
+			        File f = null;
 					for (Publicacion p : publicacionDAO.selectAll()) {
 						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
 						
-						File f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+						f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
 			            if(f.exists() && !f.isDirectory()) { 
 			                u.setFoto(u.getNickname());
 			            } else {

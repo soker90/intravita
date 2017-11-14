@@ -14,11 +14,11 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- * Funciones - Clase encargada de realizar funciones de encriptación y desencriptación,
- * así como generar cadenas o validar patrones. Funciones adicionales útiles para otros métodos.
+ * Funciones - Clase encargada de realizar funciones de encriptaciï¿½n y desencriptaciï¿½n,
+ * asï¿½ como generar cadenas o validar patrones. Funciones adicionales ï¿½tiles para otros mï¿½todos.
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, Josï¿½ Marï¿½a Simï¿½n, Miguel Ampuero, Eduardo Parra
  * @since 1.8
  * @version 2.0
  */
@@ -67,7 +67,7 @@ public abstract class Funciones {
 		try {
 			byte[] bytesOfMessage = password.getBytes("UTF-8");
 
-			MessageDigest md = MessageDigest.getInstance("MD5");
+			MessageDigest md = MessageDigest.getInstance("SHA-384");
 			thedigest = md.digest(bytesOfMessage);
 			pass_md5 = DatatypeConverter.printHexBinary(thedigest).toLowerCase();
 		}catch(Exception e)

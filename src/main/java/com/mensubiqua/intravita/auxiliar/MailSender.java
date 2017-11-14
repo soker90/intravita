@@ -18,7 +18,7 @@ import java.util.*;
  * MailSender - Clase encargada de enviar correos a usuarios registrados a nombre de la empresa.
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, Josï¿½ Marï¿½a Simï¿½n, Miguel Ampuero, Eduardo Parra
  * @since 1.7
  * @version 1.7
  */
@@ -63,8 +63,7 @@ public class MailSender {
                     mailReceptor));
             Transport.send(msg);
         } catch (Exception mex) {
-        	System.out.println(mex.toString());
-        }
+            System.out.println("Ha fallado el envio del email");        }
 
     }
 
@@ -73,5 +72,4 @@ public class MailSender {
             return new PasswordAuthentication(miCorreo, miContrasena);
         }
     }
-
 }
