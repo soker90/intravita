@@ -89,6 +89,13 @@
       <scope>test</scope>
     </dependency>
     
+    <dependency>
+	    <groupId>info.cukes</groupId>
+	    <artifactId>cucumber-html</artifactId>
+	    <version>0.2.6</version>
+	</dependency>
+    
+    
 
 <dependency>
     <groupId>info.cukes</groupId>
