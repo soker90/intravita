@@ -26,7 +26,15 @@ import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.User;
 import com.mensubiqua.intravita.model.UserCode;
 import com.mongodb.diagnostics.logging.Logger;
-
+/**
+ * GeneralController - Controlador general que se encarga de manejar las funciones
+ * que de aplicación que se dan sin iniciar sesión.
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.1
+ * @version 2.0
+ */
 @Controller
 public class GeneralController {
 
@@ -211,30 +219,6 @@ public class GeneralController {
     public String logout(HttpSession sesion, HttpServletRequest request) {
     	sesion.invalidate();
         return "redirect:/login";
-    }
-
-
-
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public ModelAndView error403(Principal user, HttpServletRequest request){
-    	ModelAndView model = new ModelAndView();
-        model.addObject("head", "Error 403");
-        model.addObject("title", "Error 403 - Acceso denegado");
-        if (user != null){
-            model.addObject("msg", "Hola "+user.getName()+", no tienes permiso para acceder a esta pÃ¡gina");
-        }else{
-            model.addObject("msg", "No tienes permiso para acceder a esta pÃ¡gina");
-        }
-
-        model.setViewName("error");
-        
-        Variables url = new Variables();
-    	boolean local = request.getRequestURL().toString().contains("localhost");
-        url.setUrl(local);
-        model.addObject("url", url.getUrl());
-        
-        return model;
-
     }
     
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)

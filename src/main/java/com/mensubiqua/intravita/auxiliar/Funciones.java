@@ -13,6 +13,15 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.binary.Base64;
 
+/**
+ * Funciones - Clase encargada de realizar funciones de encriptaci�n y desencriptaci�n,
+ * as� como generar cadenas o validar patrones. Funciones adicionales �tiles para otros m�todos.
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, Jos� Mar�a Sim�n, Miguel Ampuero, Eduardo Parra
+ * @since 1.8
+ * @version 2.0
+ */
 public abstract class Funciones {
 	private static String key = "IntravitaQQ12345";
 	private static String initVector = "RandomInitVector";
@@ -28,9 +37,8 @@ public abstract class Funciones {
 
             return Base64.encodeBase64String(encrypted);
         } catch (Exception ex) {
-            System.out.println("Fallo al encriptar un dato");
+            System.out.println(ex.toString());
         }
-
         return null;
     }
 
@@ -46,7 +54,7 @@ public abstract class Funciones {
 
             return new String(original);
         } catch (Exception ex) {
-            
+            System.out.println(ex.toString());
         }
 
         return null;
@@ -73,6 +81,7 @@ public abstract class Funciones {
     	String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
+        int longitud = salt.length();
         while (salt.length() < 6) { // length of the random string.
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));

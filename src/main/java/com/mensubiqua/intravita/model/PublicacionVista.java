@@ -8,8 +8,19 @@ import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 
+/**
+ * PublicacionVista - Clase de dominio que contiene toda la información de la vista de una publicación
+ * necesaria para el correcto funcionamiento del software.
+ * Esta clase relaciona una publicación con su autor.
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.5
+ * @version 1.8
+ */
 public class PublicacionVista {
 
+	private int limite = 3;
 	private String id;
     private String nickname;
     private String texto;
@@ -41,7 +52,7 @@ public class PublicacionVista {
 			{
 				
 				UserDAOImpl daoUser = new UserDAOImpl();
-				this.idCompartido = texto.substring(3, texto.length());
+				this.idCompartido = texto.substring(limite, texto.length());
 				Publicacion pc = dao.find(this.idCompartido);
 				this.nickCompartido = pc.getNickname();
 				User uc = daoUser.find(Funciones.encrypt(this.nickCompartido));

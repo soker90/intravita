@@ -16,6 +16,14 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
+/**
+ * SolicitudDAOImpl - Clase que implementa los métodos de la interfaz SolicitudDAO
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.8
+ * @version 2.0
+ */
 @Component
 public class SolicitudDAOImpl implements SolicitudDAO{
 
