@@ -128,8 +128,12 @@ public class AdminController {
 			            } else {
 			            	u.setFoto("user");
 			            }
+
+			            User aux = (User) sesion.getAttribute("user");
+
+			            PublicacionVista pv = new PublicacionVista(p, u, aux);
 			            
-						publicaciones.add(new PublicacionVista(p, u));
+						publicaciones.add(pv);
 					}
 
 					model.addObject("publicaciones", publicaciones);

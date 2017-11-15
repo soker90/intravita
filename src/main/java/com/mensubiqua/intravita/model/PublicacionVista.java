@@ -3,8 +3,11 @@ package com.mensubiqua.intravita.model;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
+import com.mensubiqua.intravita.dao.LikeDAOImpl;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 
@@ -34,17 +37,23 @@ public class PublicacionVista {
     private String nickCompartido;
     private String idCompartido;
     private long contCompartidas;
+    private long contLikes = 0;
+    private String liker;
     
-	public PublicacionVista(Publicacion p, User u) {
+	public PublicacionVista(Publicacion p, User u, User sesioner) throws Exception {
 		this.texto = p.getTexto();
 		this.privacidad = p.getPrivacidad();
 		this.fecha = p.getFecha();
-		this.nickname = p.getNickname();
+		this.nickname = u.getNickname();
 		this.id = p.getId();
 		this.unombre = u.getNombre() + " " + u.getApellido();
 		this.ufoto = u.getFoto();
 		
 		PublicacionDAOImpl dao = new PublicacionDAOImpl();
+		LikeDAOImpl likeDAO = new LikeDAOImpl();
+		UserDAOImpl userDAO = new UserDAOImpl();
+		Like l = null;
+		
 		//Publicaciones compartidas
 		try {
 		
@@ -61,11 +70,25 @@ public class PublicacionVista {
 				this.textoCompartido = pc.getTexto();
 				
 			} else {
+				
 				this.contCompartidas = dao.contCompartida(this.id);
+				this.contLikes = likeDAO.contLikes(dao.find(this.id));
+				l = likeDAO.find(p, sesioner);
+				if (l != null) this.liker = l.getUsuario().getNickname();
 			}
 		} catch(Exception e) {
 			this.contCompartidas = dao.contCompartida(this.id);
+			this.contLikes = likeDAO.contLikes(dao.find(this.id));
+			System.out.println(e.getMessage());
 		}
+	}
+
+	public String getLiker() {
+		return liker;
+	}
+
+	public void setLiker(String liker) {
+		this.liker = liker;
 	}
 
 	public String getId() {
@@ -170,6 +193,14 @@ public class PublicacionVista {
 
 	public void setContCompartidas(long contCompartidas) {
 		this.contCompartidas = contCompartidas;
+	}
+
+	public long getContLikes() {
+		return contLikes;
+	}
+
+	public void setContLikes(long contLikes) {
+		this.contLikes = contLikes;
 	}
 	
 	

@@ -68,7 +68,9 @@ public class DBBroker<T> {
         }
     }
 
-    
+    public void deleteOne(BasicDBObject query, String collection){
+        this.db.getCollection(collection).deleteOne(query);
+    }
     
     public void deleteOne(String field, String value, String collection){
         BasicDBObject query = new BasicDBObject(field, value);
@@ -135,6 +137,16 @@ public class DBBroker<T> {
 
         return this.db.getCollection(collection).count(query);
     }
+
+	public void deleteOne(Document query, String collection) {
+        this.db.getCollection(collection).deleteOne(query);
+		
+	}
+	
+	public long count(Document query, String collection) {
+        return this.db.getCollection(collection).count(query);
+    }
+    
     
     
 }

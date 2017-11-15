@@ -21,6 +21,8 @@ public class Publicacion {
     private String privacidad;
     private String fecha;
     
+	
+
 	public Publicacion(String nickname, String texto, String privacidad, String fecha) {
 		this.nickname = nickname;
 		this.texto = texto;

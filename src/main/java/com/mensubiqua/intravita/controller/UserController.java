@@ -18,9 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.Variables;
+import com.mensubiqua.intravita.dao.LikeDAOImpl;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.SolicitudDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Like;
 import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.PublicacionVista;
 import com.mensubiqua.intravita.model.Solicitud;
@@ -44,9 +46,12 @@ public class UserController {
 
 	@Autowired
 	PublicacionDAOImpl publicacionDAO;
-	
+
 	@Autowired
 	SolicitudDAOImpl solicitudDAO;
+	
+	@Autowired
+	LikeDAOImpl likeDAO;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -80,8 +85,12 @@ public class UserController {
 			            } else {
 			            	u.setFoto("user");
 			            }
+
+			            User aux = (User) sesion.getAttribute("user");
+
+			            PublicacionVista pv = new PublicacionVista(p, u, aux);
 			            
-						publicaciones.add(new PublicacionVista(p, u));
+						publicaciones.add(pv);
 					}
 					String vacio = "";
 					if(publicaciones.size() == 0)
@@ -172,12 +181,27 @@ public class UserController {
 				for (Publicacion p : publicacionDAO.findAll(user_perfil.getNickname())) {
 					if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
 						continue;
-					
-					if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("amigos") 
+
+         if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("amigos") 
 							&& !solicitudDAO.isAmigo(user_perfil.getNickname(), user.getNickname()))
 						continue;
+          
+					User u = userDAO.find(Funciones.encrypt(p.getNickname()));
+					
+					f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+		            if(f.exists() && !f.isDirectory()) { 
+		                u.setFoto(u.getNickname());
+		            } else {
+		            	u.setFoto("user");
+		            }
+
+
+		            User aux = (User) sesion.getAttribute("user");
+
+		            PublicacionVista pv = new PublicacionVista(p, u, aux);
 		            
-					publicaciones.add(new PublicacionVista(p, user_perfil));
+					publicaciones.add(pv);
+
 				}
 				String vacio = "";
 				if(publicaciones.size() == 0)
@@ -320,6 +344,46 @@ public class UserController {
             return model;
 	    	
     	} catch (Exception e) {
+            return new ModelAndView("redirect:/user");
+    	}
+
+    }
+	
+	@RequestMapping(value = "/user/meGusta**", method = RequestMethod.POST)
+    public ModelAndView meGusta(HttpServletRequest request) {
+    	Like l = null;
+    	User u = null;
+    	Publicacion p = null;
+    	
+    	
+    	
+    	try {
+    		u = (User) request.getSession().getAttribute("user");
+    		p = publicacionDAO.find(request.getParameter("id"));
+    		l = likeDAO.find(p, u);
+        			
+    		ModelAndView model = new ModelAndView();
+    		Variables v = (Variables) request.getSession().getAttribute("var");
+			v.setCont(0);
+
+			if (l != null) {
+				likeDAO.delete(l);
+				v.setMensaje("Me gusta eliminado");
+				v.setTipo("error");
+			}
+	    	else {
+				v.setMensaje("Me gusta registrado");
+				v.setTipo("correcto");
+	    		l = new Like(p, u);
+	    		likeDAO.insert(l);
+	    	}
+    		System.out.println(likeDAO.contLikes(p));
+			
+            model.setViewName("redirect:/user");
+            return model;
+	    	
+    	} catch (Exception e) {
+            System.out.println(e.getMessage());
             return new ModelAndView("redirect:/user");
     	}
 
@@ -562,6 +626,8 @@ public class UserController {
 
         return new ModelAndView("redirect:/user/amigos");
     }
+	
+	
 	
 
 }
