@@ -14,12 +14,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class Solicitud {
 	
+	private String id;
 	private String solicitante;
 	private String solicitado;
 	private boolean aceptado;
 	
 	public Solicitud() {}
 	public Solicitud(String solicitante, String solicitado, boolean aceptado) {
+		this.id = null;
 		this.solicitante = solicitante;
 		this.solicitado = solicitado;
 		this.aceptado = aceptado;

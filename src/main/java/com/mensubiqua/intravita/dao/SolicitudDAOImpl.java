@@ -40,9 +40,7 @@ public class SolicitudDAOImpl implements SolicitudDAO{
     }
 
     public void delete(String solicitante, String solicitado) {
-    	// Se envia una solicitud y hay que eliminar
-    	// la solicitud en las que esten los dos usuarios
-    	// puede en la posicion que se manda y en la inversa
+        DBBroker.get().delete("solicitante", solicitante, "solicitado", solicitado, COLLECTION);
     }
 
 	public ArrayList<User> findAmigos(String nickname) {

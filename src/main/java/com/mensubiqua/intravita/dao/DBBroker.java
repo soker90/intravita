@@ -82,6 +82,13 @@ public class DBBroker<T> {
         this.db.getCollection(collection).deleteOne(query);
     }
     
+    public void delete(String field_1, String value_1, String field_2, String value_2, String collection){
+    	BasicDBObject query = new BasicDBObject();
+    	query.append(field_1, value_1);
+    	query.append(field_2, field_2);
+        this.db.getCollection(collection).deleteOne(query);
+    }
+    
     public void deleteMany(String field, String value, String collection){
         Bson filter = new Document(field, value);
 
