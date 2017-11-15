@@ -36,7 +36,16 @@ public class SolicitudDAOImpl implements SolicitudDAO{
     
     public void update(String solicitante, String solicitado, boolean aceptado)
     {
-    	
+    	BasicDBObject values = new BasicDBObject();
+        values.append("solicitante", solicitante);
+        values.append("solicitado", solicitado);
+        values.append("aceptado", aceptado);
+        BasicDBObject set = new BasicDBObject();
+        set.append("$set", values);
+        //crear query de busqueda
+        BasicDBObject searchQuery = new BasicDBObject().append("solicitante", solicitante).append("solicitado", solicitado);
+        //llamada a dbbroker
+        DBBroker.get().update(set, searchQuery, COLLECTION);
     }
 
     public void delete(String solicitante, String solicitado) {
