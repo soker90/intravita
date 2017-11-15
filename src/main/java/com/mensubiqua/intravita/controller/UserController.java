@@ -173,6 +173,10 @@ public class UserController {
 						continue;
 					User u = userDAO.find(Funciones.encrypt(p.getNickname()));
 					
+					if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("amigos") &&
+							!solicitudDAO.isAmigo(user.getNickname(), u.getNickname()))
+						continue;
+					
 					f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
 		            if(f.exists() && !f.isDirectory()) { 
 		                u.setFoto(u.getNickname());
