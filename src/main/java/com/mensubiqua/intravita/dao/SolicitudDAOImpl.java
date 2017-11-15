@@ -40,43 +40,104 @@ public class SolicitudDAOImpl implements SolicitudDAO{
     }
 
     public void delete(String solicitante, String solicitado) {
-        DBBroker.get().delete("solicitante", solicitante, "solicitado", solicitado, COLLECTION);
+    	ArrayList<Solicitud> solicitudes = selectAll();
+    	for(Solicitud s : solicitudes) {
+    		if(s.getSolicitante().equals(solicitante) && s.getSolicitado().equals(solicitado)) {
+    	        DBBroker.get().delete("solicitante", solicitante, COLLECTION);
+    		}
+    	}
     }
 
 	public ArrayList<User> findAmigos(String nickname) {
+		UserDAOImpl userDAO = new UserDAOImpl();
 		ArrayList<User> amigos = new ArrayList<User>();
 		
-		//Busca los usuarios que tienen una solicitud
-		// aprobada con el usuario 
+		FindIterable<Document> documents1 = DBBroker.get().findAll("solicitante", nickname, COLLECTION);
+		FindIterable<Document> documents2 = DBBroker.get().findAll("solicitado", nickname, COLLECTION);
+		User u = null;
 		
+		for(Document document : documents1) {
+			if(document.getBoolean("aceptado")) {
+				u = userDAO.find(Funciones.encrypt(document.getString("solicitado")));
+				amigos.add(u);
+			}
+		}
+		for(Document document : documents2) {
+			if(document.getBoolean("aceptado")) {
+				u = userDAO.find(Funciones.encrypt(document.getString("solicitante")));
+				amigos.add(u);
+			}
+		}
 		
 		return amigos;
 	}
 	
 	public boolean isAmigo(String nick1, String nick2)
 	{
-		//Comprueba si son amigos
+		FindIterable<Document> documents1 = DBBroker.get().findAll("solicitante", nick1, COLLECTION);
+		FindIterable<Document> documents2 = DBBroker.get().findAll("solicitante", nick2, COLLECTION);
+		
+		for(Document document : documents1) {
+			if(document.getString("solicitado").equals(nick2) && document.getBoolean("aceptado")) {
+				return true;
+			}
+		}
+		for(Document document : documents2) {
+			if(document.getString("solicitado").equals(nick1) && document.getBoolean("aceptado")) {
+				return true;
+			}
+		}
+    	
 		return false;
 	}
 	
 	public boolean isPendiente(String nick1, String nick2)
 	{
-		//Comprueba si la solicitud esta pendiente de aceptar
-		return false;
+		FindIterable<Document> documents1 = DBBroker.get().findAll("solicitante", nick1, COLLECTION);
+
+		for(Document document : documents1) {
+			if(document.getString("solicitado").equals(nick2) && document.getBoolean("aceptado")) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
-	public ArrayList<User> selectAll(String nick)
+	public ArrayList<Solicitud> selectAll()
 	{
-		ArrayList<User> solicitudes = new ArrayList<User>();
-		//Devuelve todos los usuarios que le han solicitado amistad
-		// y todavia no han respondido, o sea, en los que esta en
-		// el segundo campo
+		MongoCollection<Document> collection = DBBroker.get().selectAll(COLLECTION);
+		ArrayList<Solicitud> solicitudes = new ArrayList<Solicitud>();
+		Solicitud s = null;
+		for (Document document : collection.find()) {
+			s =  new Solicitud(document.getString("solicitante"), document.getString("solicitado"), document.getBoolean("aceptado"));
+			solicitudes.add(s);
+		}
+				
 		
 		return solicitudes;
 	}
+	
+	public ArrayList<User> solicitudesPendientes(String nick)
+	{
+		UserDAOImpl userDAO = new UserDAOImpl();
+		
+		ArrayList<User> usuarios = new ArrayList<User>();
+		FindIterable<Document> documents = DBBroker.get().findAll("solicitado", nick, COLLECTION);
+		User u = null;
+		
+		for(Document document : documents) {
+			if(!document.getBoolean("aceptado")) {
+				u = userDAO.find(Funciones.encrypt(document.getString("solicitante")));
+				usuarios.add(u);
+			}
+		}
+		
+		return usuarios;
+	}
 
 	public int countAmigos(String nickname) {
-		// TODO Apéndice de método generado automáticamente
+		
+		
 		return 0;
 	}
 

@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.SolicitudDAOImpl;
 import com.mensubiqua.intravita.dao.UserCodeDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Solicitud;
 import com.mensubiqua.intravita.model.User;
 import com.mensubiqua.intravita.model.UserCode;
 import com.mongodb.diagnostics.logging.Logger;
@@ -198,7 +200,13 @@ public class GeneralController {
         	request.getSession().setAttribute("mensaje2", "Contraseña incorrecta");
         else {
             request.getSession().setAttribute("user", user);
-            solicitudDAO.delete("super.admin", "edu");
+            
+            ArrayList<Solicitud> solicitudes = solicitudDAO.selectAll();
+            for(Solicitud s : solicitudes) {
+            	System.out.println("Pendiente: "+solicitudDAO.isPendiente(s.getSolicitado(), s.getSolicitante())); 
+            	System.out.println("Amigos: "+solicitudDAO.isAmigo(s.getSolicitado(), s.getSolicitante())); 
+
+            }
             
             File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
             if(f.exists() && !f.isDirectory()) { 

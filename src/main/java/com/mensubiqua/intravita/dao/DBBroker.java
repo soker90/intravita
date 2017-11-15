@@ -82,10 +82,9 @@ public class DBBroker<T> {
         this.db.getCollection(collection).deleteOne(query);
     }
     
-    public void delete(String field_1, String value_1, String field_2, String value_2, String collection){
-    	BasicDBObject query = new BasicDBObject();
-    	query.append(field_1, value_1);
-    	query.append(field_2, field_2);
+    public void delete(String field, String value, String collection){
+    	BasicDBObject query = new BasicDBObject(field, value);
+    	
         this.db.getCollection(collection).deleteOne(query);
     }
     
