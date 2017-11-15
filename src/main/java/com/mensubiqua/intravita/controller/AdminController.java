@@ -27,7 +27,7 @@ import com.mensubiqua.intravita.model.User;
  * Controla todas las funciones disponibles para un usuario administrador
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.1
  * @version 2.0
  */

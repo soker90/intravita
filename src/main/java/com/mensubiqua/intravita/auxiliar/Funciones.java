@@ -14,11 +14,11 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- * Funciones - Clase encargada de realizar funciones de encriptaci�n y desencriptaci�n,
- * as� como generar cadenas o validar patrones. Funciones adicionales �tiles para otros m�todos.
+ * Funciones - Clase encargada de realizar funciones de encriptación y desencriptación,
+ * así como generar cadenas o validar patrones. Funciones adicionales útiles para otros métodos.
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, Jos� Mar�a Sim�n, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
  * @since 1.8
  * @version 2.0
  */

@@ -18,10 +18,10 @@ import org.bson.types.ObjectId;
 import org.codehaus.jackson.map.ObjectMapper;
 /**
  * DBBroker - Clase engargada de conectar con la base de datos y realizar
- * las operaciones atómicas con ella
+ * las operaciones atÃ³micas con ella
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.2
  * @version 2.0
  */
@@ -38,10 +38,10 @@ public class DBBroker<T> {
     //La clase interna SingletonHolder me permite implementar un singleton que no falle con concurrencia./
     
     /**
-     * SingletonHolder - Clase que contiene el único objeto DBBroker que usa la aplicación
+     * SingletonHolder - Clase que contiene el Ãºnico objeto DBBroker que usa la aplicaciÃ³n
      * 
      *
-     * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+     * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
      * @since 1.2
      * @version 1.2
      */
