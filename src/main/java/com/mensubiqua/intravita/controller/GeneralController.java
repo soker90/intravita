@@ -28,10 +28,10 @@ import com.mensubiqua.intravita.model.UserCode;
 import com.mongodb.diagnostics.logging.Logger;
 /**
  * GeneralController - Controlador general que se encarga de manejar las funciones
- * que de aplicación que se dan sin iniciar sesión.
+ * que de aplicaciÃ³n que se dan sin iniciar sesiÃ³n.
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.1
  * @version 2.0
  */
@@ -49,8 +49,6 @@ public class GeneralController {
 	
 	@Autowired
 	UserCodeDAOImpl userCodeDAO;
-	
-	private String url_heroku = "https://intravita.herokuapp.com";
 
 	
     @RequestMapping({"/default**","/"})

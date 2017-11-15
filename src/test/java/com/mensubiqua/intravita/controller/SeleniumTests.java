@@ -15,8 +15,8 @@ public class SeleniumTests {
 
         driver = new FirefoxDriver();
 
-        LoginWebTests.run(root);
-        HomeWebTests.run(root);
+        //LoginWebTests.run(root);
+        GeneralWebTests.run(root);
 
         driver.quit();
 
