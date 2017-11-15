@@ -66,7 +66,13 @@ public class UserController {
 					for (Publicacion p : publicacionDAO.selectAll()) {
 						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
 							continue;
+						
 						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
+						
+						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("amigos") &&
+								!solicitudDAO.isAmigo(user.getNickname(), u.getNickname()))
+							continue;
+						
 						
 						f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
 			            if(f.exists() && !f.isDirectory()) { 
@@ -143,38 +149,35 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/ver/{usuario:.+}")
 	public ModelAndView ver(HttpSession sesion, @PathVariable(value="usuario") String nick) {
-		User user = userDAO.find(Funciones.encrypt(nick));
+		User user = (User) sesion.getAttribute("user");
+		User user_perfil = userDAO.find(Funciones.encrypt(nick));
 		
-		if(user == null)
+		if(user_perfil == null)
 			return new ModelAndView("redirect:/user");
 
 		try {
 				ModelAndView model = new ModelAndView();
 				model.setViewName("user/ver");
 				
-				File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
+				File f = new File(servletContext.getRealPath("/resources/img/"+user_perfil.getNickname()+".jpg"));
 	            if(f.exists() && !f.isDirectory()) { 
-	                user.setFoto(user.getNickname());
+	                user_perfil.setFoto(user_perfil.getNickname());
 	            } else {
-	            	user.setFoto("user");
+	            	user_perfil.setFoto("user");
 	            }
 				
-				model.addObject("perfil", user);
+				model.addObject("perfil", user_perfil);
 				
 				ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
-				for (Publicacion p : publicacionDAO.findAll(user.getNickname())) {
+				for (Publicacion p : publicacionDAO.findAll(user_perfil.getNickname())) {
 					if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
 						continue;
-					User u = userDAO.find(Funciones.encrypt(p.getNickname()));
 					
-					f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
-		            if(f.exists() && !f.isDirectory()) { 
-		                u.setFoto(u.getNickname());
-		            } else {
-		            	u.setFoto("user");
-		            }
+					if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("amigos") 
+							&& !solicitudDAO.isAmigo(user_perfil.getNickname(), user.getNickname()))
+						continue;
 		            
-					publicaciones.add(new PublicacionVista(p, u));
+					publicaciones.add(new PublicacionVista(p, user_perfil));
 				}
 				String vacio = "";
 				if(publicaciones.size() == 0)

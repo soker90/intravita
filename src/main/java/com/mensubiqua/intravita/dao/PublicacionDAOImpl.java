@@ -60,6 +60,8 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 			p.setId(document.getObjectId("_id").toString());
 			ps.add(0,p);
 		}
+		
+		
 		return ps;
     }
 
