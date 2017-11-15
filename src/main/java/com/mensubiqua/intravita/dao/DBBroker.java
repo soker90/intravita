@@ -118,6 +118,12 @@ public class DBBroker<T> {
         return this.db.getCollection(collection).find(query);
     }
     
+    public Document findFilter(BasicDBObject query, String collection)
+    {
+
+        return this.db.getCollection(collection).find(query).first();
+    }
+    
     public void update(BasicDBObject newDocument, BasicDBObject searchQuery, String collection){       
     	 	
         this.db.getCollection(collection).updateOne(searchQuery, newDocument);

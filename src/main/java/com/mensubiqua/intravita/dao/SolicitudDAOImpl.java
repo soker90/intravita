@@ -102,13 +102,12 @@ public class SolicitudDAOImpl implements SolicitudDAO{
 	
 	public boolean isPendiente(String nick1, String nick2)
 	{
-		FindIterable<Document> documents1 = DBBroker.get().findAll("solicitante", nick1, COLLECTION);
-
-		for(Document document : documents1) {
-			if(document.getString("solicitado").equals(nick2) && document.getBoolean("aceptado")) {
-				return false;
-			}
+        BasicDBObject searchQuery = new BasicDBObject().append("solicitante", nick1).append("solicitado", nick2);
+		Document document = DBBroker.get().findFilter(searchQuery, COLLECTION);
+		if(document.getBoolean("aceptado")) {
+			return false;
 		}
+
 		return true;
 	}
 	
