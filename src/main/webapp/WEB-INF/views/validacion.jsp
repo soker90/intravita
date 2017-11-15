@@ -21,9 +21,9 @@
     <!-- CSS -->
     <!-- TODO chapuza para localhost, cambiar luego -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-    <link rel="stylesheet" href="resources/css/font-awesome.min.css">
-    <link rel="stylesheet" href="resources/css/form-elements.css">
-    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="${url}/resources/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${url}/resources/css/form-elements.css">
+    <link rel="stylesheet" href="${url}/resources/css/style.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <form name='validateForm' role="form" action="validacion" method="post" class="login-form">
+                            <form name='validateForm' role="form" action="${url}/validacion" method="post" class="login-form">
                                 <div class="form-group">
                                     <label class="sr-only" for="form-username">Usuario</label>
                                     <input type="text" name="username" placeholder="Usuario" class="form-username form-control" id="form-username">

@@ -5,12 +5,12 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class HomeWebTests {
+public abstract class GeneralWebTests {
     private static WebDriver driver;
     private static String root;
     public static void run(String root)
     {
-    	HomeWebTests.root = root;
+    	GeneralWebTests.root = root;
          driver = SeleniumTests.getDriver();
         default_test();
         admin_index();

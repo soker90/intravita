@@ -15,6 +15,14 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
+/**
+ * PublicacionDAOImpl - Clase que implementa los métodos de la interfaz PublicacionDAO
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.4
+ * @version 1.8
+ */
 @Component
 public class PublicacionDAOImpl implements PublicacionDAO{
 
@@ -52,6 +60,8 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 			p.setId(document.getObjectId("_id").toString());
 			ps.add(0,p);
 		}
+		
+		
 		return ps;
     }
 
@@ -99,7 +109,8 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 	 
 	 public void limpiarCompartidas(Publicacion p)
 	 {
-		 String id_original = p.getTexto().substring(3, p.getTexto().length());
+		 int limite = 3;
+		 String id_original = p.getTexto().substring(limite, p.getTexto().length());
 		 Publicacion original = this.find(id_original);
 		 if(original == null)
 			 this.delete(p.getId());

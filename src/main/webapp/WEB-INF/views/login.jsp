@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html >
 <head>
-    <%@ page session="false"%>
+    <%@ page session="true"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -19,11 +19,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- CSS -->
-    <!-- TODO chapuza para localhost, cambiar luego -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-    <link rel="stylesheet" href="resources/css/font-awesome.min.css">
-    <link rel="stylesheet" href="resources/css/form-elements.css">
-    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="${url}/resources/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${url}/resources/css/form-elements.css">
+    <link rel="stylesheet" href="${url}/resources/css/style.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,12 +32,12 @@
     <![endif]-->
 
     <!-- Javascript -->
-    <script src="resources/js/jquery-1.11.1.min.js"></script>
-    <script src="resources/js/jquery.backstretch.min.js"></script>
-    <script src="resources/js/scripts.js"></script>
+    <script src="${url}/resources/js/jquery-1.11.1.min.js"></script>
+    <script src="${url}/resources/js/jquery.backstretch.min.js"></script>
+    <script src="${url}/resources/js/scripts.js"></script>
 
     <!--[if lt IE 10]>
-    <script src="resources/js/placeholder.js"></script>
+    <script src="${url}/resources/js/placeholder.js"></script>
     <![endif]-->
     
 <title> Login | Intravita </title>
@@ -70,7 +69,7 @@
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <form name='loginForm' role="form" action="logear" method="post" class="login-form">
+                            <form name='loginForm' role="form" action="${url}/logear" method="post" class="login-form">
                                 <div class="form-group">
                                     <label class="sr-only" for="form-username">Usuario</label>
                                     <input type="text" name="username" placeholder="Usuario" class="form-username form-control" id="form-username">
@@ -109,17 +108,17 @@
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <form role="form" action="registro" method="post" class="registration-form">
+                            <form role="form" action="${url}/registro" method="post" class="registration-form">
                                 <div class="form-group">
-                                	<label class="sr-only" for="form-first-name">Usuario</label>
+                                	<label class="sr-only" for="form-nickname">Usuario</label>
                                     <input type="text" name="nickname" value="${rnick}" placeholder="Usuario" class="form-first-name form-control" id="form-first-name"><br>
-                                    <label class="sr-only" for="form-first-name">Nombre</label>
+                                    <label class="sr-only" for="form-nombew">Nombre</label>
                                     <input type="text" name="nombre" value="${rnombre}" placeholder="Nombre" class="form-first-name form-control" id="form-first-name"><br>
-                                    <label class="sr-only" for="form-last-name">Apellidos</label>
+                                    <label class="sr-only" for="form-apellido">Apellidos</label>
                                     <input type="text" name="apellido" value="${rapellido}" placeholder="Apellidos" class="form-last-name form-control" id="form-last-name"><br>
                                     <label class="sr-only" for="form-email">Email</label>
                                     <input type="text" name="email" value="${remail}" placeholder="Correo electrónico" class="form-email form-control" id="form-email"><br>
-                                    <label class="sr-only" for="form-passwordd">Contraseña</label>
+                                    <label class="sr-only" for="form-password">Contraseña</label>
                                     <input type="password" name="password" placeholder="Contraseña" class="form-email form-control" id="form-passwordd"><br>
                                     <label class="sr-only" for="form-password2">Repita contraseña</label>
                                     <input type="password" name="password2" placeholder="Contraseña" class="form-email form-control" id="form-password2">

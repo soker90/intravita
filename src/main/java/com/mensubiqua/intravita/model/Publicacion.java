@@ -4,6 +4,15 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Publicación - Clase de dominio que contiene toda la información de una publicación
+ * necesaria para el correcto funcionamiento del software
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.4
+ * @version 1.7
+ */
 public class Publicacion {
 
 	private String id;

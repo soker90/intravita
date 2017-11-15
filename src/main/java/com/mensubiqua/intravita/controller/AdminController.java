@@ -22,6 +22,15 @@ import com.mensubiqua.intravita.dao.UserDAOImpl;
 import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.PublicacionVista;
 import com.mensubiqua.intravita.model.User;
+/**
+ * AdminController - Controlador de usuarios con rol de administrador.
+ * Controla todas las funciones disponibles para un usuario administrador
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.1
+ * @version 2.0
+ */
 
 @Controller
 public class AdminController {
@@ -108,11 +117,12 @@ public class AdminController {
 			        ModelAndView model = new ModelAndView();
 
 			        
-			        ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
+			        ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>();
+			        File f = null;
 					for (Publicacion p : publicacionDAO.selectAll()) {
 						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
 						
-						File f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+						f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
 			            if(f.exists() && !f.isDirectory()) { 
 			                u.setFoto(u.getNickname());
 			            } else {

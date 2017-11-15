@@ -28,6 +28,16 @@ import com.mensubiqua.intravita.model.PublicacionVista;
 import com.mensubiqua.intravita.model.Solicitud;
 import com.mensubiqua.intravita.model.User;
 
+/**
+ * UserController - Controlador de usuarios con rol de usuario.
+ * Controla todas las funciones disponibles para un usuario normal.
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, Jos� Mar�a Sim�n, Miguel Ampuero, Eduardo Parra
+ * @since 1.1
+ * @version 2.0
+ */
+
 @Controller
 public class UserController {
 
@@ -56,12 +66,20 @@ public class UserController {
 				if (user.getRol().equals("ROLE_USER") | user.getRol().equals("ROLE_ADMIN")) {
 					ModelAndView model = new ModelAndView();
 					ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
+					File f = null;
+					
 					for (Publicacion p : publicacionDAO.selectAll()) {
 						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
 							continue;
+						
 						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
 						
-						File f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
+						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("amigos") &&
+								!solicitudDAO.isAmigo(user.getNickname(), u.getNickname()))
+							continue;
+						
+						
+						f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
 			            if(f.exists() && !f.isDirectory()) { 
 			                u.setFoto(u.getNickname());
 			            } else {
@@ -140,28 +158,34 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/ver/{usuario:.+}")
 	public ModelAndView ver(HttpSession sesion, @PathVariable(value="usuario") String nick) {
-		User user = userDAO.find(Funciones.encrypt(nick));
+		User user = (User) sesion.getAttribute("user");
+		User user_perfil = userDAO.find(Funciones.encrypt(nick));
 		
-		if(user == null)
+		if(user_perfil == null)
 			return new ModelAndView("redirect:/user");
 
 		try {
 				ModelAndView model = new ModelAndView();
 				model.setViewName("user/ver");
 				
-				File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
+				File f = new File(servletContext.getRealPath("/resources/img/"+user_perfil.getNickname()+".jpg"));
 	            if(f.exists() && !f.isDirectory()) { 
-	                user.setFoto(user.getNickname());
+	                user_perfil.setFoto(user_perfil.getNickname());
 	            } else {
-	            	user.setFoto("user");
+	            	user_perfil.setFoto("user");
 	            }
 				
-				model.addObject("perfil", user);
+				model.addObject("perfil", user_perfil);
 				
 				ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
-				for (Publicacion p : publicacionDAO.findAll(user.getNickname())) {
+				for (Publicacion p : publicacionDAO.findAll(user_perfil.getNickname())) {
 					if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
 						continue;
+
+         if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("amigos") 
+							&& !solicitudDAO.isAmigo(user_perfil.getNickname(), user.getNickname()))
+						continue;
+          
 					User u = userDAO.find(Funciones.encrypt(p.getNickname()));
 					
 					f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
@@ -177,6 +201,7 @@ public class UserController {
 		            PublicacionVista pv = new PublicacionVista(p, u, aux);
 		            
 					publicaciones.add(pv);
+
 				}
 				String vacio = "";
 				if(publicaciones.size() == 0)
@@ -476,10 +501,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/crearSolicitud**", method = RequestMethod.POST)
     public ModelAndView crearSolicitud(HttpSession session, HttpServletRequest request) {
-    	String solicitante = request.getParameter("id");
+    	String solicitado = request.getParameter("id");
     	User user = (User) session.getAttribute("user");
     	
-    	Solicitud solicitud = new Solicitud(solicitante, user.getNickname(), false);
+    	Solicitud solicitud = new Solicitud(user.getNickname(), solicitado, false);
     	solicitudDAO.insert(solicitud);
     	
     	
@@ -513,7 +538,7 @@ public class UserController {
 					
 					model.addObject("usuarios",usuarios);
 					
-					ArrayList<User> solicitudes = solicitudDAO.selectAll(user.getNickname());
+					ArrayList<User> solicitudes = solicitudDAO.solicitudesPendientes(user.getNickname());
 					
 					for (User user2 : solicitudes) {
 						this.setFoto(user2);

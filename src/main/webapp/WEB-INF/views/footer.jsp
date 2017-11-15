@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page session="true"%>
 							 </div><!--/row-->  
 								<div class="row" id="footer">    
 								  <div class="col-sm-6">
@@ -5,7 +8,7 @@
 								  </div>
 								  <div class="col-sm-6">
 									<p>
-									<a href="#" class="pull-right">©Mens Ubiqua 2017</a>
+									<a href="#" class="pull-right">Â©Mens Ubiqua 2017</a>
 									</p>
 								  </div>
 								</div>
@@ -30,14 +33,14 @@
 		  <div class="modal-dialog">
 			  <div class="modal-content">
 				  <div class="modal-header">
-					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						Nueva publicación
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+						Nueva publicaciÃ³n
 				  </div>
 				  <form role="form" class="form center-block" action="${var.url}/user/publicar" method="post">
 					  <div class="modal-body">
 						  
 						
-						  <textarea  rows="10" cols="80" id="texto" name="texto"  autofocus="" placeholder="Escribe aqui tu publicación"></textarea>
+						  <textarea  rows="10" cols="80" id="texto" name="texto"  autofocus="" placeholder="Escribe aqui tu publicaciÃ³n"></textarea>
 						</div>
 						  
 					  <div class="modal-footer">
@@ -45,6 +48,7 @@
 				            <select class="form-control" name="privacidad" id="texto">
 				                <option value="publica">Publica</option>
 				                <option value="privada">Privada</option>
+				                <option value="amigos">Solo amigos</option>
 				            </select>
 				        </div>
 						<button type="submit" name="submit" value="submit" class="btn btn-primary btn-sm">Aceptar</button>
