@@ -201,13 +201,6 @@ public class GeneralController {
         else {
             request.getSession().setAttribute("user", user);
             
-            ArrayList<Solicitud> solicitudes = solicitudDAO.selectAll();
-            for(Solicitud s : solicitudes) {
-            	System.out.println("Pendiente: "+solicitudDAO.isPendiente(s.getSolicitado(), s.getSolicitante())); 
-            	System.out.println("Amigos: "+solicitudDAO.isAmigo(s.getSolicitado(), s.getSolicitante())); 
-
-            }
-            
             File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
             if(f.exists() && !f.isDirectory()) { 
                 user.setFoto(user.getNickname());

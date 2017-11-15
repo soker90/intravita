@@ -136,14 +136,14 @@ public class SolicitudDAOImpl implements SolicitudDAO{
 	}
 
 	public int countAmigos(String nickname) {
+		ArrayList<User> amigos = findAmigos(nickname);
+		return amigos.size();
 		
-		
-		return 0;
 	}
 
 	public int countPendientes(String nickname) {
-		// TODO Apéndice de método generado automáticamente
-		return 0;
+		ArrayList<User> pendientes = solicitudesPendientes(nickname);
+		return pendientes.size();
 	}
 
 
