@@ -20,6 +20,7 @@ public class Solicitud {
 	
 	public Solicitud() {}
 	public Solicitud(String solicitante, String solicitado, boolean aceptado) {
+		
 		this.solicitante = solicitante;
 		this.solicitado = solicitado;
 		this.aceptado = aceptado;

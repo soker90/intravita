@@ -474,7 +474,7 @@ public class UserController {
 					
 					model.addObject("usuarios",usuarios);
 					
-					ArrayList<User> solicitudes = solicitudDAO.selectAll(user.getNickname());
+					ArrayList<User> solicitudes = solicitudDAO.solicitudesPendientes(user.getNickname());
 					
 					for (User user2 : solicitudes) {
 						this.setFoto(user2);

@@ -82,6 +82,12 @@ public class DBBroker<T> {
         this.db.getCollection(collection).deleteOne(query);
     }
     
+    public void delete(String field, String value, String collection){
+    	BasicDBObject query = new BasicDBObject(field, value);
+    	
+        this.db.getCollection(collection).deleteOne(query);
+    }
+    
     public void deleteMany(String field, String value, String collection){
         Bson filter = new Document(field, value);
 
@@ -110,6 +116,12 @@ public class DBBroker<T> {
     	BasicDBObject query = new BasicDBObject(field, value);
 
         return this.db.getCollection(collection).find(query);
+    }
+    
+    public Document findFilter(BasicDBObject query, String collection)
+    {
+
+        return this.db.getCollection(collection).find(query).first();
     }
     
     public void update(BasicDBObject newDocument, BasicDBObject searchQuery, String collection){       

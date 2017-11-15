@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +22,10 @@ import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.MailSender;
 import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
+import com.mensubiqua.intravita.dao.SolicitudDAOImpl;
 import com.mensubiqua.intravita.dao.UserCodeDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Solicitud;
 import com.mensubiqua.intravita.model.User;
 import com.mensubiqua.intravita.model.UserCode;
 import com.mongodb.diagnostics.logging.Logger;
@@ -49,7 +52,11 @@ public class GeneralController {
 	
 	@Autowired
 	UserCodeDAOImpl userCodeDAO;
-
+  
+	@Autowired
+	SolicitudDAOImpl solicitudDAO;
+	
+	private String url_heroku = "https://intravita.herokuapp.com";
 	
     @RequestMapping({"/default**","/"})
     public ModelAndView defaultAfterLogin(HttpSession sesion, HttpServletRequest request) {
@@ -192,7 +199,6 @@ public class GeneralController {
         	request.getSession().setAttribute("mensaje2", "Contraseña incorrecta");
         else {
             request.getSession().setAttribute("user", user);
-            
             
             File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
             if(f.exists() && !f.isDirectory()) { 
