@@ -31,7 +31,7 @@ import com.mensubiqua.intravita.model.User;
  * Controla todas las funciones disponibles para un usuario normal.
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, Josï¿½ Marï¿½a Simï¿½n, Miguel Ampuero, Eduardo Parra
  * @since 1.1
  * @version 2.0
  */
@@ -437,10 +437,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/crearSolicitud**", method = RequestMethod.POST)
     public ModelAndView crearSolicitud(HttpSession session, HttpServletRequest request) {
-    	String solicitante = request.getParameter("id");
+    	String solicitado = request.getParameter("id");
     	User user = (User) session.getAttribute("user");
     	
-    	Solicitud solicitud = new Solicitud(solicitante, user.getNickname(), false);
+    	Solicitud solicitud = new Solicitud(user.getNickname(), solicitado, false);
     	solicitudDAO.insert(solicitud);
     	
     	
