@@ -16,10 +16,10 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 /**
- * PublicacionDAOImpl - Clase que implementa los métodos de la interfaz PublicacionDAO
+ * PublicacionDAOImpl - Clase que implementa los mÃ©todos de la interfaz PublicacionDAO
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.4
  * @version 1.8
  */

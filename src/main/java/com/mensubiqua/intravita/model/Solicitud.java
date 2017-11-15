@@ -3,11 +3,11 @@ package com.mensubiqua.intravita.model;
 import org.springframework.stereotype.Component;
 
 /**
- * Solicitud - Clase de dominio que contiene toda la información de una solicitud,
+ * Solicitud - Clase de dominio que contiene toda la informaciÃ³n de una solicitud,
  * necesaria para el correcto funcionamiento del software
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.7
  * @version 2.0
  */

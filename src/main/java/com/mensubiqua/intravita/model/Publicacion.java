@@ -5,11 +5,11 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 /**
- * Publicación - Clase de dominio que contiene toda la información de una publicación
+ * PublicaciÃ³n - Clase de dominio que contiene toda la informaciÃ³n de una publicaciÃ³n
  * necesaria para el correcto funcionamiento del software
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.4
  * @version 1.7
  */

@@ -6,10 +6,10 @@ import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.User;
 
 /**
- * PublicacionDAO - Interfaz que declara los métodos que comunican las publicaciones con la BBDD
+ * PublicacionDAO - Interfaz que declara los mÃ©todos que comunican las publicaciones con la BBDD
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.4
  * @version 1.8
  */

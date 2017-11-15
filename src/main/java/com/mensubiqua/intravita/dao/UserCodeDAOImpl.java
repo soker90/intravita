@@ -14,10 +14,10 @@ import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.model.UserCode;
 
 /**
- * UserCodeDAOImpl - Clase que implementa los métodos de la interfaz UserCodeDAO
+ * UserCodeDAOImpl - Clase que implementa los mÃ©todos de la interfaz UserCodeDAO
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.8
  * @version 2.0
  */

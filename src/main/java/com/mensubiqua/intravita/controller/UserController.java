@@ -33,7 +33,7 @@ import com.mensubiqua.intravita.model.User;
  * Controla todas las funciones disponibles para un usuario normal.
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, Jos� Mar�a Sim�n, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
  * @since 1.1
  * @version 2.0
  */
