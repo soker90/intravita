@@ -12,12 +12,12 @@ import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
 
 /**
- * PublicacionVista - Clase de dominio que contiene toda la información de la vista de una publicación
+ * PublicacionVista - Clase de dominio que contiene toda la informaciÃ³n de la vista de una publicaciÃ³n
  * necesaria para el correcto funcionamiento del software.
- * Esta clase relaciona una publicación con su autor.
+ * Esta clase relaciona una publicaciÃ³n con su autor.
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.5
  * @version 1.8
  */

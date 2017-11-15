@@ -15,10 +15,10 @@ import org.bson.Document;
 import org.springframework.stereotype.Component;
 
 /**
- * UserDAOImpl - Clase que implementa los métodos de la interfaz UserDAO
+ * UserDAOImpl - Clase que implementa los mÃ©todos de la interfaz UserDAO
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ©a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.8
  * @version 2.0
  */

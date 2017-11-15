@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 
 /**
- * Variables - Clase encargada que guardar· informaciÛn esencial que debe comunicarse 
+ * Variables - Clase encargada que guardar√° informaci√≥n esencial que debe comunicarse 
  * a las vistas para su correcto funcionamiento. Desde la URL que se debe usar hasta 
  * los mensajes de error que deben aparecer
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, JosÈ MarÌa SimÛn, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, Jos√© Mar√≠a Sim√≥n, Miguel Ampuero, Eduardo Parra
  * @since 1.7
  * @version 2.0
  */

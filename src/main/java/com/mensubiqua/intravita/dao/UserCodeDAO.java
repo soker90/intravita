@@ -6,11 +6,11 @@ import com.mensubiqua.intravita.model.User;
 import com.mensubiqua.intravita.model.UserCode;
 
 /**
- * UserCodeDAO - Interfaz que declara los métodos que comunican los UserCode con la BBDD
+ * UserCodeDAO - Interfaz que declara los mÃ©todos que comunican los UserCode con la BBDD
  * para manejar el codigo que se le asigna a cada usuario para validar su cuenta.
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.4
  * @version 1.8
  */

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import com.mensubiqua.intravita.model.User;
 
 /**
- * UserDAO - Interfaz que declara los métodos que comunican los usuarios con la BBDD
+ * UserDAO - Interfaz que declara los mÃ©todos que comunican los usuarios con la BBDD
  * 
  *
- * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @author Ulises Ceca, Ignacio Dones, JosÃ© MarÃ­a SimÃ³n, Miguel Ampuero, Eduardo Parra
  * @since 1.4
  * @version 1.8
  */
