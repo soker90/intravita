@@ -11,7 +11,6 @@ public class Publicacion {
     private String texto;
     private String privacidad;
     private String fecha;
-    private int likes;
     
 	
 
@@ -20,14 +19,6 @@ public class Publicacion {
 		this.texto = texto;
 		this.privacidad = privacidad;
 		this.fecha = fecha;
-	}
-	
-	public int getLikes() {
-		return likes;
-	}
-
-	public void setLikes(int likes) {
-		this.likes = likes;
 	}
 	
 	public Publicacion() {}

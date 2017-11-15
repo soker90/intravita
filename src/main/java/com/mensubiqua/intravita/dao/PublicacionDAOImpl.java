@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PublicacionDAOImpl implements PublicacionDAO{
 
-//    private final String COLLECTION = "publicaciones";
-//    private final String ID = "_id"; //TODO
+    private final String COLLECTION = "publicaciones";
+    private final String ID = "_id"; //TODO
 
     public void insert(Publicacion p) {
         DBBroker.get().insertOne(p, COLLECTION);
@@ -38,7 +38,6 @@ public class PublicacionDAOImpl implements PublicacionDAO{
         	p = new Publicacion(document.getString("nickname"), document.getString("texto"),
         		document.getString("privacidad"), document.getString("fecha"));
         	p.setId(document.getObjectId("_id").toString());
-        	p.setLikes(document.getInteger("likes"));
         }
         return p;
     }
@@ -76,7 +75,6 @@ public class PublicacionDAOImpl implements PublicacionDAO{
 		values.append("texto", p.getTexto());
 		values.append("privacidad", p.getPrivacidad());
 		values.append("fecha", p.getFecha());
-		values.append("likes", p.getLikes());
 		BasicDBObject set = new BasicDBObject();
 		set.append("$set", values);
 		//crear query de busqueda

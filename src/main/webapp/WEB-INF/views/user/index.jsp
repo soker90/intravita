@@ -58,7 +58,12 @@
 			  <form></form>
 			  <form style="display: inline-block" action="${var.url}/user/meGusta" method="post">
  			    <input type="text" id="megustan" name="id" hidden="hidden" value="${publicacion.id}">
- 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
+ 			    <c:if test="${publicacion.liker ne user.nickname}">
+ 		 	 		<button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart-empty"></i></button>
+ 		 	 	</c:if>
+ 		 	 	 <c:if test="${publicacion.liker eq user.nickname}">
+ 		 	 		<button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
+ 		 	 	</c:if>
  		 	 </form>
  		 	 
  		 	 <form style="display: inline-block" action="${var.url}/user/compartir" method="post">

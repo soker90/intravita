@@ -15,7 +15,7 @@ public class PublicacionVistaStep {
 	
 	@Given("^Tengo una publicacionVista inicializada$")
 	public void tengo_una_publicacionVista_inicializada() throws Throwable {
-		pv = new PublicacionVista(new Publicacion(), new User());
+		pv = new PublicacionVista(new Publicacion(), new User(), null);
 	}
 	
 	@When("^Cambio su id a \"([^\"]*)\"$")

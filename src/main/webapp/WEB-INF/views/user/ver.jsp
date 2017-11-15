@@ -59,7 +59,9 @@
 			  <c:if test="${publicacion.nickname ne user.nickname}">
 			  <form style="display: inline-block" action="#" method="post">
  			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
- 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
+ 		 	 		<button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
+ 		 	 	
+ 			    
  		 	 </form>
  		 	 
  		 	 <form style="display: inline-block" action="${var.url}/user/compartir" method="post">

@@ -43,6 +43,7 @@ public class UserDAOImpl implements UserDAO{
         	user = new User(Funciones.decrypt(document.getString("nombre")), Funciones.decrypt(document.getString("apellido")),
         		Funciones.decrypt(document.getString("email")), document.getString("password"), document.getString("rol"),
         		Funciones.decrypt(document.getString("nickname")), document.getBoolean("validado"));
+        	user.setFoto(document.getString("foto"));
         	
         
         }

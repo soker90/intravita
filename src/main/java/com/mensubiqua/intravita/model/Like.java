@@ -4,7 +4,7 @@ public class Like {
 	private Publicacion publicacion;
 	private User usuario;
 	
-	Like(Publicacion publicacion, User usuario) {
+	public Like(Publicacion publicacion, User usuario) {
 		this.publicacion = publicacion;
 		this.usuario = usuario;
 	}
