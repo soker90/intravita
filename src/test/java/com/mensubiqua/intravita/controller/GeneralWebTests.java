@@ -3,6 +3,8 @@ package com.mensubiqua.intravita.controller;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.mensubiqua.intravita.selenium.SeleniumTests;
+
 import java.util.concurrent.TimeUnit;
 
 public abstract class GeneralWebTests {

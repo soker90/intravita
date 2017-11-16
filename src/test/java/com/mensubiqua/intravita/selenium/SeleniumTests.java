@@ -1,7 +1,9 @@
-package com.mensubiqua.intravita.controller;
+package com.mensubiqua.intravita.selenium;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.mensubiqua.intravita.controller.GeneralWebTests;
 
 public class SeleniumTests {
     private static WebDriver driver = null;
