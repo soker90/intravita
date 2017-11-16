@@ -547,7 +547,7 @@ public class UserController {
 					model.addObject("solicitudes",solicitudes);
 					
 					String haysolicitudes = "";
-					if(usuarios.size() == 0)
+					if(solicitudes.size() > 0)
 						haysolicitudes = "si";
 					
 					model.addObject("haysolicitudes", haysolicitudes);
@@ -613,6 +613,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/revocarAmistad**", method = RequestMethod.POST)
     public ModelAndView revocarAmistad(HttpSession session, HttpServletRequest request) {
+		System.out.println("Entra en revocar");
     	String solicitante = request.getParameter("id");
     	User user = (User) session.getAttribute("user");
     	

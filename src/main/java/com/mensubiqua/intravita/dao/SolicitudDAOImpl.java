@@ -50,9 +50,14 @@ public class SolicitudDAOImpl implements SolicitudDAO{
 
     public void delete(String solicitante, String solicitado) {
     	ArrayList<Solicitud> solicitudes = selectAll();
+    	BasicDBObject query = new BasicDBObject();
     	for(Solicitud s : solicitudes) {
     		if(s.getSolicitante().equals(solicitante) && s.getSolicitado().equals(solicitado)) {
-    	        DBBroker.get().delete("solicitante", solicitante, COLLECTION);
+    	        query.append("solicitante", solicitante).append("solicitado", solicitado);
+    	        DBBroker.get().deleteOne(query, COLLECTION);
+    		}else if(s.getSolicitante().equals(solicitado) && s.getSolicitado().equals(solicitante)) {
+    			query.append("solicitante", solicitado).append("solicitado", solicitante);
+    	        DBBroker.get().deleteOne(query, COLLECTION);
     		}
     	}
     }
