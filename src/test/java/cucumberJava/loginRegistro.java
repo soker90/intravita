@@ -80,6 +80,54 @@ public class loginRegistro {
 		}
 }
 	    
+	@When("^pass(\\d+) != pass(\\d+)$")
+	public void pass_pass(int arg1, int arg2) {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@Given("^nickname y pass$")
+	public void nickname_y_pass() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@When("^ya esta registrado$")
+	public void ya_esta_registrado() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@Then("^acceso permitido$")
+	public void acceso_permitido() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@Given("^nickname y password$")
+	public void nickname_y_password() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@When("^password incorrecta$")
+	public void password_incorrecta() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@Then("^acceso denegado$")
+	public void acceso_denegado() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@When("^usuario no registro$")
+	public void usuario_no_registro() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
 
 
 }

@@ -15,3 +15,30 @@ Scenario: registrar un usuario ya existente
 	Given Un usuario inserta sus datos
 	When buscar que no exista
 	Then usuario no registrado
+	
+@Scenario5
+Scenario: password1 y password2 no coinciden
+	Given Un usuario inserta sus datos
+	When pass1 != pass2
+	Then usuario no registrado
+	
+@Scenario4
+Scenario: Acceder con cuenta ya creada
+	Given nickname y pass
+	When ya esta registrado
+	Then acceso permitido
+	
+@Scenario5
+Scenario: Acceder con password incorrecto
+	Given nickname y password
+	When password incorrecta
+	Then acceso denegado
+	
+@Scenario6
+Scenario: Accedor sin registro
+	Given nickname y password
+	When usuario no registro
+	Then acceso denegado
+	
+	
+	
