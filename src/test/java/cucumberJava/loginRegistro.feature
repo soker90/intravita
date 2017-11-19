@@ -16,10 +16,10 @@ Scenario: registrar un usuario ya existente
 	When buscar que no exista
 	Then usuario no registrado
 	
-@Scenario5
+@Scenario3
 Scenario: password1 y password2 no coinciden
 	Given Un usuario inserta sus datos
-	When pass1 != pass2
+	When password no coinciden
 	Then usuario no registrado
 	
 @Scenario4

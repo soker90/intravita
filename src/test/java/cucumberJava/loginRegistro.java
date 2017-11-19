@@ -30,6 +30,7 @@ public class loginRegistro {
 	private String email = "user@email.com";
 	private String pass = "password";
 	private String nick = "nickMiguel";
+	private String pass2 = "password2";
 	
 	@Given("^Un nuevo usuario inserta sus datos$")
 	public void Un_nuevo_usuario_inserta_sus_datos() {
@@ -74,58 +75,60 @@ public class loginRegistro {
 
 	@Then("^usuario no registrado$")
 	public void usuario_no_registrado() {
-		dao.delete(nick, new File(""));
 		if(usuario==null) {
 	    	assertTrue(usuario==null);	    	
 		}
 }
 	    
-	@When("^pass(\\d+) != pass(\\d+)$")
-	public void pass_pass(int arg1, int arg2) {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	@When("^password no coinciden$")
+	public void password_no_coinciden() {
+	    if(usuario.getPassword() != pass2) {
+	    	usuario = null;
+	    }
 	}
+
 
 	@Given("^nickname y pass$")
 	public void nickname_y_pass() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    usuario = null;
 	}
 
 	@When("^ya esta registrado$")
 	public void ya_esta_registrado() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    usuario = dao.find(Funciones.encrypt(nick));
 	}
 
 	@Then("^acceso permitido$")
 	public void acceso_permitido() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		if(usuario!=null)
+	    	assertTrue(usuario != null);
 	}
 
 	@Given("^nickname y password$")
 	public void nickname_y_password() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    usuario =null;
+	    
 	}
 
 	@When("^password incorrecta$")
 	public void password_incorrecta() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		usuario = dao.find(Funciones.encrypt(nick));
+	    if(usuario.getPassword() != Funciones.encrypt_md5(pass2)){
+	    	usuario = null;
+	    }
+	    dao.delete(nick, new File(""));
 	}
 
 	@Then("^acceso denegado$")
 	public void acceso_denegado() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		if(usuario==null) {
+	    	assertTrue(usuario==null);	    	
+		}
 	}
 
 	@When("^usuario no registro$")
 	public void usuario_no_registro() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		usuario = dao.find(Funciones.encrypt(nick));
 	}
 
 
