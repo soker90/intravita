@@ -23,7 +23,7 @@ import com.mensubiqua.intravita.dao.UserDAOImpl;
 public class loginRegistro {
 
 	private User usuario;
-	private UserDAOImpl dao;
+	private UserDAOImpl dao = new UserDAOImpl();;
 	
 	private String nombre = "Miguel";
 	private String apellido = "Ampuero";
@@ -37,7 +37,7 @@ public class loginRegistro {
 		
 		 usuario = new User(Funciones.encrypt(nombre), Funciones.encrypt(apellido), Funciones.encrypt(email), Funciones.encrypt_md5(pass),
          		"ROLE_USER", Funciones.encrypt(nick) ,false);
-		 dao = new UserDAOImpl();
+		 
 	    
 	}
 
@@ -57,26 +57,29 @@ public class loginRegistro {
 	    usuario = dao.find(Funciones.encrypt(nick));
 	    if(usuario!=null)
 	    	assertTrue(usuario != null);
-	    dao.delete(nick, new File(""));;
+	    //dao.delete(nick, new File(""));
+	    usuario = null;
 	}
 	
 	@Given("^Un usuario inserta sus datos$")
 	public void Un_usuario_inserta_sus_datos() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    usuario = new User(nombre, apellido, email, pass, "ROLE_USER", nick, false);
 	}
 
 	@When("^buscar que no exista$")
 	public void buscar_que_no_exista() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		usuario= null;
+		usuario = dao.find(Funciones.encrypt(nick));		
 	}
 
 	@Then("^usuario no registrado$")
 	public void usuario_no_registrado() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
-	}
+		dao.delete(nick, new File(""));
+		if(usuario==null) {
+	    	assertTrue(usuario==null);	    	
+		}
+}
+	    
 
 
 }
