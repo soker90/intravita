@@ -10,3 +10,8 @@ Scenario: registrar un usuario no existente
 	When se comprueba en la bbdd
 	Then usuario creado
 	
+@Scenario2
+Scenario: registrar un usuario ya existente
+	Given Un usuario inserta sus datos
+	When buscar que no exista
+	Then usuario no registrado

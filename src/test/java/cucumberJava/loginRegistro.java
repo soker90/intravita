@@ -44,7 +44,7 @@ public class loginRegistro {
 	@When("^se comprueba en la bbdd$")
 	public void se_comprueba_en_la_bbdd() {
 		User u = null;
-		dao.find(Funciones.encrypt("miguel.ampu"));
+		dao.find(Funciones.encrypt(nick));
 		if(u == null){
 			dao.insert(usuario);
 		}
@@ -59,4 +59,24 @@ public class loginRegistro {
 	    	assertTrue(usuario != null);
 	    dao.delete(nick, new File(""));;
 	}
+	
+	@Given("^Un usuario inserta sus datos$")
+	public void Un_usuario_inserta_sus_datos() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@When("^buscar que no exista$")
+	public void buscar_que_no_exista() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+	@Then("^usuario no registrado$")
+	public void usuario_no_registrado() {
+	    // Express the Regexp above with the code you wish you had
+	    throw new PendingException();
+	}
+
+
 }
