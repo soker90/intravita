@@ -16,7 +16,15 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.codehaus.jackson.map.ObjectMapper;
-
+/**
+ * DBBroker - Clase engargada de conectar con la base de datos y realizar
+ * las operaciones atómicas con ella
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.2
+ * @version 2.0
+ */
 public class DBBroker<T> {
     private MongoClient client;
     private MongoDatabase db;
@@ -28,6 +36,15 @@ public class DBBroker<T> {
     }
 
     //La clase interna SingletonHolder me permite implementar un singleton que no falle con concurrencia./
+    
+    /**
+     * SingletonHolder - Clase que contiene el único objeto DBBroker que usa la aplicación
+     * 
+     *
+     * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+     * @since 1.2
+     * @version 1.2
+     */
 
     public static class SingletonHolder{
         static DBBroker singleton = new DBBroker();
@@ -51,7 +68,9 @@ public class DBBroker<T> {
         }
     }
 
-    
+    public void deleteOne(BasicDBObject query, String collection){
+        this.db.getCollection(collection).deleteOne(query);
+    }
     
     public void deleteOne(String field, String value, String collection){
         BasicDBObject query = new BasicDBObject(field, value);
@@ -62,6 +81,12 @@ public class DBBroker<T> {
     public void deleteOne(String field, ObjectId value, String collection){
         BasicDBObject query = new BasicDBObject(field, value);
 
+        this.db.getCollection(collection).deleteOne(query);
+    }
+    
+    public void delete(String field, String value, String collection){
+    	BasicDBObject query = new BasicDBObject(field, value);
+    	
         this.db.getCollection(collection).deleteOne(query);
     }
     
@@ -95,6 +120,12 @@ public class DBBroker<T> {
         return this.db.getCollection(collection).find(query);
     }
     
+    public Document findFilter(BasicDBObject query, String collection)
+    {
+
+        return this.db.getCollection(collection).find(query).first();
+    }
+    
     public void update(BasicDBObject newDocument, BasicDBObject searchQuery, String collection){       
     	 	
         this.db.getCollection(collection).updateOne(searchQuery, newDocument);
@@ -106,6 +137,16 @@ public class DBBroker<T> {
 
         return this.db.getCollection(collection).count(query);
     }
+
+	public void deleteOne(Document query, String collection) {
+        this.db.getCollection(collection).deleteOne(query);
+		
+	}
+	
+	public long count(Document query, String collection) {
+        return this.db.getCollection(collection).count(query);
+    }
+    
     
     
 }

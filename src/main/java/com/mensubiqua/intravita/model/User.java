@@ -9,6 +9,15 @@ import org.springframework.stereotype.Component;
 
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 
+/**
+ * User - Clase de dominio que contiene toda la información de un Usuario,
+ * necesaria para el correcto funcionamiento del software
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.0
+ * @version 1.8
+ */
 @Component
 public class User {
 	

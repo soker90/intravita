@@ -59,7 +59,9 @@
 			  <c:if test="${publicacion.nickname ne user.nickname}">
 			  <form style="display: inline-block" action="#" method="post">
  			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
- 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
+ 		 	 		<button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
+ 		 	 	
+ 			    
  		 	 </form>
  		 	 
  		 	 <form style="display: inline-block" action="${var.url}/user/compartir" method="post">
@@ -114,8 +116,9 @@
  		 	 
 			  </c:if>
 			  </div>
-			  <c:if test="${publicacion.fechaCompartida == null && publicacion.nickname eq user.nickname}">
-			  	<h7 class="pull-right">Se ha compartido ${publicacion.contCompartidas} veces</h7>
+			  <c:if test="${publicacion.fechaCompartida == null}">
+			  	<h7 class="pull-right">Veces compartidas: ${publicacion.contCompartidas}</h7><br>
+			  	<h7 class="pull-right">Me gustas: ${publicacion.contLikes}</h7>
 			  </c:if>
 			  
 			</div>

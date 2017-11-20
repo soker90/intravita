@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +22,22 @@ import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.MailSender;
 import com.mensubiqua.intravita.auxiliar.Variables;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
+import com.mensubiqua.intravita.dao.SolicitudDAOImpl;
 import com.mensubiqua.intravita.dao.UserCodeDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Solicitud;
 import com.mensubiqua.intravita.model.User;
 import com.mensubiqua.intravita.model.UserCode;
 import com.mongodb.diagnostics.logging.Logger;
-
+/**
+ * GeneralController - Controlador general que se encarga de manejar las funciones
+ * que de aplicación que se dan sin iniciar sesión.
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.1
+ * @version 2.0
+ */
 @Controller
 public class GeneralController {
 
@@ -41,9 +52,11 @@ public class GeneralController {
 	
 	@Autowired
 	UserCodeDAOImpl userCodeDAO;
+  
+	@Autowired
+	SolicitudDAOImpl solicitudDAO;
 	
 	private String url_heroku = "https://intravita.herokuapp.com";
-
 	
     @RequestMapping({"/default**","/"})
     public ModelAndView defaultAfterLogin(HttpSession sesion, HttpServletRequest request) {
@@ -187,7 +200,6 @@ public class GeneralController {
         else {
             request.getSession().setAttribute("user", user);
             
-            
             File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
             if(f.exists() && !f.isDirectory()) { 
                 user.setFoto(user.getNickname());
@@ -211,30 +223,6 @@ public class GeneralController {
     public String logout(HttpSession sesion, HttpServletRequest request) {
     	sesion.invalidate();
         return "redirect:/login";
-    }
-
-
-
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public ModelAndView error403(Principal user, HttpServletRequest request){
-    	ModelAndView model = new ModelAndView();
-        model.addObject("head", "Error 403");
-        model.addObject("title", "Error 403 - Acceso denegado");
-        if (user != null){
-            model.addObject("msg", "Hola "+user.getName()+", no tienes permiso para acceder a esta página");
-        }else{
-            model.addObject("msg", "No tienes permiso para acceder a esta página");
-        }
-
-        model.setViewName("error");
-        
-        Variables url = new Variables();
-    	boolean local = request.getRequestURL().toString().contains("localhost");
-        url.setUrl(local);
-        model.addObject("url", url.getUrl());
-        
-        return model;
-
     }
     
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)

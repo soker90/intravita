@@ -55,9 +55,15 @@
 			<div class="input-group">
 			  <div class="input-group-btn">
 			  <c:if test="${publicacion.nickname ne user.nickname}">
-			  <form style="display: inline-block" action="#" method="post">
- 			    <input type="text" id="id" name="id" hidden="hidden" value="${publicacion.id}">
- 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
+			  <form></form>
+			  <form style="display: inline-block" action="${var.url}/user/meGusta" method="post">
+ 			    <input type="text" id="megustan" name="id" hidden="hidden" value="${publicacion.id}">
+ 			    <c:if test="${publicacion.liker ne user.nickname}">
+ 		 	 		<button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart-empty"></i></button>
+ 		 	 	</c:if>
+ 		 	 	 <c:if test="${publicacion.liker eq user.nickname}">
+ 		 	 		<button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-heart"></i></button>
+ 		 	 	</c:if>
  		 	 </form>
  		 	 
  		 	 <form style="display: inline-block" action="${var.url}/user/compartir" method="post">
@@ -114,8 +120,9 @@
  		 	 
 			  </c:if>
 			  </div>
-			  <c:if test="${publicacion.fechaCompartida == null && publicacion.nickname eq user.nickname}">
-			  	<h7 class="pull-right">Se ha compartido ${publicacion.contCompartidas} veces</h7>
+			  <c:if test="${publicacion.fechaCompartida == null}">
+			  	<h7 class="pull-right">Veces compartidas: ${publicacion.contCompartidas}</h7><br>
+			  	<h7 class="pull-right">Me gustas: ${publicacion.contLikes}</h7>
 			  </c:if>
 			  
 			</div>

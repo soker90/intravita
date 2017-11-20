@@ -14,6 +14,14 @@ import java.util.Collection;
 import org.bson.Document;
 import org.springframework.stereotype.Component;
 
+/**
+ * UserDAOImpl - Clase que implementa los métodos de la interfaz UserDAO
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José Maréa Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.8
+ * @version 2.0
+ */
 @Component
 public class UserDAOImpl implements UserDAO{
 
@@ -43,6 +51,7 @@ public class UserDAOImpl implements UserDAO{
         	user = new User(Funciones.decrypt(document.getString("nombre")), Funciones.decrypt(document.getString("apellido")),
         		Funciones.decrypt(document.getString("email")), document.getString("password"), document.getString("rol"),
         		Funciones.decrypt(document.getString("nickname")), document.getBoolean("validado"));
+        	user.setFoto(document.getString("foto"));
         	
         
         }

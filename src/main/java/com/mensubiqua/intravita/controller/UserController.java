@@ -18,13 +18,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mensubiqua.intravita.auxiliar.Funciones;
 import com.mensubiqua.intravita.auxiliar.Variables;
+import com.mensubiqua.intravita.dao.LikeDAOImpl;
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
 import com.mensubiqua.intravita.dao.SolicitudDAOImpl;
 import com.mensubiqua.intravita.dao.UserDAOImpl;
+import com.mensubiqua.intravita.model.Like;
 import com.mensubiqua.intravita.model.Publicacion;
 import com.mensubiqua.intravita.model.PublicacionVista;
 import com.mensubiqua.intravita.model.Solicitud;
 import com.mensubiqua.intravita.model.User;
+
+/**
+ * UserController - Controlador de usuarios con rol de usuario.
+ * Controla todas las funciones disponibles para un usuario normal.
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.1
+ * @version 2.0
+ */
 
 @Controller
 public class UserController {
@@ -34,9 +46,12 @@ public class UserController {
 
 	@Autowired
 	PublicacionDAOImpl publicacionDAO;
-	
+
 	@Autowired
 	SolicitudDAOImpl solicitudDAO;
+	
+	@Autowired
+	LikeDAOImpl likeDAO;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -56,7 +71,13 @@ public class UserController {
 					for (Publicacion p : publicacionDAO.selectAll()) {
 						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
 							continue;
+						
 						User u = userDAO.find(Funciones.encrypt(p.getNickname()));
+						
+						if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("amigos") &&
+								!solicitudDAO.isAmigo(user.getNickname(), u.getNickname()))
+							continue;
+						
 						
 						f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
 			            if(f.exists() && !f.isDirectory()) { 
@@ -64,8 +85,12 @@ public class UserController {
 			            } else {
 			            	u.setFoto("user");
 			            }
+
+			            User aux = (User) sesion.getAttribute("user");
+
+			            PublicacionVista pv = new PublicacionVista(p, u, aux);
 			            
-						publicaciones.add(new PublicacionVista(p, u));
+						publicaciones.add(pv);
 					}
 					String vacio = "";
 					if(publicaciones.size() == 0)
@@ -133,28 +158,34 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/ver/{usuario:.+}")
 	public ModelAndView ver(HttpSession sesion, @PathVariable(value="usuario") String nick) {
-		User user = userDAO.find(Funciones.encrypt(nick));
+		User user = (User) sesion.getAttribute("user");
+		User user_perfil = userDAO.find(Funciones.encrypt(nick));
 		
-		if(user == null)
+		if(user_perfil == null)
 			return new ModelAndView("redirect:/user");
 
 		try {
 				ModelAndView model = new ModelAndView();
 				model.setViewName("user/ver");
 				
-				File f = new File(servletContext.getRealPath("/resources/img/"+user.getNickname()+".jpg"));
+				File f = new File(servletContext.getRealPath("/resources/img/"+user_perfil.getNickname()+".jpg"));
 	            if(f.exists() && !f.isDirectory()) { 
-	                user.setFoto(user.getNickname());
+	                user_perfil.setFoto(user_perfil.getNickname());
 	            } else {
-	            	user.setFoto("user");
+	            	user_perfil.setFoto("user");
 	            }
 				
-				model.addObject("perfil", user);
+				model.addObject("perfil", user_perfil);
 				
 				ArrayList<PublicacionVista> publicaciones = new ArrayList<PublicacionVista>(); 
-				for (Publicacion p : publicacionDAO.findAll(user.getNickname())) {
+				for (Publicacion p : publicacionDAO.findAll(user_perfil.getNickname())) {
 					if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("privada"))
 						continue;
+
+         if(!p.getNickname().equals(user.getNickname()) && p.getPrivacidad().equals("amigos") 
+							&& !solicitudDAO.isAmigo(user_perfil.getNickname(), user.getNickname()))
+						continue;
+          
 					User u = userDAO.find(Funciones.encrypt(p.getNickname()));
 					
 					f = new File(servletContext.getRealPath("/resources/img/"+u.getNickname()+".jpg"));
@@ -163,8 +194,14 @@ public class UserController {
 		            } else {
 		            	u.setFoto("user");
 		            }
+
+
+		            User aux = (User) sesion.getAttribute("user");
+
+		            PublicacionVista pv = new PublicacionVista(p, u, aux);
 		            
-					publicaciones.add(new PublicacionVista(p, u));
+					publicaciones.add(pv);
+
 				}
 				String vacio = "";
 				if(publicaciones.size() == 0)
@@ -312,6 +349,46 @@ public class UserController {
 
     }
 	
+	@RequestMapping(value = "/user/meGusta**", method = RequestMethod.POST)
+    public ModelAndView meGusta(HttpServletRequest request) {
+    	Like l = null;
+    	User u = null;
+    	Publicacion p = null;
+    	
+    	
+    	
+    	try {
+    		u = (User) request.getSession().getAttribute("user");
+    		p = publicacionDAO.find(request.getParameter("id"));
+    		l = likeDAO.find(p, u);
+        			
+    		ModelAndView model = new ModelAndView();
+    		Variables v = (Variables) request.getSession().getAttribute("var");
+			v.setCont(0);
+
+			if (l != null) {
+				likeDAO.delete(l);
+				v.setMensaje("Me gusta eliminado");
+				v.setTipo("error");
+			}
+	    	else {
+				v.setMensaje("Me gusta registrado");
+				v.setTipo("correcto");
+	    		l = new Like(p, u);
+	    		likeDAO.insert(l);
+	    	}
+    		System.out.println(likeDAO.contLikes(p));
+			
+            model.setViewName("redirect:/user");
+            return model;
+	    	
+    	} catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ModelAndView("redirect:/user");
+    	}
+
+    }
+	
 	@RequestMapping(value = "/user/updatePublicacion**", method = RequestMethod.POST)
     public ModelAndView updatePublicacion(HttpSession session, HttpServletRequest request) {
     	Publicacion p = publicacionDAO.find(request.getParameter("id"));
@@ -424,10 +501,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/crearSolicitud**", method = RequestMethod.POST)
     public ModelAndView crearSolicitud(HttpSession session, HttpServletRequest request) {
-    	String solicitante = request.getParameter("id");
+    	String solicitado = request.getParameter("id");
     	User user = (User) session.getAttribute("user");
     	
-    	Solicitud solicitud = new Solicitud(solicitante, user.getNickname(), false);
+    	Solicitud solicitud = new Solicitud(user.getNickname(), solicitado, false);
     	solicitudDAO.insert(solicitud);
     	
     	
@@ -461,7 +538,7 @@ public class UserController {
 					
 					model.addObject("usuarios",usuarios);
 					
-					ArrayList<User> solicitudes = solicitudDAO.selectAll(user.getNickname());
+					ArrayList<User> solicitudes = solicitudDAO.solicitudesPendientes(user.getNickname());
 					
 					for (User user2 : solicitudes) {
 						this.setFoto(user2);
@@ -470,7 +547,7 @@ public class UserController {
 					model.addObject("solicitudes",solicitudes);
 					
 					String haysolicitudes = "";
-					if(usuarios.size() == 0)
+					if(solicitudes.size() > 0)
 						haysolicitudes = "si";
 					
 					model.addObject("haysolicitudes", haysolicitudes);
@@ -536,6 +613,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/revocarAmistad**", method = RequestMethod.POST)
     public ModelAndView revocarAmistad(HttpSession session, HttpServletRequest request) {
+		System.out.println("Entra en revocar");
     	String solicitante = request.getParameter("id");
     	User user = (User) session.getAttribute("user");
     	
@@ -549,6 +627,8 @@ public class UserController {
 
         return new ModelAndView("redirect:/user/amigos");
     }
+	
+	
 	
 
 }

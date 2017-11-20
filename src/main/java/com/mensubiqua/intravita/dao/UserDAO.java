@@ -5,6 +5,14 @@ import java.util.ArrayList;
 
 import com.mensubiqua.intravita.model.User;
 
+/**
+ * UserDAO - Interfaz que declara los métodos que comunican los usuarios con la BBDD
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.4
+ * @version 1.8
+ */
 public interface UserDAO {
 
     public void insert(User user);

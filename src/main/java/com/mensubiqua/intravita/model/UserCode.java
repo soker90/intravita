@@ -1,5 +1,14 @@
 package com.mensubiqua.intravita.model;
 
+/**
+ * UserCode - Clase de dominio que contiene toda la información relacionada 
+ * con la validacion de una cuenta (codigo y usuario)
+ * 
+ *
+ * @author Ulises Ceca, Ignacio Dones, José María Simón, Miguel Ampuero, Eduardo Parra
+ * @since 1.4
+ * @version 1.8
+ */
 public class UserCode {
 	private String nickname;
 	private String code;

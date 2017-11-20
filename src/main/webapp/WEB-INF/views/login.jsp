@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html >
 <head>
-    <%@ page session="false"%>
+    <%@ page session="true"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -57,7 +57,7 @@
                     <div class="form-box">
                         <div class="form-top">
                             <div class="form-top-left">
-                                <h3>Inicar sesión</h3>
+                                <h3>Iniciar sesión</h3>
                                 <p><strong style="color: red !important;">
                                     <c:if test="${not empty mensaje2}">
                                         <div class="msg">${mensaje2}</div>
@@ -79,7 +79,7 @@
                                     <input type="password" name="password" placeholder="Contraseña" class="form-password form-control" id="form-password">
                                 </div>
                                 <div class="form-group">
-                                <a href="recuperar">¿Ha olvidado su contraseña?</a></td>
+                                <a href="recuperar">¿Ha olvidado su contraseña?</a>
                                 </div>
                                 <button id="form-login" type="submit" name="submit" value="submit" class="btn">Entrar</button>
                             </form>
