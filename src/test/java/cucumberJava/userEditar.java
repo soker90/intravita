@@ -88,6 +88,20 @@ public class userEditar {
 	    dao.delete(nick, new File(""));
 	}
 
+	@When("^cambia rol de usuario$")
+	public void cambia_rol_de_usuario() throws Throwable {
+	    dao.updateRole(nick, "ROLE_ADMIN");
+	}
+
+	@Then("^rol actualizado$")
+	public void rol_actualizado() throws Throwable {
+	    usuario = dao.find(Funciones.encrypt(nick));
+	    if("ROLE_ADMIN" == usuario.getRol()) {
+	    	assertTrue("ROLE_ADMIN" == usuario.getRol());
+	    }
+	    dao.delete(nick, new File(""));
+	}
+
 
 
 }

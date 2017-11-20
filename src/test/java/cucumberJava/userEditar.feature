@@ -22,3 +22,10 @@ Scenario: cambiar password
 	Given Un usuario registrado en la aplicacion
 	When inserta nueva password
 	Then password actualizada
+	
+@Scenario4
+Scenario: cambiar rol a admin
+	Given Un usuario registrado en la aplicacion
+	When cambia rol de usuario
+	Then rol actualizado 
+	
