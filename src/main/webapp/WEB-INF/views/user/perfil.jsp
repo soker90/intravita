@@ -127,7 +127,7 @@
 			        <label for="borrar_id" class="control-label">Esta operación no se puede deshacer</label>
 			    </div>
 			    <div class="form-group">
-			        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#btnBorrar">Borrar cuenta</button>
+			        <button id="borrarCuenta" type="button" class="btn btn-danger" data-toggle="modal" data-target="#btnBorrar">Borrar cuenta</button>
 			    </div>
 			    
 			    <div class="modal fade" id="btnBorrar" role="dialog" >
@@ -145,7 +145,7 @@
 				        </div>
 				        </div>
 				        <div class="modal-footer">
-				          <button type="submit" class="btn btn-danger">Borrar cuenta</button>
+				          <button id="confirmarBorrar" type="submit" class="btn btn-danger">Borrar cuenta</button>
 				          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 				        </div>
 				      </div>
