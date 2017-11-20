@@ -61,6 +61,7 @@ public class GeneralController {
     @RequestMapping({"/default**","/"})
     public ModelAndView defaultAfterLogin(HttpSession sesion, HttpServletRequest request) {
     	User user = (User) sesion.getAttribute("user");
+    	System.out.println(Funciones.validarNickname("hh_h5p"));
     	
     	boolean local = request.getRequestURL().toString().contains("localhost");
     	Variables var = new Variables();
@@ -144,6 +145,10 @@ public class GeneralController {
     	{
 	        if (!request.getParameter("password").equals(request.getParameter("password2"))) 
 	        	request.getSession().setAttribute("mensaje", "<strong style=\"color: red !important;\">Las contrasenas no coinciden</strong>");
+	        
+	        else if(!Funciones.validarNickname(sNick))
+	        		request.getSession().setAttribute("mensaje", "<strong style=\"color: red !important;\">El nombre de usuario debe tener entre "
+	        				+ "4 y 15 caracteres y solo puede contener letras, n&uacute;meros y '_' </strong>");
 	
 	        else if (userDAO.find(Funciones.encrypt(request.getParameter("nickname"))) != null)
 	        	request.getSession().setAttribute("mensaje", "<strong style=\"color: red !important;\">Este usuario ya existe</strong>");

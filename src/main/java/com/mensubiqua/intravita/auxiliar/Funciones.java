@@ -114,4 +114,12 @@ public abstract class Funciones {
  
     }
     
+    public static boolean validarNickname(String nick) {
+    	String patron = "^[a-zA-Z\\d_]{4,15}$";
+    	
+        boolean valido = Funciones.validarPatron(patron, nick);
+        return valido;
+ 
+    }
+    
 }
