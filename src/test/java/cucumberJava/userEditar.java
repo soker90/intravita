@@ -39,6 +39,31 @@ public class userEditar {
 	    // Express the Regexp above with the code you wish you had
 	    throw new PendingException();
 	}
+	
+	@When("^editar informacion$")
+	public void editar_informacion() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@Then("^usuario con datos actualizados$")
+	public void usuario_con_datos_actualizados() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^inserta nueva password$")
+	public void inserta_nueva_password() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@Then("^password actualizada$")
+	public void password_actualizada() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
 
 
 }
