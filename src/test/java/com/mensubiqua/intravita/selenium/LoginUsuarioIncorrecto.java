@@ -2,31 +2,32 @@ package com.mensubiqua.intravita.selenium;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import com.mensubiqua.intravita.controller.GeneralWebTests;
+import seleniumAux.Driver;
+import seleniumAux.LoginAux;
 
 public class LoginUsuarioIncorrecto {
 	private static WebDriver driver;
     private static String root;
-    public static void run(String root)
+    public static void main(String[] args)
     {
     	root = Driver.getRoot();
-        driver = SeleniumTests.getDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(root);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        if(driver.getCurrentUrl().contains("/login"))
-            System.out.println("CORRECTO: Redirección de /default correcta para usuarios Anonimo");
-        else
-            System.out.println("FALLA: Redirección de /default correcta para usuarios Anonimo");
+        driver = Driver.getDriver();
         
-        
-        default_test();
+        LoginAux.redirect(root, "/login");
+        LoginAux.login("falso", "false", "Este usuario no existe");
+                
+        driver.quit();
         
     }
+    
+    
+    
+    
 
-    private static void default_test()
+    /*private static void default_test()
     {
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -54,6 +55,6 @@ public class LoginUsuarioIncorrecto {
         else
             System.out.println("FALLA: Redirección de /default para administradores");
         LoginWebTests.logout();
-    }
+    }*/
 
 }

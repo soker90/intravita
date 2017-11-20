@@ -60,7 +60,7 @@
                                 <h3>Iniciar sesión</h3>
                                 <p><strong style="color: red !important;">
                                     <c:if test="${not empty mensaje2}">
-                                        <div class="msg">${mensaje2}</div>
+                                        <div id="msglogin" class="msg">${mensaje2}</div>
                                     </c:if></strong>
                                 </p>
                             </div>

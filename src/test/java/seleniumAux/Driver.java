@@ -1,4 +1,4 @@
-package com.mensubiqua.intravita.selenium;
+package seleniumAux;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -32,7 +32,7 @@ public class Driver {
             else
                 System.setProperty("webdriver.gecko.driver", "lib/geckodriver.exe");
 
-            driver = new FirefoxDriver();
+    		Driver.driver = new FirefoxDriver();
 
     	}
     	

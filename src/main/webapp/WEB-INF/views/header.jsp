@@ -96,7 +96,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
 								<ul class="dropdown-menu">
 								  <li><a href="${var.url}/user/configuracion">Configuraci&oacute;n</a></li>
-								  <li><a href="${var.url}/logout">Salir</a></li>
+								  <li><a id ="logout" href="${var.url}/logout">Salir</a></li>
 								</ul>
 							  </li>
 							</ul>
