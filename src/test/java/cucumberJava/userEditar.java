@@ -22,46 +22,70 @@ import com.mensubiqua.intravita.dao.UserDAOImpl;
 
 public class userEditar {
 	
+	private User usuario;
+	private UserDAOImpl dao = new UserDAOImpl();;
+	
+	private String nombre = "Miguel";
+	private String apellido = "Ampuero";
+	private String email = "user@email.com";
+	private String pass = "password";
+	private String nick = "nickMiguel";
+	private String nick2 = "Miguelnick";
+	private String passNueva = "passwordNueva"; 
+	
 	@Given("^Un usuario registrado en la aplicacion$")
 	public void Un_usuario_registrado_en_la_aplicacion() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		usuario = new User(Funciones.encrypt(nombre), Funciones.encrypt(apellido), Funciones.encrypt(email), Funciones.encrypt_md5(pass),
+         		"ROLE_USER", Funciones.encrypt(nick) ,false);
+		dao.insert(usuario);
+		usuario = dao.find(Funciones.encrypt(nick));
+		
 	}
 
 	@When("^borra cuenta$")
 	public void borra_cuenta() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    dao.delete(nick, new File(""));
+	    usuario = null;
 	}
 
 	@Then("^usuario no existe en la base de datos$")
 	public void usuario_no_existe_en_la_base_de_datos() {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    usuario = dao.find(Funciones.encrypt(nick));
+	    if(usuario==null) {
+	    	assertTrue(usuario==null);	    	
+		}
 	}
 	
 	@When("^editar informacion$")
 	public void editar_informacion() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	    User u = new User(nombre, apellido, email, pass,
+	             		"ROLE_USER", nick2 ,false);
+	    dao.update(u, "", nick);
 	}
 
 	@Then("^usuario con datos actualizados$")
 	public void usuario_con_datos_actualizados() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	    usuario = dao.find(Funciones.encrypt(nick2));
+	    if(usuario!=null) {
+	    	assertTrue(usuario!=null);	    	
+		}
+	    dao.delete(nick2, new File(""));
 	}
 
 	@When("^inserta nueva password$")
 	public void inserta_nueva_password() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	   usuario.setPassword(Funciones.encrypt_md5(passNueva));
+	   dao.updatePassword(usuario);
 	}
 
 	@Then("^password actualizada$")
 	public void password_actualizada() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	    usuario = dao.find(Funciones.encrypt(nick));
+	    String passdb = usuario.getPassword();
+	    if(passdb == Funciones.encrypt_md5(passNueva)) {
+	    	assertTrue(passdb==passNueva);
+	    }
+	    dao.delete(nick, new File(""));
 	}
 
 
