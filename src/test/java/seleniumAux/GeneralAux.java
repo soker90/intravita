@@ -54,10 +54,17 @@ public abstract class GeneralAux {
 	
 	public static void logout()
     {
-        driver.get(root + "/default");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.findElement(By.id("menu_user")).click();
         driver.findElement(By.id("logout")).click();
-        System.out.println("CORRECTO: Logout correcto");
+        if(driver.getCurrentUrl().contains("/login"))
+        {
+        	System.out.println("CORRECTO: Logout correcto");
+        }
+        else {
+        	System.out.println("FALLO: Logout incorrecto");
+        }
+        
     }
     
     public static void register(String nickname ,String name, String apellido, String email, String password)
@@ -75,7 +82,6 @@ public abstract class GeneralAux {
         if(driver.getCurrentUrl().contains("/user"))
         {
         	System.out.println("CORRECTO: Se ha registrado correctamente");
-        	//GeneralAux.logout();
         }
         else {
         	System.out.println("FALLO: Se ha registrado incorrectamente");
