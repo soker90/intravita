@@ -111,7 +111,7 @@
                             <form role="form" action="${url}/registro" method="post" class="registration-form">
                                 <div class="form-group">
                                 	<label class="sr-only" for="form-nickname">Usuario</label>
-                                    <input type="text" name="nickname" value="${rnick}" placeholder="Usuario" class="form-first-name form-control" id="form-first-name"><br>
+                                    <input type="text" name="nickname" value="${rnick}" placeholder="Usuario" class="form-first-name form-control" id="form-nickname"><br>
                                     <label class="sr-only" for="form-nombew">Nombre</label>
                                     <input type="text" name="nombre" value="${rnombre}" placeholder="Nombre" class="form-first-name form-control" id="form-first-name"><br>
                                     <label class="sr-only" for="form-apellido">Apellidos</label>
