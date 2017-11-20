@@ -5,12 +5,15 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+
 //Cucumber imports
 
-import cucumber.annotation.en.Given;
-import cucumber.annotation.en.Then;
-import cucumber.annotation.en.When;
-import cucumber.runtime.PendingException;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import cucumber.runtime.*;
+
+import cucumber.api.PendingException;
 
 //import de otros paquetes
 import com.mensubiqua.intravita.model.User;
