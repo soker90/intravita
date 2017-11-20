@@ -9,7 +9,7 @@ Scenario: crear una nueva publicacion
 	Given Un usuario 
 	And   escribe publicacion
 	When inserta publicacion
-	Then publicacion creada
+	Then publicacion creada en bd
 	
 @Scenario2
 Scenario: borrar una publicacion

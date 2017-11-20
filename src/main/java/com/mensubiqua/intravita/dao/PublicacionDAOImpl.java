@@ -50,6 +50,18 @@ public class PublicacionDAOImpl implements PublicacionDAO{
         return p;
     }
     
+    public Publicacion findNick(String nick) {
+        Document document = DBBroker.get().find("nickname", nick, COLLECTION);
+        Publicacion p = null;
+
+        if (document != null) { 
+        	p = new Publicacion(document.getString("nickname"), document.getString("texto"),
+        		document.getString("privacidad"), document.getString("fecha"));
+        	p.setId(document.getObjectId("_id").toString());
+        }
+        return p;
+    }
+    
     public ArrayList<Publicacion> findAll(String user) {
     	FindIterable<Document> documents = DBBroker.get().findAll("nickname", user, COLLECTION);
     	ArrayList<Publicacion> ps = new ArrayList<Publicacion>();
