@@ -1,18 +1,18 @@
 sudo: false
 language: java
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 cache:
   directories:
   - "$HOME/.cache"
-
 addons:
   apt:
     packages:
-      - oracle-java8-installer
-
+    - oracle-java8-installer
 notifications:
   slack:
     secure: PiVaV8GrPtIGKQZ+YtyKTakyVLuHGtMhn+6qi0IL3jj3L9g6OpJLp3hDXIx4x/mTdaG7TiOzg6shgMkDT0kvRYZChJBxOZsZcCCD7OWrBOy3gUOBD29V//HrnuzAdjElGbkvpx9j7fHoIZwROwV7iHL6i8URbBuQbohPJcMnHgWed70nNiY+d4DJgGaxepAcajwhjjAXlrEuzPQpoQi6cQaa2oA2762Okw7E4rZgM2lWfSXTYTwMuYlvlkY6WbE1Vx0AAMnY+hVDBrzdpGg3GaIJlaM9QQn21/3pHpRgLpBvryZ1DwURRVitDHI/LSBhvUNejq3K6dQxFQTJKQWN+ydHjSJKP4Ojb2rsx7JKj4yMgtyssBcx6W+elGPt3pxx7Ouh+zJ0eu9s1YhbJNH4+SioC/tTLD1dRGRXZruu/HImRxtcMi5mU8x836uz3uqzlzuMBzNmUuLUK54ATAn9Fb4qgjhRkhnpG8NmrmP1VyIKlFG3FNFe6FKr7/O0vL73Kx+n0Wm3iEO2MoDwrnVe5PshxdAWOrRmTxZyNQ+Ez85qyamNFGCAtCo42nL0hkJyX9mraXqi3/t8RG8P5ZInatq6oh8a2jHt/ssknhi9GRhR+2WSDvOS5XaQUVnfcx3kwKSysh9Lc45s89WCNe39bWyOCta94Ldhjt7Y+AKsFLM=
+deploy:
+  provider: heroku
+  api_key:
+    secure: nxaZBEP0VSmp0C6vVZlBFVm/g6hIDBlHwruTu9MspHOz5egwBOrGBgYacRn/RJSyBoGPO5TM4u5jmbbZ4yEYashB0GQlP1lWm4IjugMUujgdwao+I3ooHYhAVTnB3CYa6b3DNPGWDf2ditUmLcYlasAyi7pH9uO+w6Ml9wN4WeI4KufjCF/nLYRbQ/9iBg+j6ahMJC4h8jtSMXWlcTN7i8+yUTa7G3aPq+Infazih/tCmFkx3yvVL75Mj2iFo3K3XCulIJlixWId+NcX+xZti6VF4bDiv+s5hHXOFC40zIvx1kjoEQlz7YUsB8kTrshI6Bnllww8Tsd1wpEFxwnpybmFLiDCpGmQgLNxx9L+Qm3pljga0lpGkpYXYQsaYyGWesaSIYiPpL3EHQsOS7c4d1amuxcRYIRerwlpyg9cQ9n6UAOR6nNX2WXAdznc5XRFI9hpoY5VWe21gSQnso3E/5Ibv7SmKXZ/1fJu1Rgy/L9ALzDMiciMCaswK4MTi/fY3cDIFdAWVBY8ORoQJmWpJUn0/etG/11S1KUQAF4yKx7o3PxNDjs29LnJgkmkQIXTNPQqBAnCsq8Y/LRTo+latxdz0TnsuHkRXC4E48sBh/s4QlmqvMwgO5xEREdFcXBgIEjcu3WwCSNVUjoCZPOB4wFhHrLXipmtQWxXwSGPkYk=
