@@ -10,6 +10,7 @@ import com.mongodb.client.MongoCollection;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
 import org.bson.Document;
 import org.springframework.stereotype.Component;
@@ -35,6 +36,8 @@ public class UserDAOImpl implements UserDAO{
     public void delete(String nickname, File foto) {
     	PublicacionDAOImpl p = new PublicacionDAOImpl();
     	p.deleteUser(nickname);
+    	LikeDAOImpl l = new LikeDAOImpl();
+    	l.deleteUser(nickname);
         DBBroker.get().deleteOne(ID, Funciones.encrypt(nickname), COLLECTION);
         
         if(foto.exists() && !foto.isDirectory()) { 
@@ -125,6 +128,9 @@ public class UserDAOImpl implements UserDAO{
 					}
 				}
 			}
+			
+			LikeDAOImpl daolike = new LikeDAOImpl();
+			daolike.deleteUser(nickViejo);
 		}
 
 		//crear documento de los nuevos valores

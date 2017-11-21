@@ -146,6 +146,11 @@ public class DBBroker<T> {
 	public long count(Document query, String collection) {
         return this.db.getCollection(collection).count(query);
     }
+	
+	public void updateDocument(Document viejo, Document nuevo, String collection)
+	{
+		this.db.getCollection(collection).updateOne(viejo, nuevo);
+	}
     
     
     
