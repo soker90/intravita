@@ -1,3 +1,5 @@
+<%@page import="com.mensubiqua.intravita.model.User"%>
+<%@page import="com.mensubiqua.intravita.dao.SolicitudDAOImpl"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
@@ -42,6 +44,9 @@
 			  <div class="input-group-btn">
 			  <c:if test="${user.nickname ne resultado.nickname}">
 			  <form></form>
+			  
+
+			  <c:if test="" ></c:if>
 			  <form style="display: inline-block" action="${var.url}/user/crearSolicitud" method="post">
  			    <input type="text" id="id" name="id" hidden="hidden" value="${resultado.nickname}">
  			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-plus"></i> Agregar amigo</button>
