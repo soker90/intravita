@@ -429,7 +429,6 @@ public class UserController {
 					}
 					
 					ModelAndView model = new ModelAndView();
-					System.out.println(usuarios.size());
 					model.addObject("usuarios",usuarios);
 					model.setViewName("user/usuarios");
 					
