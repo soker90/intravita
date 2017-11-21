@@ -51,8 +51,8 @@ public class amistadesFeatures {
 	  juan.setPassword(pass2);
 	  juan.setNickname(arg2);
 	  
-	  userD.insert(pepe);
-	  userD.insert(juan);
+	 /* userD.insert(pepe);
+	  userD.insert(juan);*/
 	}
 
 	@When("^pepe envia solicitud a juan$")
