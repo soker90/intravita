@@ -8,6 +8,7 @@ import org.bson.BsonDocument;
 import org.bson.BsonString;
 import org.bson.BsonValue;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -82,6 +83,11 @@ public class LikeDAOImpl implements LikeDAO{
 		
 		return DBBroker.get().count(query, COLLECTION);
 	 }
+	
 
+	public void deleteUser(String nickname) {
+		DBBroker.get().deleteMany("usuario.nickname", nickname, COLLECTION);
+		DBBroker.get().deleteMany("publicacion.nickname", nickname, COLLECTION);
+	}
 
 }
