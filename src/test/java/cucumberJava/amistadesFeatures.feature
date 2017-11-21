@@ -5,29 +5,32 @@ Se va a probar la historia de usuario correspondiente a las amistades, las solic
  y los escenarios alternativos que se generan
  
 @Scenario1
-Scenario: Enviar nueva solicitud de amistad de  "pepe" a "juan"
-	Given usuario1 "pepe"
-	And usuario2 "juan"
-	When pepe envia solicitud a juan
-	Then juan tiene solicitud pendiente
+Scenario: Enviar nueva solicitud de amistad de pepe a juan
+	Given primer usuario "pepe"
+	And segundo usuario "juan"
+	When "pepe" envia solicitud a "juan"
+	Then "juan" tiene solicitud pendiente
 	
 @Scenario2
 Scenario: Revocar una solicitud de amistad
-	Given usuario1 "pepe"
-	And solicitud de amistad
-	When pepe revoca la solicitud
-	Then solicitud no existe
+	Given primer usuario "pepe"
+	And segundo usuario "juan"
+	And "pepe" envia solicitud a "juan"
+	When "pepe" revoca la solicitud a "juan"
+	Then "juan" no tiene solicitudes pendientes
 	
 @Scenario3
-Scenario: Rechazar solicitud de amistad "juan" a "pepe"
-	Given usuario2 "juan"
-	And solicitud de amistad
-	When juan rechaza la solicitud
-	Then solicitud no existe
+Scenario: Rechazar solicitud de amistad de pepe a juan
+	Given primer usuario "pepe"
+	And segundo usuario "juan"
+	And "pepe" envia solicitud a "juan"
+	When "juan" rechaza la solicitud
+	Then "juan" no tiene solicitudes pendientes
 	
 @Scenario4
-Scenario: Aceptar solicitud de amistad "juan" a "pepe"
-	Given usuario2 "juan"
-	And solicitud de amistad
-	When juan acepta la solicitud
-	Then solicitud existe
+Scenario: Aceptar solicitud de amistad pepe a juan
+	Given primer usuario "pepe"
+	And segundo usuario "juan"
+	And "pepe" envia solicitud a "juan"
+	When "juan" acepta la solicitud
+Then "pepe" y "juan" son amigos
