@@ -42,15 +42,19 @@
 			  <div class="input-group-btn">
 			  <c:if test="${user.nickname ne resultado.nickname}">
 			  <form></form>
-			  <form style="display: inline-block" action="${var.url}/user/crearSolicitud" method="post">
- 			    <input type="text" id="id" name="id" hidden="hidden" value="${resultado.nickname}">
- 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-plus"></i> Agregar amigo</button>
- 		 	 </form>
+			  <c:if test="${resultado.pendiente} == false">
+				  <form style="display: inline-block" action="${var.url}/user/crearSolicitud" method="post">
+	 			    <input type="text" id="id" name="id" hidden="hidden" value="${resultado.nickname}">
+	 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-plus"></i> Agregar amigo</button>
+	 		 	 </form>
+ 		 	 </c:if>
  		 	 
- 		 	 <form style="display: inline-block" action="#" method="post">
- 			    <input type="text" id="id" name="id" hidden="hidden" value="${resultado.nombre}">
- 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-comment"></i> Enviar mensaje</button>
- 		 	 </form>
+ 		 	 <c:if test="${resultado.pendiente} == true">
+				  <form style="display: inline-block" action="${var.url}/user/revocarAmistad" method="post">
+	 			    <input type="text" id="id" name="id" hidden="hidden" value="${resultado.nickname}">
+	 			    <button style="display: inline-block" type="submit" name="submit" value="submit" class="btn btn-default""><i class="glyphicon glyphicon-minus"></i> Cancelar amistad</button>
+	 		 	 </form>
+ 		 	 </c:if>
 	 			    
 			  </c:if>
 			  

@@ -426,6 +426,7 @@ public class UserController {
 					
 					for (User user2 : usuarios) {
 						setFoto(user2);
+						user2.setPendiente(user.getNickname());
 					}
 					
 					ModelAndView model = new ModelAndView();

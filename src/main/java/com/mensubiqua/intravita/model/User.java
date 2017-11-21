@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mensubiqua.intravita.dao.PublicacionDAOImpl;
+import com.mensubiqua.intravita.dao.SolicitudDAOImpl;
 
 /**
  * User - Clase de dominio que contiene toda la información de un Usuario,
@@ -32,6 +33,7 @@ public class User {
     private String rol;
     private String email;
     private boolean validado;
+    private boolean pendiente;
 
     public User(String nombre, String apellido, String email, String password, String rol, String nickname, boolean validado) {
         this.nombre = nombre;
@@ -41,6 +43,7 @@ public class User {
         this.nickname = nickname;
         this.rol = rol;
         this.validado=validado;
+        pendiente = false;
     }
 
     public boolean isValidado() {
@@ -54,6 +57,13 @@ public class User {
 	public User() {
 
     }
+	
+	public void setPendiente(String amigo)
+	{
+		SolicitudDAOImpl dao = new SolicitudDAOImpl();
+		pendiente = dao.isPendiente(nickname, amigo);
+		
+	}
 
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email = email;}
