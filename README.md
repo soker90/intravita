@@ -6,7 +6,7 @@ Intravita es una red social similar a Facebook desarrollada con el framework Jav
 
 ## Ejecución
 
-La aplicación se puede usar online desde [https://intravita.herokuapp.com](https://intravita.herokuapp.com)
+La aplicación se puede usar online desde [https://intravita.herokuapp.com](https://intravita.herokuapp.com).
 
 ## Requisitos de instalación
 - Maven
@@ -26,4 +26,4 @@ maven test
 ```
 
 ## Licencia
-GPLv3
+GPLv3.
